@@ -1,0 +1,61 @@
+@startuml 
+
+skinparam Style StrictUML
+skinparam LineType ortho
+skinparam monochrome true
+
+class User{
+    * Id << PK >> <Unique>
+    * Name: String
+    * Email: String
+    * Password: String
+}
+
+
+
+class GroupUser{
+    * User : String <<FK>>
+    * Group : String <<FK>>
+    * Tasks : ArrayList<Task>  <<FK>>
+
+}
+
+
+class Task {
+    * ID << PK >> <Unique>
+    * Title : String
+    * Description : String
+}
+
+
+class Group {
+    * Group ID  Int << PK >> <Unique>
+    * Name String
+    * Tasks : ArrayList<Task> <<FK>>
+}
+
+class  GroupTask{
+    * ID << PK >> <Unique>
+    * Status : String
+    * Due_Date : Date
+    * User : String <<FK>
+    
+}
+
+User||--|{ GroupTask
+Group ||--|{ GroupTask
+Task ||--|{ GroupTask
+GroupUser }|--||User
+GroupUser }|--|| Group
+' User ||--|{ Task
+' Group ||--|{ Task
+
+
+
+
+
+
+
+
+
+@enduml
