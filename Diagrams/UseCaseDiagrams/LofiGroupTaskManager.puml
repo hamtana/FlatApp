@@ -1,0 +1,42 @@
+@startsalt LofiCreateFlatGroup
+
+
+{^"Group Task Manager" 
+    {Please enter the following information to sign up}
+    **Group Name**|  "Example Group           " 
+    
+
+    Group Member | {SI
+    **List of Members**
+    John
+    Jane
+    **Alex**
+    Sarah
+    Michael
+    Emily
+    }
+
+    ----|----
+    Member's Tasks | {SI
+    **List of Members**
+    [] Clean the kitchen
+    [] Do the laundry
+    }
+
+    ---- | ----
+    Add Task (unassigned tasks) | {SI 
+    **Additional Tasks** 
+    Vacuum the living room
+    Take out the trash
+    Mow the lawn
+    .
+    }
+    . | [Add Task]
+
+
+    ====|====
+    **Exit Group** |[ OK ]
+
+}
+
+@endsalt
