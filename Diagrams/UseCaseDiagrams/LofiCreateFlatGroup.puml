@@ -1,0 +1,45 @@
+@startsalt LofiCreateFlatGroup
+
+
+{^"Create Flat Group" 
+    {Please enter the following information to sign up}
+    **Group Name**|  "Example Group           " 
+    
+
+    Group Tasks | {SI
+    **List of Tasks**
+    Clean the kitchen
+    Vacuum the living room
+    Trash
+    Water the plants
+    .
+    
+    
+    }
+    . | [Add Task]
+
+    ----|----
+    Selected Group Tasks | {SI
+    **List of Members**
+    Clean the kitchen
+    Vacuum the living room
+    }
+
+    ---- | ----
+    Add Flat Members (sends message inviting
+     members join a group) | {SI 
+    **Email Addreess** 
+    john@ihug.com
+    jane@testMail.com
+    .
+    .
+    }
+    . | [Add Members]
+
+
+    ====|====
+    **Add Group** | [Cancel]|[ OK ]
+
+}
+
+@endsalt
