@@ -2,42 +2,37 @@
 
 
 {^"Create Flat Group" 
-    {Please enter the group details below.}
+    {Please fill out the below to set up a Flat Group}
     **Group Name**|  "Example Group           " 
     
 
-    Group Members | {SI
-    **List of Members**
-    John Doe
-    **Jane Smith**
-    Alice Johnson
-    Bob Thompson
-    Emily Davis
+    Group Tasks | {SI
+    **List of Tasks**
+    Clean the kitchen
+    Vacuum the living room
+    Trash
+    Water the plants
     .
-    .
+    
+    
     }
+    . | [Add Task]
 
     ----|----
-    Selected Member Tasks | {SI
-    **Tasks**
+    Selected Group Tasks | {SI
+    **List of Tasks**
     Clean the kitchen
-    Dust the furniture
+    Vacuum the living room
     }
-    
 
     ---- | ----
-    Add Task  | {SI 
-    **Group Tasks**
-    Vacuum the living room
-    Take out the trash
-    Wash the dishes
-    Sweep the floors
-    Mop the kitchen
-    Dust the furniture
-    Clean the bathroom
-    Water the plants
-    Organize the pantry
+    Add Flat Members  | {SI 
+    **Email Addreess** 
+    John@ihug.com
+    chuckycheese@gmail.com
     }
+    . | [Add Members]
+
 
     ====|====
     **Add Group** | [Cancel]|[ OK ]
