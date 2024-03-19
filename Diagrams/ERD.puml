@@ -16,7 +16,7 @@ class User{
 class GroupUser{
     * User : String <<FK>>
     * Group : String <<FK>>
-    * Tasks : ArrayList<Task>  <<FK>>
+    * Tasks : ArrayList<Task> 
 
 }
 
@@ -31,14 +31,13 @@ class Task {
 class Group {
     * Group ID  Int << PK >> <Unique>
     * Name String
-    * Tasks : ArrayList<Task> <<FK>>
+    * Tasks : ArrayList<Task> 
 }
 
 class  GroupTask{
-    * ID << PK >> <Unique>
     * Status : String
-    * Due_Date : Date
-    * User : String <<FK>
+    * Task ID : Int <<FK>>
+    * User : String <<FK>>
     
 }
 
