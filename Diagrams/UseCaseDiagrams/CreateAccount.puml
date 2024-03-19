@@ -1,0 +1,28 @@
+@startsalt LofiCreateAccount
+
+
+{^"Flatmate Registration" 
+    {Please enter the following information to sign up}
+    **First Name**|  "Hamish            " 
+    **Last Name** | "Phillips          "
+    **Phone Number** | "0211234567        "
+    **Email Address** | "example@gmail.com "
+    **Street Address** | {SI
+    3/123 Example Street . . . 
+    Cliffswood
+    Dunedin
+    9012
+    }
+   
+
+    ---|---
+    **Password** | "*****                "
+   **Confirm Password** | "*****                "
+    ---|---
+    **Already a registered user?** | [**Sign In**]
+    ====|====
+    **Complete Registration** | [Cancel]|[ OK ]
+
+}
+
+@endsalt
