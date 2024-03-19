@@ -1,19 +1,14 @@
-@startsalt LofiGroupTaskManager
+@startsalt LofiUserTaskManager
 
 
-{^"Group Task Manager" 
-    {Manage your group tasks below.}
+{^"User Task Manager" 
+    {Manage your user tasks below}
     **Group Name**|  "Example Group           " 
     
 
     Group Member | {SI
     **List of Members**
     John
-    Jane
-    **Alex**
-    Sarah
-    Michael
-    Emily
     }
 
     ----|----
@@ -35,7 +30,7 @@
 
 
     ====|====
-    **Exit Group** |[ OK ]
+    **Exit ** |[ OK ]
 
 }
 
