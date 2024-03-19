@@ -1,9 +1,9 @@
-@startsalt LoFiCustomerRegistration
+@startsalt LofiCreateTask
 
 
 {^"Create Task" 
     {Please enter the following information related to the task}
-    **Task ID** | "1234567890" (autuo-generated)
+    **Task ID** | "1234567890 (auto-generated)"
     **Task Name**|  "Dishes            " 
     **Submit ** | [Cancel]|[ OK ]
 
