@@ -6,36 +6,38 @@
     **Group Name**|  "Example Group           " 
     
 
-    Group Tasks | {SI
-    **List of Tasks**
-    Clean the kitchen
-    Vacuum the living room
-    Trash
-    Water the plants
+    Group Members | {SI
+    **List of Members**
+    John Doe
+    **Jane Smith**
+    Alice Johnson
+    Bob Thompson
+    Emily Davis
     .
-    
-    
+    .
     }
-    . | [Add Task]
 
     ----|----
-    Selected Group Tasks | {SI
-    **List of Members**
+    Selected Member Tasks | {SI
+    **Tasks**
     Clean the kitchen
-    Vacuum the living room
+    Dust the furniture
     }
+    
 
     ---- | ----
-    Add Flat Members (sends message inviting
-     members join a group) | {SI 
-    **Email Addreess** 
-    john@ihug.com
-    jane@testMail.com
-    .
-    .
+    Add Task  | {SI 
+    **Group Tasks**
+    Vacuum the living room
+    Take out the trash
+    Wash the dishes
+    Sweep the floors
+    Mop the kitchen
+    Dust the furniture
+    Clean the bathroom
+    Water the plants
+    Organize the pantry
     }
-    . | [Add Members]
-
 
     ====|====
     **Add Group** | [Cancel]|[ OK ]
