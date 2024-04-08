@@ -1,13 +1,12 @@
 const express = require('express');
-const pool = require('./db');
 router = express.Router();
 
 router.get('/', async (req, res) => {
-    res.redirect('/index')
+    res.send('Base path');
 });
 
 router.get('/index', async (req, res) => {
-    
+    res.send('Index test');
 });
 
 
