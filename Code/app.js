@@ -24,7 +24,7 @@ app.use('/path', require('./path_router'));
 // Define the route if someone goes somewhere where there is no html file
 app.get('*', (req, res) => {
     // This directs the router to the specific file
-    res.sendFile(path.join(__dirname, 'public','index.html'));
+    res.sendFile(path.join(__dirname, 'public','home.html'));
 });
 
 // Start the server
