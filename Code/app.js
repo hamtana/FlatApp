@@ -11,6 +11,10 @@ const port = 3000;
 // ==============================================
 app.use(express.static('public'));
 app.use('/path', require('./path_router'));
+
+//use the views ejs files
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 // ==============================================
 
 
