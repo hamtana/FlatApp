@@ -50,6 +50,31 @@ BEGIN
     END IF;
 END;
 
+DELIMITER //
+
+CREATE PROCEDURE add_user_to_group(
+    IN p_user_id INT,
+    IN p_group_id INT
+)
+BEGIN
+    DECLARE user_exists INT;
+    DECLARE group_exists INT;
+    
+    SELECT COUNT(*) INTO user_exists FROM user WHERE id = p_user_id;
+    SELECT COUNT(*) INTO group_exists FROM `group` WHERE group_id = p_group_id;
+    
+    IF user_exists = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User does not exist';
+    ELSEIF group_exists = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Group does not exist';
+    ELSE
+        INSERT INTO group_user (user_id, group_id) VALUES (p_user_id, p_group_id);
+    END IF;
+END//
+
+DELIMITER ;
+
+
 
 
 
