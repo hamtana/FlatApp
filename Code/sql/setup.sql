@@ -41,5 +41,16 @@ CREATE TABLE group_task (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TRIGGER before_insert_group_task
+BEFORE INSERT ON group_task
+FOR EACH ROW
+BEGIN
+    IF EXISTS (SELECT 1 FROM group_task WHERE user_id = NEW.user_id AND task_id = NEW.task_id) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'User already assigned this task';
+    END IF;
+END;
+
+
+
 
 
