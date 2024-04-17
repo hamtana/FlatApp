@@ -10,4 +10,10 @@ router.get('/index', async (req, res) => {
 });
 
 
+router.get('/createTask', async (req, res) => {
+
+    res.send('Create task');
+});
+
+
 module.exports = router;
