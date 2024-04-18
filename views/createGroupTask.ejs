@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file here -->
+</head>
+<body>
+    <div class="container">
+        <h2>Group Task Manager</h2>
+        <p>Manage your group tasks below.</p>
+        <form action="/createTask" method="POST">
+            <label for="groupName">Group Name</label>
+            <input type="text" id="groupName" name="groupName" required>
+
+            <label for="groupMember">Group Member</label>
+            <select id="groupMember" name="groupMember" required>
+                <option value="">Select Member</option>
+                <!--need to add where to get group membernames--> 
+            </select>
+
+            <h3>Member's Tasks</h3>
+            <select id="memberTasks" name="memberTasks[]" multiple required>
+                <option value="Clean the kitchen">Clean the kitchen</option>
+                <option value="Do the laundry">Do the laundry</option>
+                <!-- added placeholders but need a way to add task manually from individual tasks-->
+            </select>
+
+            <h3>Add Task (unassigned tasks)</h3>
+            <select id="additionalTasks" name="additionalTasks[]" multiple required>
+                <option value="Vacuum the living room">Vacuum the living room</option>
+                <option value="Take out the trash">Take out the trash</option>
+                <option value="Mow the lawn">Mow the lawn</option>
+                <!-- added placeholders but need a way to add task manually from individual tasks-->
+
+            </select>
+
+            <button type="submit">Add Task</button>
+            <button type="button" onclick="exitGroup()">Exit Group</button>
+        </form>
+    </div>
+
+    <script>
+        //function exitGroup() {
+            // Add your exit group logic here
+            // document.getElementById("groupName").value = "";
+            //document.getElementById("groupMember").selectedIndex = 0;
+            //document.getElementById("memberTasks").selectedIndex = -1;
+            //document.getElementById("additionalTasks").selectedIndex = -1;
+
+            // Display confirmation message
+            //alert("You have exited the group.");
+
+            // Redirect the user to another page (optional)
+            // window.location.href = "/exitPage";
+       // }
+    </script>
+</body>
+</html>
