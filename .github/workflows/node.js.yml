@@ -31,6 +31,9 @@ jobs:
     - name: Install dependencies
       run: npm install  # Install project dependencies
 
+    - name: jest
+      run: npm install --save-dev jest
+
     - name: Run tests
       run: npm test  # Run tests using npm test script
 

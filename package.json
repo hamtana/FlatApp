@@ -2,7 +2,7 @@
   "name": "node_project",
   "version": "1.0.0",
   "description": "",
-  "main": "views/index.ejs",
+  "main": "index.js",
   "scripts": {
     "test": "jest"
   },
