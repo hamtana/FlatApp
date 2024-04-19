@@ -1,33 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1713502822263" clover="3.2.0">
-  <project timestamp="1713502822263" name="All files">
-    <metrics statements="21" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0" elements="26" coveredelements="16" complexity="0" loc="21" ncloc="21" packages="1" files="2" classes="2"/>
-    <file name="app.js" path="/Users/dyrellumiwes/Documents/Documents - Dyrel’s MacBook Pro/Year4GithubRepos/INFO310/WeAreNumber1/app.js">
-      <metrics statements="12" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <line num="1" count="1" type="stmt"/>
+<coverage generated="1713505645428" clover="3.2.0">
+  <project timestamp="1713505645428" name="All files">
+    <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1" elements="7" coveredelements="7" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
+    <file name="testFile.js" path="/Users/dyrellumiwes/Documents/Documents - Dyrel’s MacBook Pro/Year4GithubRepos/INFO310/WeAreNumber1/testFile.js">
+      <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
+      <line num="2" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
-      <line num="12" count="1" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="16" count="1" type="stmt"/>
-      <line num="17" count="1" type="stmt"/>
-      <line num="29" count="1" type="stmt"/>
-      <line num="31" count="0" type="stmt"/>
-      <line num="35" count="1" type="stmt"/>
-      <line num="36" count="0" type="stmt"/>
-    </file>
-    <file name="path_router.js" path="/Users/dyrellumiwes/Documents/Documents - Dyrel’s MacBook Pro/Year4GithubRepos/INFO310/WeAreNumber1/path_router.js">
-      <metrics statements="9" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <line num="1" count="1" type="stmt"/>
-      <line num="2" count="1" type="stmt"/>
-      <line num="4" count="1" type="stmt"/>
-      <line num="5" count="0" type="stmt"/>
-      <line num="8" count="1" type="stmt"/>
-      <line num="9" count="0" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="15" count="0" type="stmt"/>
-      <line num="19" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
