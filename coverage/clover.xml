@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1713506121586" clover="3.2.0">
-  <project timestamp="1713506121586" name="All files">
+<coverage generated="1713511412142" clover="3.2.0">
+  <project timestamp="1713511412142" name="All files">
     <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1" elements="7" coveredelements="7" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
     <file name="testFile.js" path="/Users/dyrellumiwes/Documents/Documents - Dyrel’s MacBook Pro/Year4GithubRepos/INFO310/WeAreNumber1/testFile.js">
       <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
