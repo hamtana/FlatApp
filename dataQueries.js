@@ -22,6 +22,20 @@ function insertUser(id, name, email, password) {
     });
 }
 
+function returnTable(table) {
+    connection.connect(function(err) {
+        connection.query("SELECT * FROM " + table, function (err, result, fields) {
+        console.log(result);
+        if (err) {
+            console.log(err);
+            return JSON.stringify({});;
+        }
+        return result;
+        });
+        
+    });
+}
+
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
 function insertGroup(id, name) {
     connection.connect(function(err) {
@@ -37,4 +51,4 @@ function insertGroup(id, name) {
     });
 }
 
-module.exports = {insertUser, insertGroup};
+module.exports = {insertUser, insertGroup, returnTable};
