@@ -1,6 +1,8 @@
 const express = require('express');
 const mysql = require('mysql2');
-try {var connection = require("./database.js");
+try {
+    var connection = require("./database.js");
+    var {insertUser} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 const fs = require('fs');
 const path = require('path');
@@ -20,7 +22,8 @@ const port = 8080;
 //Read the contents of setup.sql
 // Cannot have gaps between code segments
 var rl = readline.createInterface({
-    input: fs.createReadStream('./sql/test.sql'),
+    // Gets the sql file to read
+    input: fs.createReadStream('./sql/setup.sql'),
     terminal: false
    });
   rl.on('line', function(chunk){
@@ -29,6 +32,10 @@ var rl = readline.createInterface({
        // if (err != "Error: Query was empty")  {console.log(err)}
       });
   });
+
+  insertUser(123, "cat", "test@getMaxListeners.com", "testiong");
+  insertUser(123, "cat", "test@getMaxListeners.com", "testiong");
+
 // ==============================================
 
 
