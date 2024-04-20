@@ -1,4 +1,7 @@
 const express = require('express');
+try {var sql = require("./database.js");
+} catch (error) {console.log(error);}
+
 
 const path = require('path');
 const app = express();
