@@ -1,11 +1,37 @@
 const express = require('express');
-try {var sql = require("./database.js");
+const mysql = require('mysql2');
+try {var connection = require("./database.js");
 } catch (error) {console.log(error);}
-
-
+const fs = require('fs');
 const path = require('path');
+var readline = require('readline');
+
+
 const app = express();
 const port = 8080;
+
+// ==============================================
+/** Sets up the database with the right tables. 
+ * 
+ */
+// ==============================================
+
+
+//Read the contents of setup.sql
+// Cannot have gaps between code segments
+var rl = readline.createInterface({
+    input: fs.createReadStream('./sql/test.sql'),
+    terminal: false
+   });
+  rl.on('line', function(chunk){
+       connection.query(chunk.toString('ascii'), function(err, sets, fields){
+       // Error checking on the sql file
+       // if (err != "Error: Query was empty")  {console.log(err)}
+      });
+  });
+// ==============================================
+
+
 
 // ==============================================
 /** All the app.uses go here.
