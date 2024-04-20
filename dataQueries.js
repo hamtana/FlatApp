@@ -5,6 +5,12 @@ const fs = require('fs');
 const path = require('path');
 var readline = require('readline');
 
+// ==============================================
+/** All the insert functions to insert a field to the table 
+ * 
+ */
+// ==============================================
+
 
 // CREATE TABLE user (id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL);
 function insertUser(id, name, email, password) {
@@ -17,20 +23,6 @@ function insertUser(id, name, email, password) {
             return 0;
         }
         return 1;
-        });
-        
-    });
-}
-
-function returnTable(table) {
-    connection.connect(function(err) {
-        connection.query("SELECT * FROM " + table, function (err, result, fields) {
-        console.log(result);
-        if (err) {
-            console.log(err);
-            return JSON.stringify({});;
-        }
-        return result;
         });
         
     });
@@ -50,5 +42,30 @@ function insertGroup(id, name) {
         });
     });
 }
+// ==============================================
+
+
+
+// ==============================================
+/** The functions for returing table data and specific data in .json format.
+ * 
+ */
+// ==============================================
+
+function returnTable(table) {
+    connection.connect(function(err) {
+        connection.query("SELECT * FROM " + table, function (err, result, fields) {
+        console.log(result);
+        if (err) {
+            console.log(err);
+            return JSON.stringify({});;
+        }
+        return result;
+        });
+        
+    });
+}
+
+// ==============================================
 
 module.exports = {insertUser, insertGroup, returnTable};
