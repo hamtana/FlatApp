@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,returnTable} = require("./dataQueries.js")
+    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 const fs = require('fs');
 const path = require('path');
@@ -34,8 +34,8 @@ var rl = readline.createInterface({
   });
 
  
-  insertUser(123, "cat", "test@getMaxListeners.com", "testiong");
-  returnTable("user");
+  insertGroupUser(123, 344);
+  returnTable("group_user");
 
 // ==============================================
 
