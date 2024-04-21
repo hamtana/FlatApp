@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/index', async (req, res) => {
-    res.send('Index test');
+    res.render('index');
 });
 
 
