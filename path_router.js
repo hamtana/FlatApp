@@ -1,11 +1,14 @@
 const express = require('express');
 const multer = require('multer');
+const bodyParser = require('body-parser');
+
 
 try {
     var connection = require("./database.js");
     var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 router = express.Router();
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -38,6 +41,10 @@ router.get('/createIndividualTask', async (req, res) => {
     res.render('createIndividualTask');
 });
 
+router.get('/login', async (req, res) => {
+    res.render('login');
+});
+
 // Routing for Create Individal Task
 router.post('/createIndividualTask', async (req, res) => {
     
@@ -60,9 +67,10 @@ router.post('/createIndividualTask', async (req, res) => {
 });
 
 //Routing for Create Account
-router.post('/createAccount', async (req, res) => {
+router.post('/create-account', async (req, res) => {
 
-    //Collect all of the data from the form using multer
+    console.log(req.body);
+    // Collect all of the data from the form using multer
     const name = req.body.name;
     const phone_number = req.body.phone_number;
     const email = req.body.email;
@@ -81,17 +89,17 @@ router.post('/createAccount', async (req, res) => {
 });
 
 //Routing for Create Group
-router.post('/createGroup', async (req, res) => {
+router.post('/create-group', async (req, res) => {
 
     //Collect all of the data from the form using multer
     const group_name = req.body.groupName;
-    const group_description = req.body.description;
+    // const group_description = req.body.description;
 
     //log the data in the console so it is visible for testing. 
-    console.log(group_name, group_description);
+    console.log(group_name);
 
     //insert the data into the database
-    insertGroup(group_name, group_description);
+    insertGroup(group_name);
 
 });
 
