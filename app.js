@@ -47,7 +47,7 @@ var rl = readline.createInterface({
  */
 // ==============================================
 app.use(express.static('public'));
-app.use('/path', require('./path_router'));
+app.use('/', require('./path_router'));
 
 //use the views ejs files
 app.set('view engine', 'ejs');
@@ -65,7 +65,9 @@ app.set('views', path.join(__dirname, 'views'));
 // Define the route if someone goes somewhere where there is no html file
 app.get('*', (req, res) => {
     // This directs the router to the specific file
-    res.sendFile(path.join(__dirname, 'public','home.html'));
+    // res.sendFile(path.join(__dirname, 'public','home.html'));
+    // res.render('path/index');
+    res.status(404).send('404 Page Not Found');
 });
 
 // Start the server
