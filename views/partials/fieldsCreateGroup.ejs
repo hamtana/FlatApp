@@ -7,20 +7,23 @@
 </head>
 <body>
     <h1>Create Group</h1>
-    <form action="/createGroup" method="POST">
+    <form action="/create-group" method="POST" enctype="multipart/form-data">
+        <fieldset>
         <label for="groupName">Group Name:</label><br>
-        <input type="text" id="groupName" name="taskName" required><br>
-        
+        <input type="text" name="groupName" value = " " required = ""><br>
+    </fieldset>
         <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" required></textarea><br>
+        <textarea id="description" name="description" rows="4" value = " " required = ""></textarea><br>
         
         <label for="groupMember">Group Member:</label><br>
-        <select id="groupMember" name="groupMember" required>
+        <select id="groupMember" name="groupMember" value = " " required = "">
             <option value="">Select Member</option>
             <!-- Add group members here automatically generated from DB connection -->
+            <option value="Do the laundry">Do the laundry</option>
+
         </select><br>
     
-        <input type="submit" value="Create Group">
+        <button class="button" type="submit"> Create Group</button>
     </form>
 </body>
 </html>

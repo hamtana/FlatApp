@@ -1,4 +1,11 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
 
 const mysql = require('mysql2');
 try {
@@ -10,8 +17,8 @@ const path = require('path');
 var readline = require('readline');
 
 
-const app = express();
 const port = 8080;
+
 
 // ==============================================
 /** Sets up the database with the right tables. 
