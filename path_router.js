@@ -26,10 +26,16 @@ router.get('/index', async (req, res) => {
     res.render('index');
 });
 
+router.get('/createGroupTask', async (req, res) => {
+    res.render('createGroupTask');
+});
+router.get('/createAccount', async (req, res) => {
+    res.render('createAccount');
+});
 
-router.get('/createTask', async (req, res) => {
+router.get('/createIndividualTask', async (req, res) => {
 
-    res.send('Create task');
+    res.render('createIndividualTask');
 });
 
 // Routing for Create Individal Task
