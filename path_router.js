@@ -103,6 +103,33 @@ router.post('/addUserToGroup', async (req, res) => {
 
 });
 
+//Routing for login
+router.get('/login', async (req, res) => {
+
+    //gather data for email and password
+    const email = req.body.email;
+    const password = req.body.password;
+
+    //log the data in the console so it is visible for testing.
+    console.log(email, password);
+
+    //check against the data in the database
+    returnTable('users');
+
+    //insert code needed to check against the database here.
+    //if the email and password match, redirect to the home page.
+    //ASK GROUP ABOUT THIS
+
+
+    //if the email and password do not match, redirect to the login page with an error message.
+    res.redirect('/login');
+
+
+
+
+    res.send('Login');
+});
+
 
 
 
