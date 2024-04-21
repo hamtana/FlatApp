@@ -88,6 +88,21 @@ router.post('/createGroup', async (req, res) => {
 
 });
 
+//Routing for Add User to Group - INCOMPLETE
+router.post('/addUserToGroup', async (req, res) => {
+
+    //Collect all of the data from the form using multer
+    const group_id = req.body.groupID;
+    const user_id = req.body.userID
+
+    //log the data in the console so it is visible for testing. 
+    console.log(group_id, user_id);
+
+    //insert the data into the database
+    insertGroupUser(group_id, user_id);
+
+});
+
 
 
 
