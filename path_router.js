@@ -68,10 +68,26 @@ router.post('/createAccount', async (req, res) => {
 
     //insert the data into the database
     insertUser(name, phone_number, email, address, password);
-    
+
     res.redirect('/createAccount');
 
 });
+
+//Routing for Create Group
+router.post('/createGroup', async (req, res) => {
+
+    //Collect all of the data from the form using multer
+    const group_name = req.body.groupName;
+    const group_description = req.body.description;
+
+    //log the data in the console so it is visible for testing. 
+    console.log(group_name, group_description);
+
+    //insert the data into the database
+    insertGroup(group_name, group_description);
+
+});
+
 
 
 
