@@ -31,6 +31,7 @@ router.get('/createTask', async (req, res) => {
     res.send('Create task');
 });
 
+// Routing for Create Individal Task
 router.post('/createIndividualTask', async (req, res) => {
     
     //Collect all of the data from the form using multer
@@ -50,5 +51,29 @@ router.post('/createIndividualTask', async (req, res) => {
 
 
 });
+
+//Routing for Create Account
+router.post('/createAccount', async (req, res) => {
+
+    //Collect all of the data from the form using multer
+    const name = req.body.name;
+    const phone_number = req.body.phone_number;
+    const email = req.body.email;
+    const address = req.body.address;
+
+    const password = req.body.password;
+
+    //log data in the console so that is visible for testing. 
+    console.log(name, phone_number, email, address, password);
+
+    //insert the data into the database
+    insertUser(name, phone_number, email, address, password);
+    
+    res.redirect('/createAccount');
+
+});
+
+
+
 
 module.exports = router;
