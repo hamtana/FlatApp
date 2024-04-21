@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+
 try {
     var connection = require("./database.js");
     var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
@@ -132,6 +133,12 @@ router.get('/login', async (req, res) => {
 
 
 
+// Create Birds Page Router
+router.get('/createGroup', async (req, res) => {
+    res.render('createGroup', {
+
+    });
+  });
 
 
 module.exports = router;

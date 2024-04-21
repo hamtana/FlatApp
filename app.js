@@ -1,4 +1,5 @@
 const express = require('express');
+
 const mysql = require('mysql2');
 try {
     var connection = require("./database.js");
@@ -51,6 +52,7 @@ app.use('/', require('./path_router'));
 
 //use the views ejs files
 app.set('view engine', 'ejs');
+
 app.set('views', path.join(__dirname, 'views'));
 // ==============================================
 
