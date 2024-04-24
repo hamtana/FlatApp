@@ -1,14 +1,20 @@
 const express = require('express');
 const multer = require('multer');
 const bodyParser = require('body-parser');
+const con = require('./database.js');
+router = express.Router();
+// npm i body-parser
+
+
+router.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 try {
     var connection = require("./database.js");
     var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
-router = express.Router();
-router.use(bodyParser.urlencoded({ extended: true }));
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -49,17 +55,17 @@ router.get('/login', async (req, res) => {
 router.post('/createIndividualTask', async (req, res) => {
     
     //Collect all of the data from the form using multer
+    console.log(req.body);
+    // const task_name = req.body.taskName;
+    // const description = req.body.description;
+    // const due_date = req.body.dueDate;
+    // const assignee = req.body.assignee;
 
-    const task_name = req.body.taskName;
-    const description = req.body.description;
-    const due_date = req.body.dueDate;
-    const assignee = req.body.assignee;
+    // //log data in the console so that is visible for testing. 
+    // console.log(task_name, description, due_date, assignee);
 
-    //log data in the console so that is visible for testing. 
-    console.log(task_name, description, due_date, assignee);
-
-    //insert the data into the database
-    insertTask(task_name, description, due_date, assignee);
+    // //insert the data into the database
+    // insertTask(task_name, description, due_date, assignee);
 
     res.redirect('/createIndividualTask');
 
@@ -69,7 +75,7 @@ router.post('/createIndividualTask', async (req, res) => {
 //Routing for Create Account
 router.post('/create-account', async (req, res) => {
 
-    console.log(req.body);
+
     // Collect all of the data from the form using multer
     const name = req.body.name;
     const phone_number = req.body.phone_number;
@@ -92,14 +98,19 @@ router.post('/create-account', async (req, res) => {
 router.post('/create-group', async (req, res) => {
 
     //Collect all of the data from the form using multer
-    const group_name = req.body.groupName;
-    // const group_description = req.body.description;
+     let group_name = {
+        group_name : req.body.groupName,
+        group_description : req.body.description,
 
-    //log the data in the console so it is visible for testing. 
-    console.log(group_name);
+     }
+
+     console.log(group_name);
+ 
 
     //insert the data into the database
-    insertGroup(group_name);
+    insertGroup(1,group_name);
+    res.redirect('/createGroup');
+
 
 });
 
@@ -151,6 +162,23 @@ router.get('/login', async (req, res) => {
 router.get('/createGroup', async (req, res) => {
     res.render('createGroup', {
 
+    });
+  });
+
+
+//REturn Table
+router.get('/returnTable', async (req, res) => {
+    users = [];
+
+    try{
+    const [rows, fields] =  returnTable('user');
+    users = rows;
+    console.log(users);
+    }catch (err) {
+        console.error("You havent set up the database yet!");
+      }
+    res.render('test', {
+        users: users
     });
   });
 
