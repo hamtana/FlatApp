@@ -13,9 +13,9 @@ var readline = require('readline');
 
 
 // CREATE TABLE user (id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL);
-function insertUser(id, name, email, password) {
+function insertUser(name,phone_number, email,address,password) {
     connection.connect(function(err) {
-        var sql = "INSERT INTO user (id, name, phone_number, email, address, password) VALUES ('" + id + "', '" + name + "', '" + email + "', '" + password + "')";
+        var sql = "INSERT INTO user (name, phone_number, email, address, password) VALUES ('" + name + "',  '" + phone_number + "', '" + email + "', '"+address+ "' , '" + password + "')";
         connection.query(sql, function (err, result) {
         console.log("1 record inserted");
         if (err) {
@@ -29,9 +29,25 @@ function insertUser(id, name, email, password) {
 }
 
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
-function insertGroup(id, name) {
+// function insertGroup(id, name) {
+//     connection.connect(function(err) {
+//         var sql = "INSERT INTO `group` (id, name) VALUES ('" + id + "', '" + name + "');";
+//         connection.query(sql, function (err, result) {
+//         console.log("1 record inserted");
+//         if (err) {
+//             console.log(err);
+//             return 0;
+//         }
+//         return 1;
+//         });
+//     });
+// }
+
+
+//CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
+function insertGroup(name) {
     connection.connect(function(err) {
-        var sql = "INSERT INTO `group` (id, name) VALUES ('" + id + "', '" + name + "');";
+        var sql = "INSERT INTO `group` (name) VALUES ('" + name + "');";
         connection.query(sql, function (err, result) {
         console.log("1 record inserted");
         if (err) {
@@ -88,8 +104,7 @@ function insertGroupUser(id, group_id) {
 
 function returnTable(table) {
     connection.connect(function(err) {
-        connection.query("SELECT * FROM " + table, function (err, result, fields) {
-        console.log(result);
+        connection.query("SELECT * FROM user", function (err, result, fields) {
         if (err) {
             console.log(err);
             return JSON.stringify({});;
@@ -99,6 +114,7 @@ function returnTable(table) {
         
     });
 }
+
 
 // ==============================================
 
