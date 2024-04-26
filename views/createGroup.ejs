@@ -2,33 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Flat App</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link rel="stylesheet" href="/css/dyrelStyle.css">
   
 </head>
 <body>
-    <h1>Create a Group</h1>
+    <h1>Flat App</h1>
 
     <main id="createGroup">
-    <h1>Create Group</h1>
-    <form action="/create/group" method="POST">
-        <fieldset>
-        <label for="groupName">Group Name:</label><br>
-        <input type="text" name="groupName" id ="groupName"><br>
-    </fieldset>
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" value = " " required = ""></textarea><br>
-        
-        <label for="groupMember">Group Member:</label><br>
-        <select id="groupMember" name="groupMember" value = " " required = "">
-            <option value="">Select Member</option>
-            <!-- Add group members here automatically generated from DB connection -->
-            <option value="Do the laundry">Do the laundry</option>
+        <h1>Create Group</h1>
 
-        </select><br>
-    
-        <button class="button" type="submit"> Create Group</button>
-    </form>
+        <form action="/create/group" method="POST">
+            <fieldset>
+            <label for="groupName">Group Name:</label><br>
+            <input type="text" name="groupName" id ="groupName"><br>
+        </fieldset>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" value = " " required = ""></textarea><br>
+            
+            <!-- <label for="groupMember">Group Member:</label><br> -->
+            <!-- <select id="groupMember" name="groupMember" value = " " required = "">
+                <option value="">Select Member</option> -->
+                <!-- Add group members here automatically generated from DB connection -->
+                <!-- <option value="Do the laundry">Do the laundry</option>
+
+            </select><br>
+         -->
+         <div class="button-container">
+            <button class="button" id="backBtnCreateGroup">Back</button>
+
+            <button class="button" id="submitBtnCreateGroup" type="submit">Create Group</button>
+        </div>
+        </form>
+
     </main>
 
 

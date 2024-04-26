@@ -109,22 +109,6 @@ router.post('/create/group', async function (req, res) {
     insertGroup(groupNameResult);
     res.redirect('/createGroup');
 });
-// router.post('/create/group', function (req, res) {
-//     let groupNameResult = req.body.groupName;
-//     console.log(req.body);
-
-//     console.log(groupNameResult);
-
-//     // Call insertGroup with a callback function
-//     insertGroup(groupNameResult, function(err) {
-//         if (err) {
-//             return res.status(500).send(err);
-//         }
-//         res.redirect('/createGroup');
-//     });
-// });
-
-
 
 
 //Routing for Add User to Group - INCOMPLETE
