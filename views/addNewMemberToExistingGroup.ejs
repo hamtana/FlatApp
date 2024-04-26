@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat App - Add New Member</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="flat_app.png">
+        <nav>
+            <!-- Add navigation bar here-->
+        </nav>
+    </header>
+    <main>
+        <h2>Add New Member</h2>
+        <form action="/addMember" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="group">Select Group</label>
+            <select id="group" name="group" required>
+                <option value="" disabled selected>Select</option>
+                <!-- add existing groups here to select from-->
+            </select>
+            
+            <button type="button" onclick="history.back()">Back</button>
+            <button type="submit">Add</button>
+            <!-- redirect back to view Group page-->
+        </form>
+    </main>
+    <footer>
+        <!-- add footer here -->
+    </footer>
+</body>
+</html>

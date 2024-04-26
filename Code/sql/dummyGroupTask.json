@@ -1,0 +1,58 @@
+
+
+[{
+    "id": 1,
+    "title": "Trash",
+    "description": "Empty Bins and buy liners"
+},
+
+{
+    "id": 2,
+    "title": "Dishes",
+    "description": "Wash dishes and put away"
+},
+    
+    {
+        "id": 3,
+        "title": "Laundry",
+        "description": "Wash, dry, fold and put away"
+    },
+    
+    {
+        "id": 4,
+        "title": "Vacuum",
+        "description": "Vacuum all rooms"
+    },
+    
+    {
+        "id": 5,
+        "title": "Dust",
+        "description": "Dust all surfaces"
+    },
+    
+    {
+        "id": 6,
+        "title": "Mop",
+        "description": "Mop all floors"
+    },
+    
+    {
+        "id": 7,
+        "title": "Grocery Shopping",
+        "description": "Buy groceries for the week"
+    },
+    
+    {
+        "id": 8,
+        "title": "Meal Prep",
+        "description": "Prepare meals for the week"
+    },
+    
+    {
+        "id": 9,
+        "title": "Workout",
+        "description": "Go to the gym and workout"
+    }
+
+]
+

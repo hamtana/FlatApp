@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Group Tasks</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a separate CSS file -->
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="flat_app.png" >
+            <h1><%= groupName %> Chores</h1>
+            <ul>
+                <li><a href="#">View Group Task</a></li>
+                <li><a href="#">View Your Task</a></li>
+                <li><a href="#">Create New Task</a></li>
+                <li><a href="#">Create New Group</a></li>
+            </ul>
+            <div class="groupMembers">
+                <img src="personicon.png" >
+                <span><%= username %></span> <!-- Assuming username is a variable passed to the template -->
+                <!-- need to insert code for show all current group members -->
+                <button type="" >Edit</button> <!-- for adding or removing group members-->
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <div id="today">
+                <h3>Today <button>Edit</button> </h3><!-- this should allow user to edit task by adding or removing them-->
+                <table>
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.today.forEach(task => { %>
+                            <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
+                                <td><%= task.id %></td>
+                                <td><%= task.description %></td>
+                                <td><%= task.assignedTo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div id="tomorrow">
+                <h3>Tomorrow</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.tomorrow.forEach(task => { %>
+                            <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
+                                <td><%= task.id %></td>
+                                <td><%= task.description %></td>
+                                <td><%= task.assignedTo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div id="thisWeek">
+                <h3>This Week</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.thisWeek.forEach(task => { %>
+                            <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
+                                <td><%= task.id %></td>
+                                <td><%= task.description %></td>
+                                <td><%= task.assignedTo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>
