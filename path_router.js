@@ -32,7 +32,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
-    res.send('Base path');
+    res.render('index');
 });
 
 router.get('/index', async (req, res) => {
@@ -92,47 +92,45 @@ router.post('/create-account', async (req, res) => {
     console.log(name, phone_number, email, address, password);
 
     //insert the data into the database
-    insertUser(name, phone_number, email, password);
+    insertUser(name, phone_number, email,address, password);
 
     res.redirect('/createAccount');
 
 });
 
 //Routing for Create Group
-// router.post('/create-group', async function (req, res)  {
-    
-//     //Collect all of the data from the form using multer
-
-//     const group_name = req.body.groupName;
-
-//     console.log(group_name);
- 
-
-//     //insert the data into the database
-//     insertGroup(group_name);
-//     res.redirect('/createGroup');
 
 
-// });
+router.post('/create/group', async function (req, res) {
 
-router.post('/create-group', async function (req, res) {
- const db = con.promise();
+    const groupNameResult = req.body.groupName;
 
-    let group = {
-        name: req.body.groupName
-    };
-    console.log(group);
+    console.log(groupNameResult);
 
     try{
-        const [rows] = await db.query('INSERT INTO `group` SET ?', group);
-        console.log(rows);
-        console.log("Group created");
-
+         await insertGroup(groupNameResult);
     } catch (err) {
         return res.status(500).send(err);
     }
     res.redirect('/createGroup');
 });
+// router.post('/create/group', function (req, res) {
+//     let groupNameResult = req.body.groupName;
+//     console.log(req.body);
+
+//     console.log(groupNameResult);
+
+//     // Call insertGroup with a callback function
+//     insertGroup(groupNameResult, function(err) {
+//         if (err) {
+//             return res.status(500).send(err);
+//         }
+//         res.redirect('/createGroup');
+//     });
+// });
+
+
+
 
 //Routing for Add User to Group - INCOMPLETE
 router.post('/addUserToGroup', async (req, res) => {
@@ -181,7 +179,6 @@ router.get('/login', async (req, res) => {
 // Create Birds Page Router
 router.get('/createGroup', async (req, res) => {
     res.render('createGroup', {
-
     });
   });
 
@@ -192,13 +189,11 @@ router.get('/returnTable', async (req, res) => {
     groups = [];
     
     try{
- 
-    
     const [usersRes]  = await returnTable("user");
     const [groupsRes] = await returnTable("`group`");
     users = usersRes;
     groups = groupsRes;
-    
+
     console.log(users.name + " is test user's name");
     console.log(groups.name + " is test group's name");
 
@@ -215,6 +210,5 @@ router.get('/returnTable', async (req, res) => {
 
     });
   });
-
 
 module.exports = router;

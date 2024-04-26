@@ -4,10 +4,11 @@ const path = require('path');
 
 const app = express();
 // Middleware to parse JSON bodies
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.json());
 
 // Middleware to parse URL-encoded bodies
-app.use(express.urlencoded({ extended: true }));
 
 const mysql = require('mysql2');
 try {
@@ -63,13 +64,16 @@ var rl = readline.createInterface({
  *  - These link to different routers which control different aspects of the app
  */
 // ==============================================
-app.use(express.static('public'));
-app.use('/', require('./path_router'));
-
 //use the views ejs files
 app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'views'));
+app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '/public/')));
+
+app.use('/', require('./path_router'));
+
+
 // ==============================================
 
 

@@ -1,4 +1,5 @@
 const mysql = require('mysql2');
+
 try {var connection = require("./database.js");
 } catch (error) {console.log(error);}
 const fs = require('fs');
@@ -30,19 +31,56 @@ function insertUser(name,phone_number, email,address,password) {
 
 
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
+// function insertGroup(name) {
+//     return new Promise((resolve, reject) => {
+//         connection.connect(function(err) {
+//             if (err) {
+//                 console.log(err);
+//                 reject(err);
+//                 return;
+//             }
+            
+//             var sql = "INSERT INTO `group` (name) VALUES (?)";
+//             connection.query(sql, [name], function (err, result) {
+//                 if (err) {
+//                     console.log(err);
+//                     reject(err);
+//                     return;
+//                 }
+//                 console.log("1 record inserted");
+//                 resolve(result);
+//             });
+//         });
+//     });
+// }
 function insertGroup(name) {
-    connection.connect(function(err) {
-        var sql = "INSERT INTO `group` (name) VALUES ('" + name + "');";
-        connection.query(sql, function (err, result) {
-        console.log("1 record inserted");
-        if (err) {
-            console.log(err);
-            return 0;
-        }
-        return 1;
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO `group` (name) VALUES (?)', [name], function (err, result) {
+            if (err) {
+                console.error(err);
+                reject(err);
+            } else {
+                console.log("1 record inserted");
+                resolve(result);
+            }
         });
     });
 }
+
+
+// function insertGroup(name) {
+//     connection.connect(function(err) {
+//         var sql = "INSERT INTO `group` (name) VALUES ('" + name + "');";
+//         connection.query(sql, function (err, result) {
+//         console.log("1 record inserted");
+//         if (err) {
+//             console.log(err);
+//             return 0;
+//         }
+//         return 1;
+//         });
+//     });
+// }
 
 //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);
 function insertTask(title, description) {
