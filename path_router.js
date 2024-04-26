@@ -106,12 +106,7 @@ router.post('/create/group', async function (req, res) {
     const groupNameResult = req.body.groupName;
 
     console.log(groupNameResult);
-
-    try{
-         await insertGroup(groupNameResult);
-    } catch (err) {
-        return res.status(500).send(err);
-    }
+    insertGroup(groupNameResult);
     res.redirect('/createGroup');
 });
 // router.post('/create/group', function (req, res) {
