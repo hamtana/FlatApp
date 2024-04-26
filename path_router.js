@@ -192,21 +192,18 @@ router.get('/returnTable', async (req, res) => {
     groups = [];
     
     try{
-    // const [rows] =  (returnTable("user"));
-    // users = rows;
-    // const [rows2] = (returnTable("group"));
-    // groups = rows2;
-    // console.log("Users"+users);
-    // console.log("Groups" +groups);
+ 
     
-    users  =  returnTable("user");
-    groups = returnTable("`group`");
+    const [users]  = await returnTable("user");
+    const [groups] = await returnTable("`group`");
 
-    console.log(users + " users");
-    console.log(groups + " groups");
+    console.log(users.name + " is test user's name");
+    console.log(groups.name + " is test group's name");
 
     }catch (err) {
         console.error("You havent set up the database yet!");
+        res.status(500).send("Error fetching data from database");
+
         console.error(err);
       }
 

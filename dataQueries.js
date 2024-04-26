@@ -102,6 +102,35 @@ function insertGroupUser(id, group_id) {
  */
 // ==============================================
 
+
+// function returnTable(table) {
+
+//     connection.connect(function(err) {
+//             if (err) throw err;
+//             //Select all customers and return the result object:
+//             connection.query("SELECT * FROM " + table, function (err, result, fields) {
+//               if (err) throw err;
+//               console.log(result);
+//               return result;
+//             });
+//           });
+//         }
+
+function returnTable(table) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM " + table, function (err, result, fields) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+/* Carinn's one, not working, unsure why as it looks right
 function returnTable(table) {
     connection.connect(function(err) {
         connection.query("SELECT * FROM " + table, function (err, result, fields) {
@@ -114,8 +143,10 @@ function returnTable(table) {
         
     });
 }
-
-
+*/ 
 // ==============================================
+
+
+
 
 module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable};

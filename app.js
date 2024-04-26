@@ -44,7 +44,15 @@ var rl = readline.createInterface({
 
  
   insertGroupUser(1, 1);
-  returnTable("group_user");
+  console.log("Group User is " + returnTable("group_user"));
+//   connection.connect(function(err) {
+//     if (err) throw err;
+//     //Select all customers and return the result object:
+//     connection.query("SELECT * FROM " + "user", function (err, result, fields) {
+//       if (err) throw err;
+//       console.log(result);
+//     });
+//   });
 
 // ==============================================
 
