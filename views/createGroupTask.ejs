@@ -22,12 +22,13 @@
             <label for="description">Description:</label>
             <textarea id="description" name="description" value=""  required = ""></textarea>
 
-            <label for="selectGroup">Select Group</label>
+            <label for="selectGroup">Select Group</label> <!-- select from already created group-->
             <select id="selectGroup" name="selectGroup">
                 <% groups.forEach(group => { %>
                     <option value="<%= group.id %>"></option>
                 <% }); %>
             </select>
+            <button type="">Create New Group</button> <!--if a group has not been created redirect to create a new group-->
 
             <label for="dueDate">Due Date:</label>
             <input type="date" id="dueDate" name="dueDate" value="<%= dueDate %>">
