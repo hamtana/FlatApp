@@ -28,21 +28,6 @@ function insertUser(name,phone_number, email,address,password) {
     });
 }
 
-//CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
-// function insertGroup(id, name) {
-//     connection.connect(function(err) {
-//         var sql = "INSERT INTO `group` (id, name) VALUES ('" + id + "', '" + name + "');";
-//         connection.query(sql, function (err, result) {
-//         console.log("1 record inserted");
-//         if (err) {
-//             console.log(err);
-//             return 0;
-//         }
-//         return 1;
-//         });
-//     });
-// }
-
 
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
 function insertGroup(name) {
@@ -60,9 +45,9 @@ function insertGroup(name) {
 }
 
 //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);
-function insertTask(id, title, description) {
+function insertTask(title, description) {
     connection.connect(function(err) {
-        var sql = "INSERT INTO task (id, title, description) VALUES ('" + id + "', '" + title + "', '" + title + "');";
+        var sql = "INSERT INTO task (title, description) VALUES ('" + title + "', '" + title + "');";
         connection.query(sql, function (err, result) {
         console.log("1 record inserted");
         if (err) {
@@ -102,19 +87,6 @@ function insertGroupUser(id, group_id) {
  */
 // ==============================================
 
-
-// function returnTable(table) {
-
-//     connection.connect(function(err) {
-//             if (err) throw err;
-//             //Select all customers and return the result object:
-//             connection.query("SELECT * FROM " + table, function (err, result, fields) {
-//               if (err) throw err;
-//               console.log(result);
-//               return result;
-//             });
-//           });
-//         }
 
 function returnTable(table) {
     return new Promise((resolve, reject) => {
