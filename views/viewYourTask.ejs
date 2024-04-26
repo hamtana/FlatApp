@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat App</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a separate CSS file -->
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="flat_app.png">
+            <h1>View Your Tasks </h1>
+            <ul>
+                <li><a href="#">View Your Task</a></li>
+                <li><a href="#">Create New Task</a></li>
+                <li><a href="#">Create New Group</a></li>
+                <li><a href="#">View Group</a></li>
+            </ul>
+            <div class="profile">
+                <img src="personicon.png" >
+                <span><%= username %></span> <!-- Username will be dynamically inserted -->
+                <!-- need to insert code for show all current contacts/friends -->
+                <img src="Add_members_icon.png">
+                <button type=""> Add New Contact</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section id="overview">
+            <h2>Overview of <%= groupName %> Task</h2>
+            <div id="today">
+                <h3>Today</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.today.forEach(task => { %>
+                            <tr>
+                                <td><%= task.id %></td>
+                                <td><%= task.name %></td>
+                                <td><%= task.assignedTo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div id="tomorrow">
+                <h3>Tomorrow</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Assigned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tasks.tomorrow.forEach(task => { %>
+                            <tr>
+                                <td><%= task.id %></td>
+                                <td><%= task.name %></td>
+                                <td><%= task.assignedTo %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+</body>
+</html>
