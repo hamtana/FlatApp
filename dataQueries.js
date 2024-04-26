@@ -104,7 +104,7 @@ function insertGroupUser(id, group_id) {
 
 function returnTable(table) {
     connection.connect(function(err) {
-        connection.query("SELECT * FROM user", function (err, result, fields) {
+        connection.query("SELECT * FROM " + table, function (err, result, fields) {
         if (err) {
             console.log(err);
             return JSON.stringify({});;
