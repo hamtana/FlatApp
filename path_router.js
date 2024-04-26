@@ -194,9 +194,11 @@ router.get('/returnTable', async (req, res) => {
     try{
  
     
-    const [users]  = await returnTable("user");
-    const [groups] = await returnTable("`group`");
-
+    const [usersRes]  = await returnTable("user");
+    const [groupsRes] = await returnTable("`group`");
+    users = usersRes;
+    groups = groupsRes;
+    
     console.log(users.name + " is test user's name");
     console.log(groups.name + " is test group's name");
 
