@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -13,7 +15,6 @@ try {
     var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 const fs = require('fs');
-const path = require('path');
 var readline = require('readline');
 
 
@@ -42,7 +43,7 @@ var rl = readline.createInterface({
   });
 
  
-  insertGroupUser(123, 344);
+  insertGroupUser(1, 1);
   returnTable("group_user");
 
 // ==============================================
