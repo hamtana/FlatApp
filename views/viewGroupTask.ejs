@@ -27,10 +27,11 @@
         <section id="overview">
             <h2>Overview</h2>
             <div id="today">
-                <h3>Today</h3>
+                <h3>Today <button>Edit</button> </h3><!-- this should allow user to edit task by adding or removing them-->
                 <table>
                     <thead>
                         <tr>
+                            <td></td>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
@@ -39,6 +40,7 @@
                     <tbody>
                         <% tasks.today.forEach(task => { %>
                             <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                 <td><%= task.id %></td>
                                 <td><%= task.description %></td>
                                 <td><%= task.assignedTo %></td>
@@ -52,6 +54,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
@@ -60,6 +63,7 @@
                     <tbody>
                         <% tasks.tomorrow.forEach(task => { %>
                             <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                 <td><%= task.id %></td>
                                 <td><%= task.description %></td>
                                 <td><%= task.assignedTo %></td>
@@ -73,6 +77,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
@@ -81,6 +86,7 @@
                     <tbody>
                         <% tasks.thisWeek.forEach(task => { %>
                             <tr>
+                                <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                 <td><%= task.id %></td>
                                 <td><%= task.description %></td>
                                 <td><%= task.assignedTo %></td>
