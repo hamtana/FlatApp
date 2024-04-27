@@ -71,7 +71,7 @@ function insertGroup(name) {
 //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);
 function insertTask(title, description) {
     connection.connect(function(err) {
-        var sql = "INSERT INTO task (title, description) VALUES ('" + title + "', '" + title + "');";
+        var sql = "INSERT INTO task (title, description) VALUES ('" + title + "', '" + description + "');";
         connection.query(sql, function (err, result) {
         console.log("1 record inserted");
         if (err) {

@@ -51,8 +51,49 @@ router.get('/createIndividualTask', async (req, res) => {
     res.render('createIndividualTask');
 });
 
+router.get('/create/task', async (req, res) => {
+    res.render('createTask');
+});
+
+router.post('/createTask', async (req, res) => {
+
+    //Collect all of the data from the form using multer
+    const task_name = req.body.taskName;
+    const description = req.body.description;
+
+    //log data in the console so that is visible for testing. 
+    console.log(task_name, description);
+
+    //insert the data into the database
+    try{
+        insertTask(task_name, description);
+    }catch (err) {
+        res.status(500).send("Error fetching data from database");
+        console.error(err);
+        }
+
+    res.redirect('/create/task');
+});
 router.get('/viewYourTask', async (req, res) => {
-    res.render('viewYourTask');
+    tasks = [];
+    
+    try{
+    const [taskRes]  = await returnTable("task");
+   
+    users = taskRes;
+
+    console.log(users.name + " is test user's name");
+
+    }catch (err) {
+        res.status(500).send("Error fetching data from database");
+        console.error(err);
+      }
+
+    res.render('viewYourTask',{
+        title: 'View Your Task'
+        
+    });
+
 });
 
 router.get('/login', async (req, res) => {
@@ -123,10 +164,10 @@ router.post('/addUserToGroup', async (req, res) => {
     const user_id = req.body.userID;
 
     //log the data in the console so it is visible for testing. 
-    console.log(group_id, user_id);
-
+    console.log(user_id,group_id);
+    
     //insert the data into the database
-    insertGroupUser(group_id, user_id);
+    insertGroupUser(user_id,group_id);
 
 });
 
