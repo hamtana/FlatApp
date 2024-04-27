@@ -220,17 +220,31 @@ router.get('/createGroup', async (req, res) => {
 
 //REturn Table
 router.get('/returnTable', async (req, res) => {
-    users = [];
-    groups = [];
+    usersArr = [];
+    groupsArr = [];
+    tasksArr = [];
     
     try{
-    const [usersRes]  = await returnTable("user");
-    const [groupsRes] = await returnTable("`group`");
-    users = usersRes;
-    groups = groupsRes;
+    const usersRes  = await returnTable("user");
+    const groupsRes = await returnTable("`group`");
+    const tasksRes = await returnTable("task");
+    usersArr = usersRes;
+    groupsArr = groupsRes;
+    tasksArr = tasksRes;
 
-    console.log(users.name + " is test user's name");
-    console.log(groups.name + " is test group's name");
+    console.log(usersArr);
+    console.log(groupsArr);
+    console.log(tasksArr);
+
+
+    res.render('test', {
+        users: usersArr,
+        groups: groupsArr,
+        tasks: tasksArr
+
+
+    });
+
 
     }catch (err) {
         console.error("You havent set up the database yet!");
@@ -239,11 +253,7 @@ router.get('/returnTable', async (req, res) => {
         console.error(err);
       }
 
-    res.render('test', {
-        users: users,
-        groups: groups
-
-    });
+  
   });
 
 

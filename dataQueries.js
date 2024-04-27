@@ -5,6 +5,7 @@ try {var connection = require("./database.js");
 const fs = require('fs');
 const path = require('path');
 var readline = require('readline');
+const con = require('./database.js');
 
 // ==============================================
 /** All the insert functions to insert a field to the table 
@@ -32,7 +33,7 @@ function insertUser(name,phone_number, email,address,password) {
 // QUERY TO GET GROUPS
 function getGroups() {
     connection.connect(function(err) {
-        var sql = "SELECT * FROM 'group'";
+        var sql = "SELECT * FROM `group`";
         connection.query(sql, function (err, result) {
         console.log("1 record inserted");
         if (err) {
@@ -98,6 +99,8 @@ function insertTask(title, description) {
     });
 }
 
+
+
 //CREATE TABLE group_user (user_id INT,group_id INT,PRIMARY KEY (user_id, group_id),FOREIGN KEY (user_id) REFERENCES user(id),FOREIGN KEY (group_id) REFERENCES `group`(group_id));
 function insertGroupUser(id, group_id) {
     connection.connect(function(err) {
@@ -127,7 +130,17 @@ function insertGroupUser(id, group_id) {
 // ==============================================
 
 
-function returnTable(table) {
+ function returnTable(table) {
+    // const db = connection.promise();
+    // try {
+    //     const [rows, fields] = await db.query("SELECT * FROM " + table);
+    //     console.log(rows);
+    //     return rows;
+    // } catch (err) {
+    //     console.log(err);
+    //     return [];
+    // }
+
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM " + table, function (err, result, fields) {
             if (err) {
@@ -154,7 +167,7 @@ function returnTable(table) {
         
     });
 }
-*/ 
+// */ 
 // ==============================================
 
 

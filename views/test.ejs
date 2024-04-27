@@ -2,26 +2,48 @@
 <html>
   <head>
     <title>Home</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/public/css/dyrelStyle.css">
+
+</head>
   </head>
   <body>
     <h1>Welcome to the home page</h1>
 
-  <div>
-    <ul>
-            <li><b>User's Name </b><span><%= users.name %></span></li>
-            <li><b>User's Address </b><span><%= users.address %></span></li>
-            <li><b>User's Phone Number </b><span><%= users.phone_number %></span></li>
+    <div>
+      <h2>User</h2>
+ 
 
 
-        </ul>
+     
+
+    
+    
+ 
+
   </div>
 
 
-  <div>
-    <ul>
-            <li><b>Groups's Name </b><span><%= groups.name %></span></li>
-        </ul>
+  <div> 
+    <h2>Tasks</h2>
+ 
   </div>
 
+ 
+
+  <div> 
+    <h2>Groups</h2>
+
+    <main id="groups">
+      <% for (let i = 0; i < groups.length; i++) { %>
+        <div class="group">
+          <h3><%= groups[i].name %></h3>
+          <p><%= groups[i].description %></p>
+        </div>
+        
+      <% } %>
+  </main>
+    
+  </div>
   </body>
 </html>
