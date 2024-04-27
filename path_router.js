@@ -53,7 +53,7 @@ router.get('/create/task', async (req, res) => {
     res.render('createTask');
 });
 
-router.post('/createTask', async (req, res) => {
+router.post('/create/createTask', async (req, res) => {
 
     //Collect all of the data from the form using multer
     const task_name = req.body.taskName;
@@ -72,6 +72,7 @@ router.post('/createTask', async (req, res) => {
 
     res.redirect('/create/task');
 });
+
 router.get('/viewYourTask', async (req, res) => {
     tasks = [];
     
