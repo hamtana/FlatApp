@@ -29,6 +29,21 @@ function insertUser(name,phone_number, email,address,password) {
     });
 }
 
+// QUERY TO GET GROUPS
+function getGroups() {
+    connection.connect(function(err) {
+        var sql = "SELECT * FROM 'group'";
+        connection.query(sql, function (err, result) {
+        console.log("1 record inserted");
+        if (err) {
+            console.log(err);
+            return 0;
+        }
+        return 1;
+        });
+    });
+
+}
 
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
 // function insertGroup(name) {
@@ -145,4 +160,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups};

@@ -12,11 +12,9 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // router.use(bodyParser.json());
 
 
-
-
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable} = require("./dataQueries.js")
+    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 
 
@@ -55,7 +53,7 @@ router.get('/login', async (req, res) => {
     res.render('login');
 });
 
-// Routing for Create Individal Task
+// Routing for Create Individual Task
 router.post('/createIndividualTask', async (req, res) => {
     
     //Collect all of the data from the form using multer
@@ -111,8 +109,8 @@ router.post('/create/group', async function (req, res) {
 });
 
 
-//Routing for Add User to Group - INCOMPLETE
-router.post('/addUserToGroup', async (req, res) => {
+//Routing for Add User to Group
+router.post('/addMember', async (req, res) => {
 
     //Collect all of the data from the form using multer
     const group_id = req.body.groupID;
@@ -123,6 +121,18 @@ router.post('/addUserToGroup', async (req, res) => {
 
     //insert the data into the database
     insertGroupUser(group_id, user_id);
+
+});
+
+
+// Get routing for add user to group.
+router.get('/addUserToGroup', async (req, res) => {
+
+    groups =[];
+
+    groups = await getGroups();
+
+    res.render('addNewMemberToExistingGroup', groups);
 
 });
 
