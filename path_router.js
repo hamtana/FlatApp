@@ -155,7 +155,7 @@ router.get('/login', async (req, res) => {
 
 
 
-// Create Birds Page Router
+// Create Group Page Router
 router.get('/createGroup', async (req, res) => {
     res.render('createGroup', {
     });
