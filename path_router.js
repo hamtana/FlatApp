@@ -51,6 +51,10 @@ router.get('/createIndividualTask', async (req, res) => {
     res.render('createIndividualTask');
 });
 
+router.get('/viewYourTask', async (req, res) => {
+    res.render('viewYourTask');
+});
+
 router.get('/login', async (req, res) => {
     res.render('login');
 });
@@ -189,5 +193,29 @@ router.get('/returnTable', async (req, res) => {
 
     });
   });
+
+
+
+var getUserOrLogin = function (req, res, next) {
+    var user = req.session.user;
+  
+    if (user == null) {
+      req.session.backTo = req.originalUrl; 
+      res.redirect('/login');
+    } else {
+      req.user = user;
+      next();
+    }
+  };
+
+  var getUser = function (req) {
+    var user = req.session.user;
+  
+    if (user == null) {
+      throw('Error');
+    } else {
+      return user;
+    }
+  };
 
 module.exports = router;
