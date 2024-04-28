@@ -173,13 +173,16 @@ router.post('/addMember', async (req, res) => {
 
 // Get routing for add user to group.
 router.get('/addUserToGroup', async (req, res) => {
+    try {
+        // Fetch groups asynchronously
+        let groups = getGroups();
 
-    groups =[];
-
-    groups = await getGroups();
-
-    res.render('addNewMemberToExistingGroup', groups);
-
+        // Render the EJS template with the fetched groups
+        res.render('addNewMemberToExistingGroup', { groups: groups });
+    } catch (error) {
+        console.error('Error fetching groups:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 //Routing for login
