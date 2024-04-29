@@ -14,7 +14,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups} = require("./dataQueries.js")
+    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups, getUser, getUserByEmail} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 
 
@@ -158,18 +158,24 @@ router.post('/create/group', async function (req, res) {
 //Routing for Add User to Group
 router.post('/addMember', async (req, res) => {
 
+    console.log(req.body);
     //Collect all of the data from the form using multer
     const group_id = req.body.group_name;
     const user_email = req.body.email;
 
     //log the data in the console so it is visible for testing. 
-    console.log(user_email,group_id);
+    console.log(user_email);
+    console.log(group_id);
 
     //query the database to retrieve the user_id, and group_id
-    
+    let user = await getUserByEmail(user_email);
+
+    //get the user id out of user
+    let user_id = user[0].id;
+
     
     //insert the data into the database
-    insertGroupUser(user_id,group_id);
+    // insertGroupUser(user_id,group_id);
 
 });
 

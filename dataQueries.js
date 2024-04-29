@@ -30,8 +30,8 @@ function insertUser(name,phone_number, email,address,password) {
     });
 }
 
-//Query to get User
-function getUser(email) {
+//Query to get User by Email - SELECT * FROM user WHERE email = ?
+function getUserByEmail(email) {
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM user WHERE email = ?", [email], function (err, result) {
             if (err) {
@@ -44,6 +44,7 @@ function getUser(email) {
          });
     });
 }
+
 
 // QUERY TO GET GROUPS
 function getGroups() {
@@ -188,4 +189,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUser};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail};
