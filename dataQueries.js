@@ -30,21 +30,36 @@ function insertUser(name,phone_number, email,address,password) {
     });
 }
 
+//Query to get User
+function getUser(email) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM user WHERE email = ?", [email], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+         });
+    });
+}
+
 // QUERY TO GET GROUPS
 function getGroups() {
-    connection.connect(function(err) {
-        var sql = "SELECT * FROM `group`";
-        connection.query(sql, function (err, result) {
-        console.log("1 record inserted");
-        if (err) {
-            console.log(err);
-            return 0;
-        }
-        return 1;
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM `group`", function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
         });
     });
-
 }
+
 
 //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
 // function insertGroup(name) {
@@ -173,4 +188,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUser};

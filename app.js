@@ -7,7 +7,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
-
+ 
 // Middleware to parse URL-encoded bodies
 
 const mysql = require('mysql2');
@@ -29,23 +29,23 @@ const port = 8080;
 // ==============================================
 
 
-//Read the contents of setup.sql
-// Cannot have gaps between code segments
-var rl = readline.createInterface({
-    // Gets the sql file to read
-    input: fs.createReadStream('./sql/setup.sql'),
-    terminal: false
-   });
-  rl.on('line', function(chunk){
-       connection.query(chunk.toString('ascii'), function(err, sets, fields){
-       // Error checking on the sql file
-       // if (err != "Error: Query was empty")  {console.log(err)}
-      });
-  });
+// //Read the contents of setup.sql
+// // Cannot have gaps between code segments
+// var rl = readline.createInterface({
+//     // Gets the sql file to read
+//     input: fs.createReadStream('./sql/setup.sql'),
+//     terminal: false
+//    });
+//   rl.on('line', function(chunk){
+//        connection.query(chunk.toString('ascii'), function(err, sets, fields){
+//        // Error checking on the sql file
+//        // if (err != "Error: Query was empty")  {console.log(err)}
+//       });
+//   });
 
  
-  insertGroupUser(1, 1);
-  console.log("Group User is " + returnTable("group_user"));
+//   insertGroupUser(1, 1);
+//   console.log("Group User is " + returnTable("group_user"));
 //   connection.connect(function(err) {
 //     if (err) throw err;
 //     //Select all customers and return the result object:
