@@ -175,7 +175,7 @@ router.post('/addMember', async (req, res) => {
     
     //insert the data into the database
     insertGroupUser(user_id,group_id);
-    res.redirect('/index');
+    res.redirect('/addUserToGroup');
 
 });
 
