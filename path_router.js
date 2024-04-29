@@ -160,22 +160,22 @@ router.post('/addMember', async (req, res) => {
 
     console.log(req.body);
     //Collect all of the data from the form using multer
-    const group_id = req.body.group_name;
-    const user_email = req.body.email;
+    let group_id = req.body.group;
+    let user_email = req.body.email;
 
     //log the data in the console so it is visible for testing. 
-    console.log(user_email);
-    console.log(group_id);
+    // console.log(user_email);
+    // console.log(group_id);
 
     //query the database to retrieve the user_id, and group_id
     let user = await getUserByEmail(user_email);
 
     //get the user id out of user
     let user_id = user[0].id;
-
     
     //insert the data into the database
-    // insertGroupUser(user_id,group_id);
+    insertGroupUser(user_id,group_id);
+    res.redirect('/index');
 
 });
 
@@ -185,9 +185,9 @@ router.get('/addUserToGroup', async (req, res) => {
     try {
         // Fetch groups asynchronously
         const groups_data = await getGroups();
-
         // Render the EJS template with the fetched groups
         res.render('addNewMemberToExistingGroup', { groups: groups_data });
+        // console.log(groups_data);
     } catch (error) {
         // Handle error
         console.error("Error fetching groups:", error);

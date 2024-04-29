@@ -20,12 +20,11 @@
             <input type="text" id="email" name="email" required>
             
             <label for="group">Select Group</label>
-            <select id="group_name" name="group_name" required>
+            <select id="grouo" name="group" required>
                 <% for (let i = 0; i < groups.length; i++) { %>
-                    <option value="<%= groups[i].id %>"><%= groups[i].name %></option>
+                    <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>
                 <% } %>
-            </select>
-            
+                </select>
             <button type="button" onclick="history.back()">Back</button>
             <button type="submit">Add</button>
             <!-- redirect back to view Group page-->
