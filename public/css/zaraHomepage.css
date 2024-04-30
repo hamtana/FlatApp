@@ -1,12 +1,19 @@
 /* Resetting default margin and padding */
-body, h1, h2, p {
+  h1{
+  text-align: center;
+  font-family: system-ui;
+  color: #1f2c39;
+}
+
+ h2,p, body{
     margin: 0;
     padding: 0;
-  }
-  
+    color: #1f2c39;
+    font-family: system-ui;
+}
   /* Setting up basic styles */
   body {
-    font-family: Arial, sans-serif;
+    font-family: system-ui;
     background-color: #f2f2f2; /* Light gray background */
   }
   
@@ -134,12 +141,13 @@ body, h1, h2, p {
     justify-content: center;
     align-items: center;
     flex: 1; /* Adjust the flex value to allocate more space */
+    text-align: center;
     .logo {
         text-align: center;
       }
       
     .logo img {
-        width: 50%;
+        width: 60%;
         height: auto;
         margin-right: 20px
     }
@@ -149,6 +157,7 @@ body, h1, h2, p {
     background-color: #fff;
     padding: 20px;
     flex: 4; /* Adjust the flex value to allocate more space */
+
   }
   
   .form {
