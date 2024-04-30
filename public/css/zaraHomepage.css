@@ -114,9 +114,35 @@ body, h1, h2, p {
   }
   
   main {
-    max-width: 600px;
-    margin: 50px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  img {
+    width: 100%; /* Adjust the percentage as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .split {
+    flex: 1;
+    height: 100%;
+  }
+  
+  .left {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 2; /* Adjust the flex value to allocate more space */
+
+  }
+
+  .right {
+    background-color: #fff;
     padding: 20px;
+    flex: 3; /* Adjust the flex value to allocate more space */
   }
   
   form {
