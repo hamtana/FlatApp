@@ -35,7 +35,6 @@ jobs:
       run: npm install --save-dev jest
 
     - name: Run tests
-      working-directory: ${{ github.workspace }}
       run: npm test  # Run tests using npm test script
 
 
