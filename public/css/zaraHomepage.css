@@ -1,12 +1,19 @@
 /* Resetting default margin and padding */
-body, h1, h2, p {
+  h1{
+  text-align: center;
+  font-family: system-ui;
+  color: #1f2c39;
+}
+
+ h2,p, body{
     margin: 0;
     padding: 0;
-  }
-  
+    color: #1f2c39;
+    font-family: system-ui;
+}
   /* Setting up basic styles */
   body {
-    font-family: Arial, sans-serif;
+    font-family: system-ui;
     background-color: #f2f2f2; /* Light gray background */
   }
   
@@ -114,12 +121,46 @@ body, h1, h2, p {
   }
   
   main {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  
+ 
+
+  .split {
+    flex: 2;
+    height: 100%;
   }
   
-  form {
+  .splist_left {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Adjust the flex value to allocate more space */
+    text-align: center;
+    .logo {
+        text-align: center;
+      }
+      
+    .logo img {
+        width: 60%;
+        height: auto;
+        margin-right: 20px
+    }
+}
+
+  .split_right {
+    background-color: #fff;
+    padding: 20px;
+    flex: 4; /* Adjust the flex value to allocate more space */
+
+  }
+  
+  .form {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -173,6 +214,7 @@ body, h1, h2, p {
   button[type="submit"]:first-child:hover {
     background-color: #1f2c39;
   }
+
 /*add new member to existing file*/  
 body {
     margin: 0;
