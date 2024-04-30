@@ -2,32 +2,31 @@
 <html>
 <head>
     <title>Create Task</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            padding: 8px 20px;
-            background-color: #4c66af;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #4571a0;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title> Create Task</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link rel="stylesheet" href="/css/zaraHomepage.css">
 </head>
+
+
+<header>
+    <nav>
+        <div class="menu-icon">
+            <!-- Menu icon -->
+        </div>
+        <div class="logo">
+            <img src="/images/flat_app.png">
+        </div>
+        <div class="login">
+          <!-- Button to redirect user to a new page for signing in -->
+          <button type="">Sign In</button>
+        </div>
+    </nav>
+</header>
+
 <body>
+    <main id="createTask">
+ 
     <h1>Create Task</h1>
     <form action="/create/createTask" method="POST">
         <label for="taskName">Task Name:</label><br>
@@ -38,5 +37,8 @@
         
         <input type="submit" value="Create Task">
     </form>
+
+    </main>
+
 </body>
 </html>
