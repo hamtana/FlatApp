@@ -308,7 +308,6 @@ body {
 
    }
 
-   .groupname{
-    margin-right:20px;
+   .groupname, .email, .password, .createAccField{
+    margin-right: 20px;
    }
-   
