@@ -53,7 +53,7 @@ router.get('/createIndividualTask', async (req, res) => {
     res.render('createIndividualTask');
 });
 
-router.get('/create/task', async (req, res) => {
+router.get('/createtask', async (req, res) => {
     res.render('createTask');
 });
 
