@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
-    res.render('index');
+    res.render('main');
 });
 
 router.get('/index', async (req, res) => {
