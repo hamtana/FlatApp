@@ -298,3 +298,17 @@ body {
     background-color: #2980b9;
   }
   
+   .creategroupbody{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+
+   }
+
+   .groupname{
+    margin-right:20px;
+   }
+   
