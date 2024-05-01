@@ -12,7 +12,7 @@
     font-family: system-ui;
 }
  
- .creategrouph1{
+ .creategrouph1, .createTaskh1{
     position: absolute;
     top: 0;
     left: 50%;
@@ -23,6 +23,7 @@
     color: #1f2c39;
     font-family: system-ui;
  }    
+
  
   /* Setting up basic styles */
   body {
@@ -298,16 +299,15 @@ body {
     background-color: #2980b9;
   }
   
-   .creategroupbody{
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-
+   .creategroupbody, .createTaskBody{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
    }
 
-   .groupname, .email, .password, .createAccField{
+   .groupname, .email, .password, .createAccField, .taskName{
     margin-right: 20px;
    }
