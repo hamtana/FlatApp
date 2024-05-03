@@ -1,8 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const session = require('express-session')
+
 
 const app = express();
+app.use(session({
+	secret: 'secret',
+	resave: true,
+    cookie: { maxAge: 300000 },
+	saveUninitialized: true
+}));
 // Middleware to parse JSON bodies
 app.use(express.urlencoded({ extended: true }));
 

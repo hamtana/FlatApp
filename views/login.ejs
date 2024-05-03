@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="split_right">
-                <form action="/login" method="POST" enctype="multipart/form-data">
+                <form action="/auth" method="POST">     <!-- enctype="multipart/form-data" -->
 
                     <p>Please enter the following information to login</p>
                     <fieldset>
@@ -34,7 +34,7 @@
 
                     <!-- Button to redirect user to a new page for creating an account -->
                     
-                    <button type="submit">Login</button>
+                    <button type="submit" >Login</button>
                 </form>
                 <button id="btnCreateAccount" href="/createAccount" >Create Account</button>
 

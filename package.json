@@ -19,6 +19,8 @@
     "body-parser": "^1.20.2",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "login": "^0.8.0",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7"

@@ -1,15 +1,22 @@
 const express = require('express');
 const multer = require('multer');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
 const con = require('./database.js');
 router = express.Router();
 // npm i body-parser
 
-
+router.use(express.json());
 router.use(bodyParser.urlencoded({ extended: true }));
-// router.use(bodyParser.json());
+
+router.use(session({
+	secret: 'secret',
+	resave: true,
+    cookie: { maxAge: 300000 },
+	saveUninitialized: true
+}));// router.use(bodyParser.json());
 
 
 try {
@@ -34,6 +41,8 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/index', async (req, res) => {
+    // Test
+    console.log(req.session.email);
     res.render('index');
 });
 
@@ -103,6 +112,43 @@ router.get('/login', async (req, res) => {
     res.render('login');
 });
 
+
+router.post('/auth', async  (req, res) => {
+
+    let email = req.body.email;
+    let password = req.body.password;
+
+    if (email && password) {
+        connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+           
+            if (error) throw error;
+            if (results.length > 0) {
+                req.session.loggedin = true;
+                req.session.email = email;
+				res.redirect('/index');
+            } else {
+                res.send('Incorrect Username and/or Password!');
+            }
+            res.end();
+        });
+    }else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+
+});
+
+router.get('/testSessions', function(request, response) {
+	// If the user is loggedin
+	if (request.session.loggedin) {
+		// Output username
+		response.send('Welcome back, ' + request.session.username + '!');
+	} else {
+		// Not logged in
+		response.send('Please login to view this page!');
+	}
+	response.end();
+});
 // Routing for Create Individual Task
 router.post('/createIndividualTask', async (req, res) => {
     
@@ -150,7 +196,6 @@ router.post('/create-account', async (req, res) => {
 
 
 router.post('/create/group', async function (req, res) {
-
     const groupNameResult = req.body.groupName;
 
     console.log(groupNameResult);
@@ -201,31 +246,31 @@ router.get('/addUserToGroup', async (req, res) => {
 
 
 //Routing for login
-router.get('/login', async (req, res) => {
+// router.get('/login', async (req, res) => {
 
-    //gather data for email and password
-    const email = req.body.email;
-    const password = req.body.password;
+//     //gather data for email and password
+//     const email = req.body.email;
+//     const password = req.body.password;
 
-    //log the data in the console so it is visible for testing.
-    console.log(email, password);
+//     //log the data in the console so it is visible for testing.
+//     console.log(email, password);
 
-    //check against the data in the database
-    returnTable('users');
+//     //check against the data in the database
+//     returnTable('users');
 
-    //insert code needed to check against the database here.
-    //if the email and password match, redirect to the home page.
-    //ASK GROUP ABOUT THIS
-
-
-    //if the email and password do not match, redirect to the login page with an error message.
-    res.redirect('/login');
+//     //insert code needed to check against the database here.
+//     //if the email and password match, redirect to the home page.
+//     //ASK GROUP ABOUT THIS
 
 
+//     //if the email and password do not match, redirect to the login page with an error message.
+//     res.redirect('/login');
 
 
-    res.send('Login');
-});
+
+
+//     res.send('Login');
+// });
 
 
 
