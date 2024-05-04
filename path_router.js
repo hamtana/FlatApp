@@ -41,13 +41,15 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/index', async (req, res) => {
-    // Test
+    // Test to see if session is active
     console.log(req.session.email);
     res.render('index');
 });
 
 router.get('/login', async (req, res) => {
-    res.render('login');
+    res.render('login', {
+        error: ''
+    });
 });
 
 router.get('/createGroupTask', async (req, res) => {
@@ -60,6 +62,15 @@ router.get('/createAccount', async (req, res) => {
 router.get('/createIndividualTask', async (req, res) => {
 
     res.render('createIndividualTask');
+});
+
+router.get('/userHomePage', async (req, res) => {
+
+    if (req.session.loggedin == false) {
+
+        res.redirect('/login');
+    }
+ 
 });
 
 router.get('/createtask', async (req, res) => {
@@ -108,11 +119,8 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
-router.get('/login', async (req, res) => {
-    res.render('login');
-});
 
-
+// https://codeshack.io/basic-login-system-nodejs-express-mysql/
 router.post('/auth', async  (req, res) => {
 
     let email = req.body.email;
@@ -122,13 +130,18 @@ router.post('/auth', async  (req, res) => {
         connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
            
             if (error) throw error;
+            // If person found, redirect to home page, change to user's own home page when done lol lol
             if (results.length > 0) {
                 req.session.loggedin = true;
-                req.session.email = email;
-				res.redirect('/index');
+                let sessionObject = results[0];
+                res.render('userHomePage', {
+                    user: sessionObject
+                });
             } else {
-                res.send('Incorrect Username and/or Password!');
-            }
+                res.render('login', {
+                    error: 'Incorrect email or password!'
+                });
+                        }
             res.end();
         });
     }else {
@@ -137,18 +150,16 @@ router.post('/auth', async  (req, res) => {
 	}
 
 });
-
-router.get('/testSessions', function(request, response) {
-	// If the user is loggedin
-	if (request.session.loggedin) {
-		// Output username
-		response.send('Welcome back, ' + request.session.username + '!');
-	} else {
-		// Not logged in
-		response.send('Please login to view this page!');
-	}
-	response.end();
+router.get('/logout', async (req, res) => {
+    req.session.destroy(function(err) {
+        if(err) {
+            return console.log(err);
+        }
+        res.redirect('/');
+    });
 });
+
+
 // Routing for Create Individual Task
 router.post('/createIndividualTask', async (req, res) => {
     
