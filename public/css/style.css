@@ -147,3 +147,67 @@ background: linear-gradient(0deg, rgba(11,52,84,1) 2%, rgba(118,191,250,1) 100%)
     }
 
 }
+/* Buttons */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+    
+    .btn{
+    
+    font-family: Roboto, sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    padding: 10px 30px;
+    border: solid #ffffff 2px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 50px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction:row-reverse;
+    align-items: center;
+    cursor: pointer;
+
+    }
+    
+    .btn:hover{
+    
+    transition : 1000ms;
+    padding: 10px 50px;
+    transform : translateY(-0px);
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    color: #ffffff;
+    border: solid 2px white;
+    }
+
+    /* Text Animation */
+
+    @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
+
+svg {
+	font-family: "Russo One", sans-serif;
+	width: 100%; height: 100%;
+}
+svg text {
+	animation: stroke 4s  alternate;
+	stroke-width: 2;
+	stroke: #cbc7c7;
+    fill: rgba(255,255,255,1);
+	font-size: 40px;
+    stroke-dashoffset: -25%;
+    animation-iteration-count: 1;
+    stroke-dasharray: 50% 0;
+    stroke-width: 0;
+}
+@keyframes stroke {
+	0%   {
+		fill: rgba(255,255,255,0); stroke: rgb(0, 0, 0);
+		stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+	}
+	70%  {fill: rgba(255,255,255,0); stroke: rgb(0, 0, 0); }
+	80%  {fill: rgba(255,255,255,0); stroke: rgb(0, 0, 0); stroke-width: 3; }
+	100% {
+		fill: rgba(255,255,255,1); stroke: rgba(54,95,160,0);
+		stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+	}
+}
