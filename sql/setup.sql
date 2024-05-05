@@ -40,12 +40,17 @@ CREATE TABLE group_task (
     FOREIGN KEY (task_id) REFERENCES task(id),
     FOREIGN KEY (user_id) REFERENCES user(id));
 
-INSERT INTO user (name, email, phone_number, address, password) VALUES ('John Doe', 'testMe@gmail.com','123456','1234 Main St, San Francisco, CA 94123','password');
+INSERT INTO user (name, email, phone_number, address, password) 
+VALUES ('John Doe', 'testMe@gmail.com','123456','1234 Main St, San Francisco, CA 94123','password');
+
 INSERT INTO `group` (name) VALUES ('Group 1');
 
+INSERT INTO task (title, description) 
+VALUES ('Task 1', 'Description for Task 1'),
+       ('Task 2', 'Description for Task 2');
 
+INSERT INTO group_user (user_id, group_id) VALUES (1, 1);
 
-
-
-
-
+INSERT INTO group_task (status, due_date, task_id, user_id) 
+VALUES ('Pending', '2024-05-10', 1, 1),
+       ('Pending', '2024-05-15', 2, 1);
