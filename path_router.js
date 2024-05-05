@@ -5,6 +5,7 @@ const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
 const con = require('./database.js');
+const { get } = require('https');
 router = express.Router();
 // npm i body-parser
 
@@ -21,7 +22,7 @@ router.use(session({
 
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups, getUser, getUserByEmail} = require("./dataQueries.js")
+    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups, getUser, getUserByEmail,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
 } catch (error) {console.log(error);}
 
 
@@ -70,7 +71,6 @@ router.get('/userHomePage', async (req, res) => {
 
         res.redirect('/login');
     }
- 
 });
 
 router.get('/createtask', async (req, res) => {
@@ -119,37 +119,41 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
+router.post('/auth', async (req, res) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
 
-// https://codeshack.io/basic-login-system-nodejs-express-mysql/
-router.post('/auth', async  (req, res) => {
+        // Perform authentication query
+        const userResults = await checkEmailAndPassword(email, password);
 
-    let email = req.body.email;
-    let password = req.body.password;
+        if (userResults.length > 0) {
+            // Authentication successful
+            const sessionObject = userResults[0];
+            console.log(sessionObject);
+            req.session.loggedin = true;
 
-    if (email && password) {
-        connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
-           
-            if (error) throw error;
-            // If person found, redirect to home page, change to user's own home page when done lol lol
-            if (results.length > 0) {
-                req.session.loggedin = true;
-                let sessionObject = results[0];
-                res.render('userHomePage', {
-                    user: sessionObject
-                });
-            } else {
-                res.render('login', {
-                    error: 'Incorrect email or password!'
-                });
-                        }
-            res.end();
-        });
-    }else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-
+            // Fetch groups for the user
+            const groubObj = await getGroupsByUser(sessionObject.id);
+            // Render userHomePage with user and group data
+            res.render('userHomePage', {
+                user: sessionObject,
+                group: groubObj
+            });
+        } else {
+            // Authentication failed
+            res.render('login', {
+                error: 'Incorrect email or password!'
+            });
+        }
+    } catch (error) {
+        console.error('Error during authentication:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
+
+
 router.get('/logout', async (req, res) => {
     req.session.destroy(function(err) {
         if(err) {

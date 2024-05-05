@@ -60,11 +60,39 @@ function getGroupById(id){
     });
 }
 
+function checkEmailAndPassword(email, password) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM user WHERE email = ? AND password = ?", [email, password], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else  if (result.length > 0) {
+                console.log("Query successful");
+                resolve(result);
+            }
+         });
+    });
+}
+
 
 // QUERY TO GET GROUPS
 function getGroups() {
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM `group`", function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getGroupsByUser(id) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM group_user as gs join `group` as g using(group_id) where gs.user_id = ? ",[id] ,function (err, result) {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -129,6 +157,8 @@ function insertTask(title, description) {
         });
     });
 }
+
+
 
 
 
@@ -204,4 +234,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById,getGroupsByUser,checkEmailAndPassword};
