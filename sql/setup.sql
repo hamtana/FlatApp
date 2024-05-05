@@ -37,8 +37,11 @@ CREATE TABLE group_task (
     due_date DATE NOT NULL,
     task_id INT NOT NULL,
     user_id INT NOT NULL,
+    group_id INT NOT NULL,
     FOREIGN KEY (task_id) REFERENCES task(id),
-    FOREIGN KEY (user_id) REFERENCES user(id));
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (group_id) REFERENCES `group`(group_id)
+    );
 
 INSERT INTO user (name, email, phone_number, address, password) 
 VALUES ('John Doe', 'testMe@gmail.com','123456','1234 Main St, San Francisco, CA 94123','password');
