@@ -45,6 +45,21 @@ function getUserByEmail(email) {
     });
 }
 
+// Function that performs a GET request to the database to get a group by its id
+function getGroupById(id){
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM `group` WHERE group_id = ?", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+         });
+    });
+}
+
 
 // QUERY TO GET GROUPS
 function getGroups() {
@@ -189,4 +204,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById};
