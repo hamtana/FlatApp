@@ -60,6 +60,37 @@ function getGroupById(id){
     });
 }
 
+//Function that retrieves the group tasks by group id
+function getGroupTasksByGroupId(id){
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM group_task WHERE group_id = ?", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+            });
+    });
+}
+
+//Get Group Members by Group ID, show usernames as well
+//Perform a join with user table to retrieve username as well. 
+function getGroupMembersByGroupId(id){
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT user_id, name FROM group_user JOIN user ON group_user.user_id = user.id WHERE group_id = ?", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+            });
+    });
+}
+
 
 // QUERY TO GET GROUPS
 function getGroups() {
@@ -204,4 +235,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupMembersByGroupId, getGroupMemberTaskInfo};
