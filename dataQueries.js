@@ -59,7 +59,7 @@ function getGroupById(id){
          });
     });
 }
-
+// Functions to check if email and password in the database
 function checkEmailAndPassword(email, password) {
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM user WHERE email = ? AND password = ?", [email, password], function (err, result) {
@@ -90,9 +90,26 @@ function getGroups() {
     });
 }
 
+function joinGroupUsingKey(id, group_id) {
+    return new Promise((resolve, reject) => {
+        connection.query("INSERT INTO group_user (user_id, group_id) VALUES (?, ?)", [id, group_id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            console.log("Query successful");
+            resolve(result);
+        }
+        );
+    });
+}
+
+
+// QUERY TO GET GROUPS User is in
 function getGroupsByUser(id) {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM group_user as gs join `group` as g using(group_id) where gs.user_id = ? ",[id] ,function (err, result) {
+        connection.query("SELECT * FROM group_user as gs join `group`\
+         as g using(group_id) where gs.user_id = ? ",[id] ,function (err, result) {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -234,4 +251,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById,getGroupsByUser,checkEmailAndPassword};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById,getGroupsByUser,checkEmailAndPassword,joinGroupUsingKey};

@@ -135,6 +135,9 @@ router.post('/auth', async (req, res) => {
 
             // Fetch groups for the user
             const groubObj = await getGroupsByUser(sessionObject.id);
+
+
+            console.log(groubObj);
             // Render userHomePage with user and group data
             res.render('userHomePage', {
                 user: sessionObject,
@@ -151,6 +154,22 @@ router.post('/auth', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+router.post('/joinGroup', async (req, res) => {
+    try {
+        const groupKey = req.body.groupKey;
+        const user = getUserByEmail(res.session.email);
+
+        // Perform query to join group
+        await joinGroupUsingKey(user.id, groupKey);
+
+        // Redirect to userHomePage
+        res.redirect('/userHomePage');
+    } catch (error) {
+        console.error('Error joining group:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}); 
 
 
 
