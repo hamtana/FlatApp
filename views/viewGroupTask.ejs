@@ -34,12 +34,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks.length; i++) { %>
+                        <% for (let i = 0; i < tasks_today.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= tasks[i].status %></td>
-                                <td><%= tasks[i].description %></td>
-                                <td><%= tasks[i].name %></td>
+                                <td><%= tasks_today[i].status %></td>
+                                <td><%= tasks_today[i].description %></td>
+                                <td><%= tasks_today[i].name %></td>
                             </tr>
                         <% } %>
                     </tbody>
@@ -57,12 +57,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks.length; i++) { %>
+                        <% for (let i = 0; i < tasks_tomorrow.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= tasks[i].status %></td>
-                                <td><%= tasks[i].description %></td>
-                                <td><%= tasks[i].name %></td>
+                                <td><%= tasks_tomorrow[i].status %></td>
+                                <td><%= tasks_tomorrow[i].description %></td>
+                                <td><%= tasks_tomorrow[i].name %></td>
                             </tr>
                         <% } %>
                     </tbody>
@@ -80,12 +80,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks.length; i++) { %>
+                        <% for (let i = 0; i < tasks_week.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= tasks[i].status %></td>
-                                <td><%= tasks[i].description %></td>
-                                <td><%= tasks[i].name %></td>
+                                <td><%= tasks_week[i].status %></td>
+                                <td><%= tasks_week[i].description %></td>
+                                <td><%= tasks_week[i].name %></td>
                             </tr>
                         <% } %>
                     </tbody>

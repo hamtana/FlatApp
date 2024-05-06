@@ -30,7 +30,9 @@ try {
         getUser,
         getUserByEmail,
         getGroupById,
-        getGroupMembersByGroupId,
+        getGroupTasksDueWeek,
+        getGroupTasksToday,
+        getGroupTasksTomorrow,
         getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -78,14 +80,15 @@ router.get('/viewGroupTask/:id', async (req, res) => {
 
     const group = await getGroupById(group_id);
     const group_tasks = await getGroupTasksByGroupId(group_id);
-    const group_members = await getGroupMembersByGroupId(group_id);
+
+    const tasks_today = await getGroupTasksToday(group_id);
+    const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
+    const tasks_week = await getGroupTasksDueWeek(group_id);
 
     //logging each for testing.
-    console.log(group);
-    console.log(group_tasks);
-    console.log(group_members); 
 
-    res.render('viewGroupTask', {group: group, tasks: group_tasks, users: group_members});
+
+    res.render('viewGroupTask', {group: group, tasks: group_tasks, tasks_today : tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week});
 });
 
 //Router to view the task for a particular user within a group. 
