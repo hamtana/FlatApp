@@ -317,4 +317,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek,getGroupsByUser,checkEmailAndPassword};
