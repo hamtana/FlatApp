@@ -61,9 +61,11 @@ function getGroupById(id){
 }
 
 //Function that retrieves the group tasks by group id
+//Retrieves all tasks that are associated with a group
+//Retrieve details name of the user from the user table
 function getGroupTasksByGroupId(id){
     return new Promise((resolve, reject) => {
-        connection.query("SELECT * FROM group_task WHERE group_id = ?", [id], function (err, result) {
+        connection.query("SELECT * FROM group_task JOIN task ON group_task.task_id = task.id JOIN user ON group_task.user_id = user.id WHERE group_id = ?", [id], function (err, result) {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -235,4 +237,4 @@ function returnTable(table) {
 
 
 
-module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupMembersByGroupId, getGroupMemberTaskInfo};
+module.exports = {insertUser, insertGroup,insertTask,insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupMembersByGroupId};

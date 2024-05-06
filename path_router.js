@@ -30,7 +30,6 @@ try {
         getUserByEmail,
         getGroupById,
         getGroupMembersByGroupId,
-        getGroupMemberTaskInfo,
         getGroupTasksByGroupId} = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -79,7 +78,10 @@ router.get('/viewGroupTask/:id', async (req, res) => {
     const group_tasks = await getGroupTasksByGroupId(group_id);
     const group_members = await getGroupMembersByGroupId(group_id);
 
-    const member_task_info = await getGroupMemberTaskInfo();
+    //logging each for testing.
+    console.log(group);
+    console.log(group_tasks);
+    console.log(group_members); 
 
     res.render('viewGroupTask', {group: group, tasks: group_tasks, users: group_members});
 });
