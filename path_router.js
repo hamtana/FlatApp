@@ -69,6 +69,7 @@ router.get('/createAccount', async (req, res) => {
     res.render('createAccount');
 });
 
+//Router to get the ViewGroupTasks. 
 router.get('/viewGroupTask/:id', async (req, res) => {
 
     group_id = req.params.id;
@@ -85,6 +86,9 @@ router.get('/viewGroupTask/:id', async (req, res) => {
 
     res.render('viewGroupTask', {group: group, tasks: group_tasks, users: group_members});
 });
+
+//Router to view the task for a particular user within a group. 
+
 
 router.get('/createIndividualTask', async (req, res) => {
 

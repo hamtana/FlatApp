@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav>
-            <img src="flat_app.png" >
+            <img src="/images/flat_app.png" >
             <h1><%= group[0].name %> Chores</h1>
             <ul>
                 <li><a href="#">View Group Task</a></li>
@@ -17,12 +17,6 @@
                 <li><a href="#">Create New Task</a></li>
                 <li><a href="#">Create New Group</a></li>
             </ul>
-            <div class="groupMembers">
-                <img src="personicon.png" >
-                <span><%= username %></span> <!-- Assuming username is a variable passed to the template -->
-                <!-- need to insert code for show all current group members -->
-                <button type="" >Edit</button> <!-- for adding or removing group members-->
-            </div>
         </nav>
     </header>
     <main>
@@ -40,14 +34,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% tasks.today.forEach(task => { %>
+                        <% for (let i = 0; i < tasks.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= task.id %></td>
-                                <td><%= task.description %></td>
-                                <td><%= task.assignedTo %></td>
+                                <td><%= tasks[i].status %></td>
+                                <td><%= tasks[i].description %></td>
+                                <td><%= tasks[i].name %></td>
                             </tr>
-                        <% }); %>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -63,14 +57,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% tasks.tomorrow.forEach(task => { %>
+                        <% for (let i = 0; i < tasks.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= task.id %></td>
-                                <td><%= task.description %></td>
-                                <td><%= task.assignedTo %></td>
+                                <td><%= tasks[i].status %></td>
+                                <td><%= tasks[i].description %></td>
+                                <td><%= tasks[i].name %></td>
                             </tr>
-                        <% }); %>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -86,14 +80,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% tasks.thisWeek.forEach(task => { %>
+                        <% for (let i = 0; i < tasks.length; i++) { %>
                             <tr>
                                 <td><input type="checkbox"></td> <!-- Checkbox added here -->
-                                <td><%= task.id %></td>
-                                <td><%= task.description %></td>
-                                <td><%= task.assignedTo %></td>
+                                <td><%= tasks[i].status %></td>
+                                <td><%= tasks[i].description %></td>
+                                <td><%= tasks[i].name %></td>
                             </tr>
-                        <% }); %>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
