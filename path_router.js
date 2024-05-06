@@ -22,7 +22,17 @@ router.use(session({
 
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups, getUser, getUserByEmail,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
+    var {insertUser,
+        insertGroup,insertTask,
+        insertGroupUser,
+        returnTable,
+        getGroups,
+        getUser,
+        getUserByEmail,
+        getGroupById,
+        getGroupMembersByGroupId,
+        getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
+
 } catch (error) {console.log(error);}
 
 
@@ -59,6 +69,27 @@ router.get('/createGroupTask', async (req, res) => {
 router.get('/createAccount', async (req, res) => {
     res.render('createAccount');
 });
+
+//Router to get the ViewGroupTasks. 
+router.get('/viewGroupTask/:id', async (req, res) => {
+
+    group_id = req.params.id;
+    console.log(group_id);
+
+    const group = await getGroupById(group_id);
+    const group_tasks = await getGroupTasksByGroupId(group_id);
+    const group_members = await getGroupMembersByGroupId(group_id);
+
+    //logging each for testing.
+    console.log(group);
+    console.log(group_tasks);
+    console.log(group_members); 
+
+    res.render('viewGroupTask', {group: group, tasks: group_tasks, users: group_members});
+});
+
+//Router to view the task for a particular user within a group. 
+
 
 router.get('/createIndividualTask', async (req, res) => {
 
