@@ -150,6 +150,7 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
+router.get()
 router.post('/auth', async (req, res) => {
     try {
         const email = req.body.email;
