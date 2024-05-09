@@ -29,7 +29,8 @@
                 </div>
             </div>
             <div class="split_right">
-                <form action="/create-account" method="POST">
+                <form  class='submitFormCreateAccount' action="/create-account" method="POST">
+                    
 
                     <p>Please enter the following information to create an Account</p>
                     <fieldset>
@@ -61,11 +62,51 @@
                     <!-- Button to redirect user to a new page for signing in -->
                     <button type="">Sign In</button>
                     
-                    <button type="submit">Create Account</button>
+                    <button class="'submitCreateAccount" type="submit">Create Account</button>
 
                 </form>
 
-            </div>            
+            </div>     
+            <div>
+                <button class="trial"> 
+                    <a >Trial</a>
+                </button>
+            </div>       
         </main>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="/path_router.js"></script>
+        <script src="/dataQuries.js"></script>
+
+
+             <script>
+
+             const submitButton = document.querySelector('button.trial');
+
+            submitButton.addEventListener('click', () => {
+                Swal.fire(
+                'Account Created!',
+                'Welcome to Flat App',
+                'success'
+                )
+            });
+
+            // const submitCreateAccount = document.querySelector('button.submitCreateAccount');
+
+            // submitCreateAccount.addEventListener('click', () => {
+            //     Swal.fire(
+            //     'Account Created!',
+            //     'Welcome to Flat App',
+            //     'success',
+            //     )
+            // });
+
+        //     Swal.fire(
+        //        'Log in Succesful!',
+        //        'Welcome to Flat App',
+        //        'success'
+        //    )
+          </script>
     </body>
 </html>

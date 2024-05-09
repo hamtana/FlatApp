@@ -6,6 +6,9 @@ const path = require('path');
 const fs = require('fs');
 const con = require('./database.js');
 const { get } = require('https');
+
+// or via CommonJS
+const Swal = require('sweetalert2')
 router = express.Router();
 // npm i body-parser
 
@@ -60,9 +63,11 @@ router.get('/index', async (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
-    res.render('login', {
+
+      res.render('login', {
         error: ''
     });
+    
 });
 
 router.get('/createGroupTask', async (req, res) => {
@@ -175,7 +180,8 @@ router.post('/auth', async (req, res) => {
             // Render userHomePage with user and group data
             res.render('userHomePage', {
                 user: sessionObject,
-                group: groubObj
+                group: groubObj,
+                isAdded: true
             });
         } else {
             // Authentication failed
@@ -238,7 +244,7 @@ router.post('/createIndividualTask', async (req, res) => {
 
 });
 
-//Routing for Create Account
+// Routing for Create Account
 router.post('/create-account', async (req, res) => {
 
 
@@ -259,6 +265,7 @@ router.post('/create-account', async (req, res) => {
     res.redirect('/createAccount');
 
 });
+
 
 //Routing for Create Group
 
