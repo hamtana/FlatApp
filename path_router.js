@@ -23,6 +23,14 @@ router.use(session({
 }));// router.use(bodyParser.json());
 
 
+// Middleware to check if the user is authenticated
+const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect("/login");
+    }
+};
 try {
     var connection = require("./database.js");
     var {insertUser,
@@ -78,7 +86,11 @@ router.get('/createAccount', async (req, res) => {
 });
 
 //Router to get the ViewGroupTasks. 
-router.get('/viewGroupTask/:id', async (req, res) => {
+router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
+
+    if (req.session.loggedin == false) {
+        res.redirect('/login');
+    }
 
     group_id = req.params.id;
     console.log(group_id);
@@ -158,7 +170,7 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
-router.post('/auth', async (req, res) => {
+router.post('/auth', async (req, res,next) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
@@ -169,15 +181,31 @@ router.post('/auth', async (req, res) => {
         if (userResults.length > 0) {
             // Authentication successful
             const sessionObject = userResults[0];
+            const groubObj = await getGroupsByUser(sessionObject.id);
+
             console.log(sessionObject);
             req.session.loggedin = true;
+            req.session.email = email;
+            req.session.name = sessionObject.name;
+            req.session.user = sessionObject;
+            res.locals.groupSession = groubObj;
+
+            
+
 
             // Fetch groups for the user
-            const groubObj = await getGroupsByUser(sessionObject.id);
 
 
             console.log(groubObj);
-            // Render userHomePage with user and group data
+            //Global data for all ejs templates
+            res.locals.email = req.session.email;
+            res.locals.name = req.session.name;
+            res.locals.loggedIn = req.session.loggedin;
+            res.locals.user = sessionObject;
+            res.locals.groupSession = groubObj;
+
+                            // Render userHomePage with user and group data
+
             res.render('userHomePage', {
                 user: sessionObject,
                 group: groubObj,
@@ -214,6 +242,7 @@ router.post('/joinGroup', async (req, res) => {
 
 
 router.get('/logout', async (req, res) => {
+
     req.session.destroy(function(err) {
         if(err) {
             return console.log(err);
@@ -350,7 +379,9 @@ router.get('/addUserToGroup', async (req, res) => {
 
 
 // Create Group Page Router
-router.get('/createGroup', async (req, res) => {
+router.get('/createGroup',isAuthenticated, async (req, res) => {
+    const userData = req.session.user;
+    console.log(userData);
     res.render('createGroup', {
     });
   });
