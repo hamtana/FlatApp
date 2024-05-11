@@ -5,6 +5,10 @@ const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
 const con = require('./database.js');
+const { get } = require('https');
+
+// or via CommonJS
+const Swal = require('sweetalert2')
 router = express.Router();
 // npm i body-parser
 
@@ -19,9 +23,29 @@ router.use(session({
 }));// router.use(bodyParser.json());
 
 
+// Middleware to check if the user is authenticated
+const isAuthenticated = (req, res, next) => {
+    if (req.session.user) {
+        next();
+    } else {
+        res.redirect("/login");
+    }
+};
 try {
     var connection = require("./database.js");
-    var {insertUser,insertGroup,insertTask,insertGroupUser,returnTable,getGroups, getUser, getUserByEmail} = require("./dataQueries.js")
+    var {insertUser,
+        insertGroup,insertTask,
+        insertGroupUser,
+        returnTable,
+        getGroups,
+        getUser,
+        getUserByEmail,
+        getGroupById,
+        getGroupTasksDueWeek,
+        getGroupTasksToday,
+        getGroupTasksTomorrow,
+        getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
+
 } catch (error) {console.log(error);}
 
 
@@ -47,9 +71,11 @@ router.get('/index', async (req, res) => {
 });
 
 router.get('/login', async (req, res) => {
-    res.render('login', {
+
+      res.render('login', {
         error: ''
     });
+    
 });
 
 router.get('/createGroupTask', async (req, res) => {
@@ -58,6 +84,32 @@ router.get('/createGroupTask', async (req, res) => {
 router.get('/createAccount', async (req, res) => {
     res.render('createAccount');
 });
+
+//Router to get the ViewGroupTasks. 
+router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
+
+    if (req.session.loggedin == false) {
+        res.redirect('/login');
+    }
+
+    group_id = req.params.id;
+    console.log(group_id);
+
+    const group = await getGroupById(group_id);
+    const group_tasks = await getGroupTasksByGroupId(group_id);
+
+    const tasks_today = await getGroupTasksToday(group_id);
+    const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
+    const tasks_week = await getGroupTasksDueWeek(group_id);
+
+    //logging each for testing.
+
+
+    res.render('viewGroupTask', {group: group, tasks: group_tasks, tasks_today : tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week});
+});
+
+//Router to view the task for a particular user within a group. 
+
 
 router.get('/createIndividualTask', async (req, res) => {
 
@@ -70,7 +122,6 @@ router.get('/userHomePage', async (req, res) => {
 
         res.redirect('/login');
     }
- 
 });
 
 router.get('/createtask', async (req, res) => {
@@ -119,38 +170,79 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
+router.post('/auth', async (req, res,next) => {
+    try {
+        const email = req.body.email;
+        const password = req.body.password;
 
-// https://codeshack.io/basic-login-system-nodejs-express-mysql/
-router.post('/auth', async  (req, res) => {
+        // Perform authentication query
+        const userResults = await checkEmailAndPassword(email, password);
 
-    let email = req.body.email;
-    let password = req.body.password;
+        if (userResults.length > 0) {
+            // Authentication successful
+            const sessionObject = userResults[0];
+            const groubObj = await getGroupsByUser(sessionObject.id);
 
-    if (email && password) {
-        connection.query('SELECT * FROM user WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
-           
-            if (error) throw error;
-            // If person found, redirect to home page, change to user's own home page when done lol lol
-            if (results.length > 0) {
-                req.session.loggedin = true;
-                let sessionObject = results[0];
-                res.render('userHomePage', {
-                    user: sessionObject
-                });
-            } else {
-                res.render('login', {
-                    error: 'Incorrect email or password!'
-                });
-                        }
-            res.end();
-        });
-    }else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
+            console.log(sessionObject);
+            req.session.loggedin = true;
+            req.session.email = email;
+            req.session.name = sessionObject.name;
+            req.session.user = sessionObject;
+            res.locals.groupSession = groubObj;
 
+            
+
+
+            // Fetch groups for the user
+
+
+            console.log(groubObj);
+            //Global data for all ejs templates
+            res.locals.email = req.session.email;
+            res.locals.name = req.session.name;
+            res.locals.loggedIn = req.session.loggedin;
+            res.locals.user = sessionObject;
+            res.locals.groupSession = groubObj;
+
+                            // Render userHomePage with user and group data
+
+            res.render('userHomePage', {
+                user: sessionObject,
+                group: groubObj,
+                isAdded: true
+            });
+        } else {
+            // Authentication failed
+            res.render('login', {
+                error: 'Incorrect email or password!'
+            });
+        }
+    } catch (error) {
+        console.error('Error during authentication:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
+router.post('/joinGroup', async (req, res) => {
+    try {
+        const groupKey = req.body.groupKey;
+        const user = getUserByEmail(res.session.email);
+
+        // Perform query to join group
+        await joinGroupUsingKey(user.id, groupKey);
+
+        // Redirect to userHomePage
+        res.redirect('/userHomePage');
+    } catch (error) {
+        console.error('Error joining group:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}); 
+
+
+
 router.get('/logout', async (req, res) => {
+
     req.session.destroy(function(err) {
         if(err) {
             return console.log(err);
@@ -181,7 +273,7 @@ router.post('/createIndividualTask', async (req, res) => {
 
 });
 
-//Routing for Create Account
+// Routing for Create Account
 router.post('/create-account', async (req, res) => {
 
 
@@ -202,6 +294,7 @@ router.post('/create-account', async (req, res) => {
     res.redirect('/createAccount');
 
 });
+
 
 //Routing for Create Group
 
@@ -286,7 +379,9 @@ router.get('/addUserToGroup', async (req, res) => {
 
 
 // Create Group Page Router
-router.get('/createGroup', async (req, res) => {
+router.get('/createGroup',isAuthenticated, async (req, res) => {
+    const userData = req.session.user;
+    console.log(userData);
     res.render('createGroup', {
     });
   });
