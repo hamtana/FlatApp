@@ -44,7 +44,8 @@ try {
         getGroupTasksDueWeek,
         getGroupTasksToday,
         getGroupTasksTomorrow,
-        getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword} = require("./dataQueries.js")
+        getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword,
+        updateTaskStatus} = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
 
@@ -170,6 +171,7 @@ router.get('/viewYourTask', async (req, res) => {
 
 });
 
+
 router.post('/auth', async (req, res,next) => {
     try {
         const email = req.body.email;
@@ -189,9 +191,6 @@ router.post('/auth', async (req, res,next) => {
             req.session.name = sessionObject.name;
             req.session.user = sessionObject;
             res.locals.groupSession = groubObj;
-
-            
-
 
             // Fetch groups for the user
 
