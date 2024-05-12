@@ -59,42 +59,18 @@
                                 
 
         <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;" >
-            <div style:> 
+            <div class="viewGroupButtonAndWrappers" style: > 
                 <!-- <a href="" class="cs-button-2" aria-label="View your group and tasks">View Group</a> -->
-                <button class="btn" id ="btnViewGroup">
+                <!-- <button class="btn" id ="btnViewGroup">
                     View Group
-                  </button>
+                  </button> -->
             
             </div>
 
             <section id="overview">
-                <h2>Overview of <%= group[0].name %> Task</h2>
-                <p> <%= user %></p>
-                <p> <%= loggedIn %></p>
-
-                <!-- <div id="today">
-                    <h3>Today</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Description</th>
-                                <th>Assigned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% group.forEach(task => { %>
-                                <tr>
-                                    <td><%= group.group_id %></td>
-                                    <td><%= group.name %></td>
-                                </tr>
-                            <% }); %>
-    
-    
-                        </tbody>
-                    </table>
-                </div>
-        -->
+                <% for (let i = 0; i < group.length; i++) { %>
+                    <%- include('partials/groupCard', { groupCard: group[i]}) %>
+                <% } %>               
             </section>
         </main>
 
@@ -103,12 +79,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
-        const btnViewGroup = document.querySelector('#btnViewGroup');
-        btnViewGroup.addEventListener('click', () => {
-            window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
+        // const btnViewGroup = document.querySelector('#btnViewGroup');
+        // btnViewGroup.addEventListener('click', () => {
+        //     window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
             
             
-        })
+        // })
 
     </script>
 
