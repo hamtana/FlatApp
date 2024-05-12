@@ -27,7 +27,7 @@ const fs = require('fs');
 var readline = require('readline');
 
 
-const port = 8080;
+// const port = 8080;
 
 
 // ==============================================
@@ -100,9 +100,11 @@ app.get('*', (req, res) => {
     res.status(404).send('404 Page Not Found');
 });
 
+const PORT = 8080 || process.env.PORT;
+
 // Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
 
 // ==============================================
