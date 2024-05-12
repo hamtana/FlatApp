@@ -71,14 +71,25 @@ function insertUser(name, phone_number, email, address, password) {
                 if (err) {
                     console.log(err);
                     reject(err);
-                } else if (result.length > 0) {
+                } else {
                     console.log("Query successful");
-                    resolve(result);
+                    console.log(result);
+                    if (result.length > 0) {
+                        resolve(result);
+                    } else {
+                        // No user found with the provided email and password
+                        resolve(null);
+                    }
                 }
             });
         });
     }
+   
 
+
+
+
+     
     //Function that retrieves the group tasks by group id
     //Retrieves all tasks that are associated with a group
     //Retrieve details name of the user from the user table

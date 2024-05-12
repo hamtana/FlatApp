@@ -180,7 +180,8 @@ router.post('/auth', async (req, res,next) => {
         // Perform authentication query
         const userResults = await checkEmailAndPassword(email, password);
 
-        if (userResults.length > 0) {
+
+        if (userResults != null) {
             // Authentication successful
             const sessionObject = userResults[0];
             const groubObj = await getGroupsByUser(sessionObject.id);
@@ -210,7 +211,9 @@ router.post('/auth', async (req, res,next) => {
                 group: groubObj,
                 isAdded: true
             });
-        } else {
+        }
+        
+        else {
             // Authentication failed
             res.render('login', {
                 error: 'Incorrect email or password!'
