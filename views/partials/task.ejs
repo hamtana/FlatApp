@@ -1,0 +1,28 @@
+<div class="dashboard-number-card">
+    <h5 class="dashboard-number-value"> <%= task.title %></h5>
+    <div>
+        <script>
+            const parsedDate = new Date("<%= task.due_date %>");
+
+            console.log("PData " +parsedDate);
+            const formattedDate = parsedDate.toLocaleString();
+            console.log("FormattedData" + formattedDate);
+            document.querySelector(".dashboard-number-area").value = formattedDate; // Convert the parsed date to a readable format
+        </script>
+
+      <p class="dashboard-number-area"> <%= task.due_date %></p>
+      <p class="dashboard-number-delta">
+        <%= task.title %>
+      <!-- {{#if positive}}
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+      {{else}}
+        {{#if negative}}
+        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        {{/if}}
+      {{/if}}
+      $3000(10%) -->
+      </p>
+    </div>
+  </div>
+  
+  

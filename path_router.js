@@ -44,8 +44,12 @@ try {
         getGroupTasksDueWeek,
         getGroupTasksToday,
         getGroupTasksTomorrow,
-        getGroupTasksByGroupId,getGroupsByUser,checkEmailAndPassword,
-        updateTaskStatus} = require("./dataQueries.js")
+        getGroupTasksByGroupId,
+        getGroupsByUser,
+        checkEmailAndPassword,
+        updateTaskStatus,
+        getGroupTasksByUserId,
+    } = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
 
@@ -187,6 +191,9 @@ router.post('/auth', async (req, res,next) => {
             // Authentication successful
             const sessionObject = userResults[0];
             const groubObj = await getGroupsByUser(sessionObject.id);
+            const tasksList = await getGroupTasksByUserId(sessionObject.id);
+            console.log(tasksList);
+
 
             console.log(sessionObject);
             req.session.loggedin = true;
@@ -211,7 +218,8 @@ router.post('/auth', async (req, res,next) => {
             res.render('userHomePage', {
                 user: sessionObject,
                 group: groubObj,
-                isAdded: true
+                isAdded: true,
+                tasks: tasksList
             });
         }
         

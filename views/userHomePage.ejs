@@ -8,7 +8,84 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- <link rel="stylesheet" href="/css/userHomePage.css"> -->
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <style>
 
+
+/*Inspo from
+ https://get.foundation/building-blocks/blocks/dashboard-number-card.html */
+
+.dashboard-number-card {
+  background: #fff;
+  border-radius: 5px;
+  margin: 0 20px 20px;
+  position: relative;
+  max-width: 400px;
+    max-height: 150px;
+}
+
+.dashboard-number-card .dashboard-number-delta {
+  -webkit-align-items: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  bottom: 6px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0;
+  opacity: 0.7;
+  position: absolute;
+  right: 6px;
+  color: #1779ba;
+}
+
+.dashboard-number-card .dashboard-number-delta i {
+  margin-right: 5px;
+  width: 0.6rem;
+}
+
+.dashboard-number-card.positive .dashboard-number-delta, .dashboard-number-card.negative .dashboard-number-delta {
+  color: #fefefe;
+}
+
+.dashboard-number-card.positive .dashboard-number-value,
+.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-value,
+.dashboard-number-card.negative .dashboard-number-area {
+  color: black;
+}
+
+.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-area {
+  opacity: 0.6;
+}
+
+.dashboard-number-card.positive {
+  background: #3adb76;
+}
+
+.dashboard-number-card.negative {
+  background: #cc4b37;
+}
+
+.dashboard-number-value {
+  color: #1779ba;
+  font-size: 22px;
+  font-weight: 800;
+  padding: 1rem 2rem 1.75rem;
+  text-align: center;
+}
+
+.dashboard-number-area {
+  bottom: 6px;
+  color: #1779ba;
+  font-size: 12px;
+  left: 6px;
+  margin-bottom: 0;
+  position: absolute;
+}
+
+
+    </style>
     <title>Flat App</title>
 
 </head>
@@ -55,51 +132,82 @@
                     src="https://i.imgur.com/DMrnU5d.png"
                     style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
         </a>
-       
-                                
 
-        <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;" >
-            <div class="viewGroupButtonAndWrappers" style: > 
+
+
+        <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;">
+            <div class="viewGroupButtonAndWrappers" style:>
                 <!-- <a href="" class="cs-button-2" aria-label="View your group and tasks">View Group</a> -->
                 <!-- <button class="btn" id ="btnViewGroup">
                     View Group
                   </button> -->
-            
+
             </div>
 
-            <section id="overview">
-                <% for (let i = 0; i < group.length; i++) { %>
-                    <%- include('partials/groupCard', { groupCard: group[i]}) %>
-                <% } %>               
-            </section>
+            <div class="wrapperForGroupsAndTasks" style =" display: grid; 
+             grid-template-columns: auto auto;
+            gap: 50px;">
+                <section id="overview">
+                    <% for (let i=0; i < group.length; i++) { %>
+                        <%- include('partials/groupCard', { groupCard: group[i]}) %>
+                            <% } %>
+
+                                <% if (group.length==0) { %>
+                                    <div class="noGroup">
+                                        <h1> You are not in any group yet. </h1>
+                                        <h2> Create a group or join a group to start using Flat App! </h2>
+                                    </div>
+                                    <% } %>
+                </section>
+
+                <section id="myTaskBox">
+
+                    <div class="taskBox">
+                        <h1>My Tasks</h1>
+                        <div class="taskList">
+                            <% for (let j=0; j < tasks.length; j++) { %>
+                                <%- include('partials/task', { task: tasks[j]}) %>
+                                    <% } %>
+
+                                        <% if (tasks.length==0) { %>
+                                            <div class="noTask">
+                                                <h1> You have no task yet. </h1>
+                                                <h2> Create a task to start using Flat App! </h2>
+                                            </div>
+                                            <% } %>
+                        </div>
+                    </div>
+
+
+
+
+                </section>
+
+            </div>
         </main>
 
     </div>
-               
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
-        // const btnViewGroup = document.querySelector('#btnViewGroup');
-        // btnViewGroup.addEventListener('click', () => {
-        //     window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
-            
-            
-        // })
+
 
     </script>
 
 
     <% if (isAdded) { %>
         <script>
-         Swal.fire(
-            'Log in Succesful!',
-            'Welcome to Flat App',
-            'success'
-        )
+            Swal.fire(
+                'Log in Succesful!',
+                'Welcome to Flat App',
+                'success'
+            )
 
-       </script>
+        </script>
 
-       <%  isAdded=false;} %>
+        <% isAdded=false;} %>
+
 
 
 </body>

@@ -210,6 +210,26 @@ function insertUser(name, phone_number, email, address, password) {
         });
     }
 
+    function getGroupTasksByUserId(id){
+        return new Promise((resolve,reject)=>{
+            connection.query("SELECT * FROM group_task JOIN task ON group_task.task_id = task.id JOIN user ON group_task.user_id = user.id WHERE user_id = ?",[id],function(err,result){
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    console.log("Query successful");
+                    resolve(result);
+                }
+          
+            });
+        });
+
+
+
+
+
+    }
+
 
     //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
     // function insertGroup(name) {
@@ -357,4 +377,4 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
-    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus };
+    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId };
