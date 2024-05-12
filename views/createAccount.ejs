@@ -15,7 +15,9 @@
             </div>
             <div class="login">
               <!-- Button to redirect user to a new page for signing in -->
+              <a href="/login">
               <button type="">Sign In</button>
+            <a>
             </div>
         </nav>
     </header>
@@ -33,6 +35,9 @@
                     
 
                     <p>Please enter the following information to create an Account</p>
+                    <!-- Prints error if account exists already -->
+                    <p><%= error %></p>
+
                     <fieldset>
                         <div class="createAccField">
                         <label for="name">Name</label>
@@ -60,7 +65,7 @@
                     </fieldset>
 
                     <!-- Button to redirect user to a new page for signing in -->
-                    <button type="">Sign In</button>
+                    <!-- <button type="">Sign In</button> -->
                     
                     <button class="'submitCreateAccount" type="submit">Create Account</button>
 
@@ -82,15 +87,17 @@
 
              <script>
 
+                
              const submitButton = document.querySelector('button.trial');
 
             submitButton.addEventListener('click', () => {
-                Swal.fire(
-                'Account Created!',
-                'Welcome to Flat App',
-                'success'
-                )
-            });
+       
+                    Swal.fire(
+                'User Already Exists !',
+                'Please try Again',
+                'Unable to Create Account'
+            )});
+            
 
             // const submitCreateAccount = document.querySelector('button.submitCreateAccount');
 
@@ -108,5 +115,28 @@
         //        'success'
         //    )
           </script>
+
+<% if (error.length>0) { %>
+    <script>
+            Swal.fire(
+                'User Already Exists !',
+                'Please try Again',
+                'Unable to Create Account'
+            )
+   </script>
+
+   <%  } %>
+
+
+   <% if (accountCreated) { %>
+    <script>
+            Swal.fire(
+            'Account Created!',
+            'Log in now to access your account',
+            'success'
+        )
+   </script>
+
+   <%  } %>
     </body>
 </html>

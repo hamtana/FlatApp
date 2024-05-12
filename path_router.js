@@ -83,8 +83,10 @@ router.get('/createGroupTask', async (req, res) => {
     res.render('createGroupTask');
 });
 router.get('/createAccount', async (req, res) => {
-    res.render('createAccount');
-});
+    res.render('createAccount', {
+        error: '',
+        accountCreated: false
+    });});
 
 //Router to get the ViewGroupTasks. 
 router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
@@ -284,18 +286,25 @@ router.post('/create-account', async (req, res) => {
     const phone_number = req.body.phone_number;
     const email = req.body.email;
     const address = req.body.address;
-
     const password = req.body.password;
 
     //log data in the console so that is visible for testing. 
     console.log(name, phone_number, email, address, password);
-
+    const doesUserExist = await getUserByEmail(email);
+    if (doesUserExist != null) {
+        res.render('createAccount', {
+            error: 'User already exists',
+            accountCreated: false
+        });
+    }else{
     //insert the data into the database
     insertUser(name, phone_number, email,address, password);
+    res.render('createAccount', {
+        error: '',
+        accountCreated: true
+    })
 
-    res.redirect('/createAccount');
-
-});
+}});
 
 
 //Routing for Create Group

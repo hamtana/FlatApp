@@ -44,7 +44,14 @@ function insertUser(name, phone_number, email, address, password) {
                     reject(err);
                 } else {
                     console.log("Query successful");
-                    resolve(result);
+                    console.log(result);
+                    if (result.length > 0) {
+                        resolve(result);
+                    } else {
+                        // No user found with the provided email and password
+                     //   Success
+                        resolve(null);
+                    }
                 }
             });
         });
