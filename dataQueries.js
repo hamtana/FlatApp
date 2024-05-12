@@ -246,6 +246,23 @@ function insertUser(name, phone_number, email, address, password) {
         });
     }
 
+    function updateTaskStatus(status, task_id, user_id) {
+        return new Promise((resolve, reject) => {
+            connection.query("UPDATE group_task SET status = ? WHERE task_id = ? AND user_id = ?", [status, task_id, user_id], function (err, result) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("Query successful");
+                    resolve(result);
+                }
+            });
+        });
+    }
+
+            
+
+
 
 
 
@@ -322,4 +339,4 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
-    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword };
+    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus };

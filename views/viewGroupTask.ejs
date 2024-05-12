@@ -96,5 +96,12 @@
     <footer>
         <!-- Footer content -->
     </footer>
+    <script> 
+        
+        const btnViewGroup = document.querySelector('#btnViewGroup');
+        btnViewGroup.addEventListener('click', () => {
+            window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
+        })
+    </script>
 </body>
 </html>

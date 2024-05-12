@@ -58,17 +58,21 @@
        
                                 
 
-        <main class="infoBox" style="margin-top:200px; z-index: 1000;" >
+        <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;" >
             <div style:> 
                 <!-- <a href="" class="cs-button-2" aria-label="View your group and tasks">View Group</a> -->
-                <button class="btn btn-secondary">
-                    <span class="btn-label">View Group</span>
+                <button class="btn" id ="btnViewGroup">
+                    View Group
                   </button>
+            
             </div>
 
             <section id="overview">
                 <h2>Overview of <%= group[0].name %> Task</h2>
-                <div id="today">
+                <p> <%= user %></p>
+                <p> <%= loggedIn %></p>
+
+                <!-- <div id="today">
                     <h3>Today</h3>
                     <table>
                         <thead>
@@ -90,13 +94,24 @@
                         </tbody>
                     </table>
                 </div>
-       
+        -->
             </section>
         </main>
 
     </div>
                
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        const btnViewGroup = document.querySelector('#btnViewGroup');
+        btnViewGroup.addEventListener('click', () => {
+            window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
+            
+            
+        })
+
+    </script>
+
 
     <% if (isAdded) { %>
         <script>
@@ -105,8 +120,10 @@
             'Welcome to Flat App',
             'success'
         )
+
        </script>
-       <% } %>
+
+       <%  isAdded=false;} %>
 
 
 </body>
