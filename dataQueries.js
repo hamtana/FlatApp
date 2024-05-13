@@ -255,18 +255,20 @@ function insertUser(name, phone_number, email, address, password) {
     //     });
     // }
 
-    function insertGroup(name) {
-        connection.connect(function (err) {
-            var sql = "INSERT INTO `group` (name) VALUES ('" + name + "');";
-            connection.query(sql, function (err, result) {
-                console.log("1 record inserted");
+    function insertGroup(name,join_code) {
+
+        return new Promise((resolve, reject) => {
+            connection.query("INSERT INTO `group` (name,join_code) VALUES (?,?)", [name,join_code], function (err, result) {
                 if (err) {
                     console.log(err);
-                    return 0;
+                    reject(err);
+                } else {
+                    console.log("1 record inserted");
+                    resolve(result);
                 }
-                return 1;
             });
         });
+
     }
 
     //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);

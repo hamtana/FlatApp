@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const con = require('./database.js');
 const { get } = require('https');
+const crypto = require('crypto');
+
 
 // or via CommonJS
 const Swal = require('sweetalert2')
@@ -99,6 +101,7 @@ router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
         res.redirect('/login');
     }
 
+
     group_id = req.params.id;
     console.log(group_id);
 
@@ -185,8 +188,6 @@ router.post('/auth', async (req, res,next) => {
 
         // Perform authentication query
         const userResults = await checkEmailAndPassword(email, password);
-
-
         if (userResults != null) {
             // Authentication successful
             const sessionObject = userResults[0];
@@ -250,7 +251,6 @@ router.post('/joinGroup', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 }); 
-
 
 
 router.get('/logout', async (req, res) => {
@@ -322,7 +322,11 @@ router.post('/create/group', async function (req, res) {
     const groupNameResult = req.body.groupName;
 
     console.log(groupNameResult);
-    insertGroup(groupNameResult);
+    // Join COde
+    const min = 100000;
+    const max = 999999;
+    const joinCode = Math.floor(Math.random() * (max - min + 1)) + min;
+    insertGroup(groupNameResult,joinCode);
     res.redirect('/createGroup');
 });
 
@@ -341,7 +345,6 @@ router.post('/addMember', async (req, res) => {
 
     //query the database to retrieve the user_id, and group_id
     let user = await getUserByEmail(user_email);
-
     //get the user id out of user
     let user_id = user[0].id;
     
