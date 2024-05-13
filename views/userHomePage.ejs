@@ -9,82 +9,85 @@
     <!-- <link rel="stylesheet" href="/css/userHomePage.css"> -->
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
     <style>
+        /*Inspo from
+ https://get.foundation/building-blocks/blocks/dashboard-number-card.html 
+ 
+ https://get.foundation/building-blocks/blocks/alert-callout-border.html
+ 
+ */
 
+        .dashboard-number-card {
+            background: #fff;
+            border-radius: 5px;
+            margin: 0 20px 20px;
+            position: relative;
+            max-width: 400px;
+            max-height: 150px;
+        }
 
-/*Inspo from
- https://get.foundation/building-blocks/blocks/dashboard-number-card.html */
+        .dashboard-number-card .dashboard-number-delta {
+            -webkit-align-items: baseline;
+            -ms-flex-align: baseline;
+            align-items: baseline;
+            bottom: 6px;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 0;
+            opacity: 0.7;
+            position: absolute;
+            right: 6px;
+            color: #1779ba;
+        }
 
-.dashboard-number-card {
-  background: #fff;
-  border-radius: 5px;
-  margin: 0 20px 20px;
-  position: relative;
-  max-width: 400px;
-    max-height: 150px;
-}
+        .dashboard-number-card .dashboard-number-delta i {
+            margin-right: 5px;
+            width: 0.6rem;
+        }
 
-.dashboard-number-card .dashboard-number-delta {
-  -webkit-align-items: baseline;
-      -ms-flex-align: baseline;
-          align-items: baseline;
-  bottom: 6px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 0;
-  opacity: 0.7;
-  position: absolute;
-  right: 6px;
-  color: #1779ba;
-}
+        .dashboard-number-card.positive .dashboard-number-delta,
+        .dashboard-number-card.negative .dashboard-number-delta {
+            color: #fefefe;
+        }
 
-.dashboard-number-card .dashboard-number-delta i {
-  margin-right: 5px;
-  width: 0.6rem;
-}
+        .dashboard-number-card.positive .dashboard-number-value,
+        .dashboard-number-card.positive .dashboard-number-area,
+        .dashboard-number-card.negative .dashboard-number-value,
+        .dashboard-number-card.negative .dashboard-number-area {
+            color: black;
+        }
 
-.dashboard-number-card.positive .dashboard-number-delta, .dashboard-number-card.negative .dashboard-number-delta {
-  color: #fefefe;
-}
+        .dashboard-number-card.positive .dashboard-number-area,
+        .dashboard-number-card.negative .dashboard-number-area {
+            opacity: 0.6;
+        }
 
-.dashboard-number-card.positive .dashboard-number-value,
-.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-value,
-.dashboard-number-card.negative .dashboard-number-area {
-  color: black;
-}
+        .dashboard-number-card.positive {
+            background: #3adb76;
+        }
 
-.dashboard-number-card.positive .dashboard-number-area, .dashboard-number-card.negative .dashboard-number-area {
-  opacity: 0.6;
-}
+        .dashboard-number-card.negative {
+            background: #cc4b37;
+        }
 
-.dashboard-number-card.positive {
-  background: #3adb76;
-}
+        .dashboard-number-value {
+            color: #1779ba;
+            font-size: 22px;
+            font-weight: 800;
+            padding: 1rem 2rem 1.75rem;
+            text-align: center;
+        }
 
-.dashboard-number-card.negative {
-  background: #cc4b37;
-}
-
-.dashboard-number-value {
-  color: #1779ba;
-  font-size: 22px;
-  font-weight: 800;
-  padding: 1rem 2rem 1.75rem;
-  text-align: center;
-}
-
-.dashboard-number-area {
-  bottom: 6px;
-  color: #1779ba;
-  font-size: 12px;
-  left: 6px;
-  margin-bottom: 0;
-  position: absolute;
-}
-
-
+        .dashboard-number-area {
+            bottom: 6px;
+            color: #1779ba;
+            font-size: 12px;
+            left: 6px;
+            margin-bottom: 0;
+            position: absolute;
+        }
     </style>
     <title>Flat App</title>
 
@@ -135,19 +138,39 @@
 
 
 
+
         <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;">
             <div class="viewGroupButtonAndWrappers" style:>
                 <!-- <a href="" class="cs-button-2" aria-label="View your group and tasks">View Group</a> -->
                 <!-- <button class="btn" id ="btnViewGroup">
                     View Group
                   </button> -->
+         
+                <a href="/createGroup">
+                    <button  class="btn">Create Group <img
+                            src="https://i.imgur.com/DMrnU5d.png"
+                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
+                </a>
+                <a href="/joinGroup">
+                    <button  class="btn">Join Group <img
+                            src="https://i.imgur.com/DMrnU5d.png"
+                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
+                </a>
 
             </div>
 
-            <div class="wrapperForGroupsAndTasks" style =" display: grid; 
+            <div class="wrapperForGroupsAndTasks" style="
+             display: grid; 
              grid-template-columns: auto auto;
             gap: 50px;">
-                <section id="overview">
+                <section id="groupOverview" style="display: grid;
+                grid-template-rows: auto auto;
+                gap: 50px;
+                margin-left: 50px;
+                margin-right: 50px;
+
+                
+                ">
                     <% for (let i=0; i < group.length; i++) { %>
                         <%- include('partials/groupCard', { groupCard: group[i]}) %>
                             <% } %>
@@ -163,7 +186,7 @@
                 <section id="myTaskBox">
 
                     <div class="taskBox">
-                        <h1>My Tasks</h1>
+                        <h1 style="align-content: center;">My Tasks</h1>
                         <div class="taskList">
                             <% for (let j=0; j < tasks.length; j++) { %>
                                 <%- include('partials/task', { task: tasks[j]}) %>
