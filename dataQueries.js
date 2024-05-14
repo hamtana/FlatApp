@@ -179,6 +179,8 @@ function insertUser(name, phone_number, email, address, password) {
         });
     }
 
+
+
     function joinGroupUsingKey(id, group_id) {
         return new Promise((resolve, reject) => {
             connection.query("INSERT INTO group_user (user_id, group_id) VALUES (?, ?)", [id, group_id], function (err, result) {
@@ -192,6 +194,22 @@ function insertUser(name, phone_number, email, address, password) {
             );
         });
     }
+
+    function getGroupByJoinCode(join_code) {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT * FROM `group` WHERE join_code = ?", [join_code], function (err, result) {
+
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("Query successful");
+                    resolve(result);
+                }
+            });
+        });
+    }
+
 
 
     // QUERY TO GET GROUPS User is in
@@ -261,7 +279,7 @@ function insertUser(name, phone_number, email, address, password) {
                             reject(err);
                         });
                     } else {
-                        resolve(null);
+                        resolve(result);
                     }
                 }
 
@@ -379,4 +397,4 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
-    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupByCode};
+    module.exports = { getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};

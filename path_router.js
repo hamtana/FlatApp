@@ -52,6 +52,9 @@ try {
         checkEmailAndPassword,
         updateTaskStatus,
         getGroupTasksByUserId,
+        joinGroupUsingKey,
+        getGroupByJoinCode,
+        joinGroupByCode,
     } = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -361,22 +364,23 @@ router.get('/addUserToGroup', async (req, res) => {
     }
 });
 
-router.post('joinGroupWithCode', async (req, res) => { 
+router.post('/joinGroupWithCode', async (req, res) => { 
+    console.log("BODY" + req.body);
     const groupCode = req.body.join_code;
-    // const user = getUser(req);
-    const user = req.body.user_id;
-    const group = getGroupByCode(groupCode);
+    console.log(groupCode);
+    const userId = req.body.user_id;
+    // console.log(userId);
 
-    print("TESTING")
-    print(group);
-    print (user);
+    const group = await getGroupByJoinCode(groupCode);
+    
+    //  group = "fefewf";
     if (group != null) {
-        joinGroup(user, group.id);
+        joinGroupByCode(userId, groupCode);
         res.redirect('/userHomePage');
+
     } else {
-        res.render('addNewMemberToExistingGroup', {
-            error: 'Group not found'
-        });
+        res.redirect('/userHomePage');
+    
     }
 }
 );
