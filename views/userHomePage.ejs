@@ -139,23 +139,30 @@
 
 
 
-        <main class="infoBox" style=" margin-left:200px; margin-top:200px; z-index: 1000;">
+        <main class="infoBox" style=" margin-left:200px; margin-top:150px; z-index: 1000;">
+            <div class="joinAndCreateGroupButtons" style="position: absolute; width: 400px;
+           display: grid;
+              grid-template-rows: auto auto;
+                gap: 50px; margin-left: 50px; margin-right: 50px;
+                left :-30px;
+                top:80px;
+           ">
+                <a href="/createGroup">
+                    <button class="btn">Create Group <img src="https://i.imgur.com/DMrnU5d.png"
+                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
+                </a>
+                <a id="joinButton">
+                    <button class="btn">Join Group <img src="https://i.imgur.com/DMrnU5d.png"
+                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
+                </a>
+            </div>
             <div class="viewGroupButtonAndWrappers" style:>
                 <!-- <a href="" class="cs-button-2" aria-label="View your group and tasks">View Group</a> -->
                 <!-- <button class="btn" id ="btnViewGroup">
                     View Group
                   </button> -->
-         
-                <a href="/createGroup">
-                    <button  class="btn">Create Group <img
-                            src="https://i.imgur.com/DMrnU5d.png"
-                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
-                </a>
-                <a href="/joinGroup">
-                    <button  class="btn">Join Group <img
-                            src="https://i.imgur.com/DMrnU5d.png"
-                            style="width:20px; margin-left:0px; margin-right:6px; flex-direction: row-reverse;"></button>
-                </a>
+
+
 
             </div>
 
@@ -212,10 +219,110 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
     <script>
 
+        // const func1 = require('/path_router.js');
+        //     const func2 = require('/dataQueries.js');
+        //     const func3 = require('./path_router.js');
+        //     const func4 = require('./dataQueries.js');
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     document.getElementById("joinButton").addEventListener("click", async function(event) {
+        //         event.preventDefault(); // Prevent the default behavior of the link
 
+        //         const { value: joinCode } = await Swal.fire({
+        //             title: "Input Join Code",
+        //             input: "text",
+        //             inputLabel: "Your group's code",
+        //             inputPlaceholder: "Enter a code",
+        //         });
+
+        //         if (joinCode) {
+        //         Swal.fire(`Entered Code: ${joinCode}`);
+        //     }
+        //         if(joinCode){
+
+        //         }
+
+        //     });
+        // });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     document.getElementById("joinButton").addEventListener("click", async function(event) {
+        //         event.preventDefault(); // Prevent the default behavior of the link
+
+        //         // Prompt the user to enter the join code
+        //         const { value: joinCode } = await Swal.fire({
+        //             title: "Input Join Code",
+        //             input: "text",
+        //             inputLabel: "Your group's code",
+        //             inputPlaceholder: "Enter a code",
+        //         });
+
+        //         // If the user entered a join code
+        //         if (joinCode) {
+        //             // Send an HTTP request to your server
+        //             try {
+        //                 const response = await fetch(`/joinGroupWithCode`);
+        //                 const data = await response.json();
+
+        //                 // Check if the join operation was successful
+        //                 if (data.success) {
+        //                     Swal.fire("Success!", "You have successfully joined the group.", "success");
+        //                     // Optionally, you can reload the page to reflect changes
+        //                     // window.location.reload();
+        //                 } else {
+        //                     Swal.fire("Error!", data.message, "error");
+        //                 }
+        //             } catch (error) {
+        //                 console.error(error);
+        //                 Swal.fire("Error!", "An error occurred while joining the group. Please try again later.", "error");
+        //             }
+        //         }
+        //     });
+        // });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("joinButton").addEventListener("click", async function (event) {
+                event.preventDefault(); // Prevent the default behavior of the link
+
+                const { value: joinCode } = await Swal.fire({
+                    title: "Input Join Code",
+                    input: "text",
+                    inputLabel: "Your group's code",
+                    inputPlaceholder: "Enter a code",
+                });
+
+                if (joinCode) {
+                    // Create an object with the data to send in the request body
+                    const data = {
+                         join_code: joinCode,
+                        user_id: "<%= user.user_id %>"
+                    };
+
+                    try {
+                        const response = await fetch("/joinGroupWithCode", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        const responseData = await response.json();
+
+                        if (response.ok) {
+                            Swal.fire("Success!", responseData.message, "success");
+                            // Optionally, you can reload the page to reflect changes
+                            // window.location.reload();
+                        } else {
+                            Swal.fire("Error!", responseData.error, "error");
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        Swal.fire("Error!", "An error occurred while joining the group. Please try again later.", "error");
+                    }
+                }
+            });
+        });
     </script>
 
 
