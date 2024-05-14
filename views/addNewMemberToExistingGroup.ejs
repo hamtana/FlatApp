@@ -20,7 +20,10 @@
             <input type="text" id="email" name="email" required>
             
             <label for="group">Select Group</label>
-            <select id="grouo" name="group" required>
+            <% if (error ) { %>
+                <p >No User available</p>
+            <% } %>
+            <select id="group" name="group" required>
                 <% for (let i = 0; i < groups.length; i++) { %>
                     <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>
                 <% } %>
