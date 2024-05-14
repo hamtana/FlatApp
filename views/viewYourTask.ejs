@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <%- include("partials/header")-%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <link rel="stylesheet" href="/css/zaraHomepage.css"> <!-- Assuming you have a separate CSS file -->
 </head>
 <body>
+    
     <header>
+        <!--
         <nav>
             <img src="flat_app.png">
             <h1>View Your Tasks </h1>
@@ -19,15 +22,17 @@
                 <li><a href="#">View Group</a></li>
             </ul>
             </div>
+        -->
             <div class="profile">
                 <img src="personicon.png" >
-                <span><%= username %></span> <!-- Username will be dynamically inserted -->
+                <span><%= username %></span> !-- Username will be dynamically inserted -->
                 <!-- need to insert code for show all current contacts/friends -->
                 <img src="Add_members_icon.png">
                 <button type=""> Add New Contact</button>
             </div>
         </nav>
     </header>
+    
     <main>
         <section id="overview">
             <h2>Overview of <%= groupName %> Task</h2>
