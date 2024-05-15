@@ -179,6 +179,8 @@ function insertUser(name, phone_number, email, address, password) {
         });
     }
 
+
+
     function joinGroupUsingKey(id, group_id) {
         return new Promise((resolve, reject) => {
             connection.query("INSERT INTO group_user (user_id, group_id) VALUES (?, ?)", [id, group_id], function (err, result) {
@@ -192,6 +194,22 @@ function insertUser(name, phone_number, email, address, password) {
             );
         });
     }
+
+    function getGroupByJoinCode(join_code) {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT * FROM `group` WHERE join_code = ?", [join_code], function (err, result) {
+
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("Query successful");
+                    resolve(result);
+                }
+            });
+        });
+    }
+
 
 
     // QUERY TO GET GROUPS User is in
@@ -230,31 +248,6 @@ function insertUser(name, phone_number, email, address, password) {
 
     }
 
-
-    //CREATE TABLE group (group_id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL);
-    // function insertGroup(name) {
-    //     return new Promise((resolve, reject) => {
-    //         connection.connect(function(err) {
-    //             if (err) {
-    //                 console.log(err);
-    //                 reject(err);
-    //                 return;
-    //             }
-
-    //             var sql = "INSERT INTO `group` (name) VALUES (?)";
-    //             connection.query(sql, [name], function (err, result) {
-    //                 if (err) {
-    //                     console.log(err);
-    //                     reject(err);
-    //                     return;
-    //                 }
-    //                 console.log("1 record inserted");
-    //                 resolve(result);
-    //             });
-    //         });
-    //     });
-    // }
-
     function insertGroup(name,join_code) {
 
         return new Promise((resolve, reject) => {
@@ -269,6 +262,29 @@ function insertUser(name, phone_number, email, address, password) {
             });
         });
 
+    }
+
+    function joinGroupByCode(user_id, join_code) {
+        return new Promise((resolve, reject) => {
+            connection.query("SELECT group_id FROM `group` WHERE join_code = ?", [join_code], function (err, result) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("Query successful");
+                    if (result.length > 0) {
+                        joinGroupUsingKey(user_id, result[0].group_id).then((result) => {
+                            resolve(result);
+                        }).catch((err) => {
+                            reject(err);
+                        });
+                    } else {
+                        resolve(result);
+                    }
+                }
+
+            });
+        });
     }
 
     //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);
@@ -298,6 +314,8 @@ function insertUser(name, phone_number, email, address, password) {
                 }
             });
         });
+
+        
     }
 
             
@@ -379,4 +397,4 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
-    module.exports = { insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId };
+    module.exports = { getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};

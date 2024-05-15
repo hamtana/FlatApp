@@ -10,7 +10,8 @@ const crypto = require('crypto');
 
 
 // or via CommonJS
-const Swal = require('sweetalert2')
+const Swal = require('sweetalert2');
+const { error } = require('console');
 router = express.Router();
 // npm i body-parser
 
@@ -51,6 +52,9 @@ try {
         checkEmailAndPassword,
         updateTaskStatus,
         getGroupTasksByUserId,
+        joinGroupUsingKey,
+        getGroupByJoinCode,
+        joinGroupByCode,
     } = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -236,21 +240,6 @@ router.post('/auth', async (req, res,next) => {
     }
 });
 
-router.post('/joinGroup', async (req, res) => {
-    try {
-        const groupKey = req.body.groupKey;
-        const user = getUserByEmail(res.session.email);
-
-        // Perform query to join group
-        await joinGroupUsingKey(user.id, groupKey);
-
-        // Redirect to userHomePage
-        res.redirect('/userHomePage');
-    } catch (error) {
-        console.error('Error joining group:', error);
-        res.status(500).send('Internal Server Error');
-    }
-}); 
 
 
 router.get('/logout', async (req, res) => {
@@ -339,20 +328,25 @@ router.post('/addMember', async (req, res) => {
     let group_id = req.body.group;
     let user_email = req.body.email;
 
-    //log the data in the console so it is visible for testing. 
-    // console.log(user_email);
-    // console.log(group_id);
-
     //query the database to retrieve the user_id, and group_id
     let user = await getUserByEmail(user_email);
+    let group = await getGroupById(group_id);
+
+    let allGroups = await getGroups();  
     //get the user id out of user
+    if (user == null) {
+        res.render('addNewMemberToExistingGroup', {
+            groups: allGroups,
+            error: true
+        });
+        return
+    }else{
     let user_id = user[0].id;
-    
     //insert the data into the database
     insertGroupUser(user_id,group_id);
     res.redirect('/addUserToGroup');
 
-});
+}});
 
 
 //Routing for add user to group.
@@ -361,7 +355,7 @@ router.get('/addUserToGroup', async (req, res) => {
         // Fetch groups asynchronously
         const groups_data = await getGroups();
         // Render the EJS template with the fetched groups
-        res.render('addNewMemberToExistingGroup', { groups: groups_data });
+        res.render('addNewMemberToExistingGroup', { groups: groups_data,error: false });
         // console.log(groups_data);
     } catch (error) {
         // Handle error
@@ -370,33 +364,27 @@ router.get('/addUserToGroup', async (req, res) => {
     }
 });
 
+router.post('/joinGroupWithCode', async (req, res) => { 
+    console.log("BODY" + req.body);
+    const groupCode = req.body.join_code;
+    console.log(groupCode);
+    const userId = req.body.user_id;
+    // console.log(userId);
 
-//Routing for login
-// router.get('/login', async (req, res) => {
+    const group = await getGroupByJoinCode(groupCode);
+    
+    //  group = "fefewf";
+    if (group != null) {
+        joinGroupByCode(userId, groupCode);
+        res.redirect('/userHomePage');
 
-//     //gather data for email and password
-//     const email = req.body.email;
-//     const password = req.body.password;
+    } else {
+        res.redirect('/userHomePage');
+    
+    }
+}
+);
 
-//     //log the data in the console so it is visible for testing.
-//     console.log(email, password);
-
-//     //check against the data in the database
-//     returnTable('users');
-
-//     //insert code needed to check against the database here.
-//     //if the email and password match, redirect to the home page.
-//     //ASK GROUP ABOUT THIS
-
-
-//     //if the email and password do not match, redirect to the login page with an error message.
-//     res.redirect('/login');
-
-
-
-
-//     res.send('Login');
-// });
 
 
 
@@ -423,17 +411,11 @@ router.get('/returnTable', async (req, res) => {
     groupsArr = groupsRes;
     tasksArr = tasksRes;
 
-    console.log(usersArr);
-    console.log(groupsArr);
-    console.log(tasksArr);
-
 
     res.render('test', {
         users: usersArr,
         groups: groupsArr,
         tasks: tasksArr
-
-
     });
 
 
