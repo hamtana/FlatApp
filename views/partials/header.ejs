@@ -1,4 +1,5 @@
 <header>
+    <link rel="stylesheet" href="/css/style.css">
     <nav>
         <div class="menu-icon">
             <!-- Menu icon -->
@@ -7,17 +8,21 @@
             <img src="public\images\flat_app.png">
         </div>
         <!--Nav Bar-->
-        <div class="navigationbar">
-            <ul>
-                <li><a href="/viewYourTask">Homepage</a></li>
-                <li><a href="/viewGroupPage">Group Homepage</a></li>
-                <li><a href="/createTask">Create Task</a></li>
-                <li><a href="/createGroup">Create Group</a></li>
-            </ul>
+        <div class="navcontainer">
+            <nav class="navbar">
+                <ul>
+                    <li><a href="/viewYourTask">Homepage</a></li>
+                    <li><a href="/viewGroupPage">Group Homepage</a></li>
+                    <li><a href="/createTask">Create Task</a></li>
+                    <li><a href="/createGroup">Create Group</a></li>
+                </ul>
+            </nav>
         </div>
         <div class="login">
           <!-- Button to redirect user to a new page for signing in -->
-          <button type="">Sign In</button>
+          <a href="/login">
+            <button type="">Sign In</button>
+          <a>
         </div>
     </nav>
 </header>
