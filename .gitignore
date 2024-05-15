@@ -16,4 +16,3 @@ tmp/
 .DS_Store
 !gradle-wrapper.jar
 database.js
-node_modules/
