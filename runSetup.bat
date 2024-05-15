@@ -1,4 +1,3 @@
-cd "C:\Users\Carinn Gaspar\Documents\INFO 302"
 @echo off
 
 REM Prompt the user to enter the database password
