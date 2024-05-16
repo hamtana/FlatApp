@@ -11,7 +11,7 @@
     color: #1f2c39;
     font-family: system-ui;
 }
- 
+ /* create group*/
  .creategrouph1, .createTaskh1{
     position: absolute;
     top: 0;
@@ -24,6 +24,9 @@
     font-family: system-ui;
  }    
 
+ .groupnametextbox{
+  width: 550px;
+ }
  
   /* Setting up basic styles */
   body {
