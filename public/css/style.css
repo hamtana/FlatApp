@@ -272,4 +272,18 @@ svg {
     100% {opacity: 100%;}
 }
 
+/* footer */
+.footercontainer {
+    background-color: #333; /* Dark background color for the footer */
+    color: #fff; /* White text color */
+    text-align: center; /* Center align text */
+    padding: 10px 0; /* Add padding top and bottom */
+    position: fixed; /* Fixed position at the bottom */
+    width: 100%; /* Full width */
+    bottom: 0; /* Stick to the bottom */
+}
 
+footer p {
+    margin: 0; /* Remove default margin */
+    color: red;
+}
