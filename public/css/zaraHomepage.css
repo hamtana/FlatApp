@@ -311,3 +311,18 @@ body {
    .groupname, .email, .password, .createAccField, .taskName{
     margin-right: 20px;
    }
+
+   /* Responsive layout adjustments */
+@media (max-width: 768px) {
+  header {
+      padding: 10px; /* Reduce header padding on smaller screens */
+  }
+
+  .login button {
+      font-size: 0.8em; /* Decrease font size for smaller screens */
+  }
+
+  main {
+      padding: 10px; /* Reduce padding inside main on smaller screens */
+  }
+}
