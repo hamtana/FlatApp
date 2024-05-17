@@ -12,6 +12,7 @@ const crypto = require('crypto');
 // or via CommonJS
 const Swal = require('sweetalert2');
 const { error } = require('console');
+const { render } = require('ejs');
 router = express.Router();
 // npm i body-parser
 
@@ -55,6 +56,7 @@ try {
         joinGroupUsingKey,
         getGroupByJoinCode,
         joinGroupByCode,
+        getUsersinGroup,
     } = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -89,9 +91,7 @@ router.get('/login', async (req, res) => {
     
 });
 
-router.get('/createGroupTask', async (req, res) => {
-    res.render('createGroupTask');
-});
+
 router.get('/createAccount', async (req, res) => {
     res.render('createAccount', {
         error: '',
@@ -104,8 +104,6 @@ router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
     if (req.session.loggedin == false) {
         res.redirect('/login');
     }
-
-
     group_id = req.params.id;
     console.log(group_id);
 
@@ -136,6 +134,26 @@ router.get('/userHomePage', async (req, res) => {
 
         res.redirect('/login');
     }
+    res.render('userHomePage'),{
+        groups: req.session.groupSession,
+        user: req.session.user,
+        loggedIn: true,
+        tasks:req.session.tasks
+    }
+ 
+});
+
+router.get('/createGroupTask', async (req, res) => {
+    let membersArr = [];
+    const group_id_param = req.body.group_id;
+    membersArr = await getUsersinGroup(group_id_param);
+    console.log(membersArr);
+    res.render('createGroupTask', {
+        members: membersArr
+
+    });
+
+
 });
 
 router.get('/createtask', async (req, res) => {
@@ -159,8 +177,27 @@ router.post('/create/createTask', async (req, res) => {
         console.error(err);
         }
 
-    res.redirect('/create/task');
+    res.redirect('/create/');
 });
+
+router.post('/create/createGroupTask', async (req, res) => {
+        const group_id = req.session.group_id;
+        const task_name = req.body.taskName;
+        const description = req.body.description;
+        const due_date = req.body.due_date;
+        const user_id = req.session.user.id;
+        const status = req.body.status;
+
+        console.log(group_id, task_name, description, due_date, user_id, status);
+        insertGroupTask(group_id, task_name, description, due_date, user_id, status);
+        res.redirect('/createGroupTask');
+}
+);
+
+
+
+
+
 
 router.get('/viewYourTask', async (req, res) => {
     tasks = [];
@@ -204,7 +241,17 @@ router.post('/auth', async (req, res,next) => {
             req.session.loggedin = true;
             req.session.email = email;
             req.session.name = sessionObject.name;
+
+
             req.session.user = sessionObject;
+            req.session.groupSession = groubObj;
+            req.session.tasks = tasksList;
+
+            // res.session.user = sessionObject;
+            // res.session.groupSession = groubObj;
+            // res.session.tasks = tasksList;
+            
+
             res.locals.groupSession = groubObj;
 
             // Fetch groups for the user
@@ -217,6 +264,7 @@ router.post('/auth', async (req, res,next) => {
             res.locals.loggedIn = req.session.loggedin;
             res.locals.user = sessionObject;
             res.locals.groupSession = groubObj;
+            res.locals.tasks = tasksList;
 
                             // Render userHomePage with user and group data
 
@@ -252,27 +300,6 @@ router.get('/logout', async (req, res) => {
     });
 });
 
-
-// Routing for Create Individual Task
-router.post('/createIndividualTask', async (req, res) => {
-    
-    //Collect all of the data from the form using multer
-    console.log(req.body);
-    // const task_name = req.body.taskName;
-    // const description = req.body.description;
-    // const due_date = req.body.dueDate;
-    // const assignee = req.body.assignee;
-
-    // //log data in the console so that is visible for testing. 
-    // console.log(task_name, description, due_date, assignee);
-
-    // //insert the data into the database
-    // insertTask(task_name, description, due_date, assignee);
-
-    res.redirect('/createIndividualTask');
-
-
-});
 
 // Routing for Create Account
 router.post('/create-account', async (req, res) => {

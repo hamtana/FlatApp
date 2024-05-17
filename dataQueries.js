@@ -34,6 +34,22 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
+function updateTaskStatus(status, task_id, user_id) {
+    return new Promise((resolve, reject) => {
+        connection.query("UPDATE group_task SET status = ? WHERE task_id = ? AND user_id = ?", [status, task_id, user_id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+        });
+    });
+
+};
+
+
 
     //Query to get User by Email - SELECT * FROM user WHERE email = ?
     function getUserByEmail(email) {
@@ -248,6 +264,23 @@ function insertUser(name, phone_number, email, address, password) {
 
     }
 
+
+    function getUsersinGroup(group_id){
+        return new Promise((resolve,reject)=>{
+            connection.query("SELECT * FROM group_user JOIN user ON group_user.user_id = user.id WHERE group_id = ?",[group_id],function(err,result){
+                if(err){
+                    console.log(err);
+                    reject(err);
+                }else{
+                    console.log("Query successful");
+                    resolve(result);
+                }
+            });
+        }
+        );
+    }
+
+
     function insertGroup(name,join_code) {
 
         return new Promise((resolve, reject) => {
@@ -286,6 +319,20 @@ function insertUser(name, phone_number, email, address, password) {
             });
         });
     }
+    function insertGroupTask(status, task_id, user_id, group_id) {
+        return new Promise((resolve, reject) => {   
+            connection.query("INSERT INTO group_task (status, task_id, user_id, group_id) VALUES (?, ?, ?, ?)", [status, task_id, user_id, group_id], function (err, result) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("1 record inserted");
+                    resolve(result);
+                }
+            });
+        });
+    }
+    
 
     //CREATE TABLE task (id INT PRIMARY KEY AUTO_INCREMENT,title VARCHAR(255) NOT NULL,description VARCHAR(255) NOT NULL);
     function insertTask(title, description) {
@@ -397,4 +444,4 @@ function insertUser(name, phone_number, email, address, password) {
 
 
 
-    module.exports = { getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
+    module.exports = {getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
