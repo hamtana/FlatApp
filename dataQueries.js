@@ -125,6 +125,22 @@ function getGroupTasksDueWeek(id){
     });
 }
 
+//Function to mark tasks as complete.
+//Uses task ID to retrieve and update the status of the task.
+function markTaskComplete(taskId){
+    return new Promise((resolve, reject) => {
+        connection.query("UPDATE group_task SET status = 'Complete' WHERE task_id = ?", [taskId], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+            });
+    });
+}
+
 
 
 // QUERY TO GET GROUPS
