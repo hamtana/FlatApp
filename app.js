@@ -102,7 +102,7 @@ app.get('*', (req, res) => {
     res.status(404).send('404 Page Not Found');
 });
 
-const port = 8080 || process.env.PORT;
+let port = process.env.PORT || 8080;
 
 // Start the server
 app.listen(port, () => {
