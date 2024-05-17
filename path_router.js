@@ -134,6 +134,7 @@ router.get('/userHomePage', async (req, res) => {
 
         res.redirect('/login');
     }
+
     res.render('userHomePage'),{
         groups: req.session.groupSession,
         user: req.session.user,
@@ -142,6 +143,31 @@ router.get('/userHomePage', async (req, res) => {
     }
  
 });
+
+router.get('/userHomePage/:id', async (req, res) => {
+    id = req.params.id;
+
+    if (req.session.loggedin == false) {
+
+        res.redirect('/login');
+    }
+
+    const userResults = await getUser(id);
+
+
+    const sessionObject = userResults[0];
+    const groubObj = await getGroupsByUser(sessionObject.id);
+    const tasksList = await getGroupTasksByUserId(sessionObject.id);
+
+    res.render('userHomePage'),{
+        user: sessionObject,
+        group: groubObj,
+        isAdded: true,
+        tasks: tasksList
+    }
+ 
+});
+
 
 router.get('/createGroupTask', async (req, res) => {
     let membersArr = [];
@@ -222,6 +248,10 @@ router.get('/viewYourTask', async (req, res) => {
 });
 
 
+
+
+
+
 router.post('/auth', async (req, res,next) => {
     try {
         const email = req.body.email;
@@ -229,14 +259,15 @@ router.post('/auth', async (req, res,next) => {
 
         // Perform authentication query
         const userResults = await checkEmailAndPassword(email, password);
+        console.log("UserREsults are : \n" +userResults);
         if (userResults != null) {
             // Authentication successful
             const sessionObject = userResults[0];
+            let user = await getUser(sessionObject.id);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
+            let user_id = user.id;
             console.log(tasksList);
-
-
             console.log(sessionObject);
             req.session.loggedin = true;
             req.session.email = email;
@@ -403,10 +434,20 @@ router.post('/joinGroupWithCode', async (req, res) => {
     //  group = "fefewf";
     if (group != null) {
         joinGroupByCode(userId, groupCode);
-        res.redirect('/userHomePage');
+        res.render('userHomePage'),{
+            groups: req.session.groupSession,
+            user: req.session.user,
+            loggedIn: true,
+            tasks:req.session.tasks
+        }
 
     } else {
-        res.redirect('/userHomePage');
+        res.render('userHomePage'),{
+            groups: req.session.groupSession,
+            user: req.session.user,
+            loggedIn: true,
+            tasks:req.session.tasks
+        }
     
     }
 }
@@ -470,14 +511,6 @@ var getUserOrLogin = function (req, res, next) {
     }
   };
 
-  var getUser = function (req) {
-    var user = req.session.user;
-  
-    if (user == null) {
-      throw('Error');
-    } else {
-      return user;
-    }
-  };
+
 
 module.exports = router;

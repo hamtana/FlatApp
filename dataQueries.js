@@ -31,6 +31,19 @@ function insertUser(name, phone_number, email, address, password) {
     });
 }
 
+function getUser(id) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM user WHERE id = ?", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log("Query successful");
+                resolve(result);
+            }
+        });
+    });
+}
 
 
 
@@ -444,4 +457,4 @@ function updateTaskStatus(status, task_id, user_id) {
 
 
 
-    module.exports = {getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
+    module.exports = {getUser,getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
