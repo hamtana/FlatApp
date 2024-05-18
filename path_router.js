@@ -133,13 +133,23 @@ router.get('/userHomePage', async (req, res) => {
     if (req.session.loggedin == false) {
 
         res.redirect('/login');
+    }else{
+        res.render('userHomePage', {
+            user: req.session.user,
+            group: req.session.groupSession,
+            tasks: req.session.tasks,
+            isAdded: false,
+            loggedIn: req.session.loggedin
+
+        });
     }
-    res.render('userHomePage'),{
-        groups: req.session.groupSession,
-        user: req.session.user,
-        loggedIn: true,
-        tasks:req.session.tasks
-    }
+    // res.redirect('/userHomePage');
+    // res.render('userHomePage'),{
+    //     groups: req.session.groupSession,
+    //     user: req.session.user,
+    //     loggedIn: true,
+    //     tasks:req.session.tasks
+    // }
  
 });
 
