@@ -285,3 +285,113 @@ svg {
     50% {opacity: 0%;}
     100% {opacity: 100%;}
 }
+
+/* NEXT PAGE */
+
+/* General form styling */
+form.submitFormCreateAccount {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+form.submitFormCreateAccount p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Error message styling */
+form.submitFormCreateAccount p.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* Fieldset styling */
+form.submitFormCreateAccount fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+.createAccField, .password, .email {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label styling */
+form.submitFormCreateAccount label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input field styling */
+form.submitFormCreateAccount input[type="text"],
+form.submitFormCreateAccount input[type="email"],
+form.submitFormCreateAccount input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+form.submitFormCreateAccount input[type="text"]:focus,
+form.submitFormCreateAccount input[type="email"]:focus,
+form.submitFormCreateAccount input[type="password"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Button styling */
+form.submitFormCreateAccount button.submitCreateAccount {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    padding: 10px 30px;
+    border: solid #ffffff 2px;
+    border-radius: 50px;
+    transition: 1000ms;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+form.submitFormCreateAccount button.submitCreateAccount:hover {
+    padding: 10px 50px;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    color: #ffffff;
+    border: solid 2px white;
+}
+
+form.submitFormCreateAccount button[type="submit"] {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    padding: 10px 30px;
+    border: solid #ffffff 2px;
+    border-radius: 50px;
+    transition: padding 1000ms;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Hover effect */
+form.submitFormCreateAccount button[type="submit"]:hover {
+    padding: 10px 50px;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    color: #ffffff;
+    border: solid 2px white;
+}

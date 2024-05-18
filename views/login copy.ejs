@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" href="/css/zaraHomepage.css">
+    </head>
+    <body>
+        <!-- To be included partials -->
+        <main>
+            <div class="split_left">
+                <h1>Flat App</h1>
+                <div class="logo img">
+                    <img src="/images/logo04.png">
+                </div>
+            </div>
+            <div class="split_right">
+                <form action="/auth" method="POST">     <!-- enctype="multipart/form-data" -->
+
+                    <p>Please enter the following information to login</p>
+                     <p><%= error %></p>
+                    <fieldset>
+                        <div class="email">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="password">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" name="password" required>
+                        </div>
+                    </fieldset>
+
+                    <!-- Button to redirect user to a new page for creating an account -->
+                    
+                    <button type="submit" >Login</button>
+                </form>
+                <a href="/createAccount">
+                <button id="btnCreateAccount"  >Create Account</button>
+            </a>
+
+            </div>            
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <!-- <script>
+            Swal.fire(
+               'Log in Succesful!',
+               'Welcome to Flat App',
+               'success'
+           )
+          </script> -->
+    </body>

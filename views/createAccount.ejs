@@ -1,84 +1,86 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Create Account</title>
-        <link rel="stylesheet" href="/css/zaraHomepage.css">
-    </head>
-    <header>
-        <nav>
-            <div class="menu-icon">
-                <!-- Menu icon -->
-            </div>
-            <div class="logo">
-                <img src="/images/flat_app.png">
-            </div>
-            <div class="login">
-              <!-- Button to redirect user to a new page for signing in -->
-              <a href="/login">
-              <button type="">Sign In</button>
-            <a>
-            </div>
-        </nav>
-    </header>
-    <body>
-        <!-- To be included partials -->
-        <main>
-            <div class="split_left">
-                <h1>Flat App</h1>
-                <div class="logo img">
-                    <img src="/images/logo04.png">
-                </div>
-            </div>
-            <div class="split_right">
-                <form  class='submitFormCreateAccount' action="/create-account" method="POST">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <title>Flat App</title>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <!-- Top Navigation -->
+    <div class="navbar">
+        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
+        <a href="/login" class="login-container"><button class="btn">Login <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <form  class='submitFormCreateAccount' action="/create-account" method="POST">
                     
 
-                    <p>Please enter the following information to create an Account</p>
-                    <!-- Prints error if account exists already -->
-                    <p><%= error %></p>
+                <p>Please enter the following information to create an Account</p>
+                <!-- Prints error if account exists already -->
+                <p><%= error %></p>
 
-                    <fieldset>
-                        <div class="createAccField">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" name="name"required>
+                <fieldset>
+                    <div class="createAccField">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" name="name"required>
 
-                        <label for="phone-number">Phone Number</label>
-                        <input id="phoneNumber" type="text" name="phone_number" required>
+                    <label for="phone-number">Phone Number</label>
+                    <input id="phoneNumber" type="text" name="phone_number" required>
 
-                        <label for="email">Email</label>
-                        <input id="email" type="email" name="email" required>
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" required>
 
-                        <label for="address">Address</label>
-                        <input id="address" type="text" name="address" required>
-                        </div>
-                    </fieldset>
+                    <label for="address">Address</label>
+                    <input id="address" type="text" name="address" required>
+                    </div>
+                </fieldset>
 
-                    <fieldset>
-                        <div class="password">
-                        <label for="password">Password</label>
-                        <input id="password" type="password" name="password" required>
+                <fieldset>
+                    <div class="password">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" required>
 
-                        <label for="confirm-password">Confirm Password</label>
-                        <input id="passwordConfirm" type="password" name="confirm-password" required>
-                        </div>
-                    </fieldset>
+                    <label for="confirm-password">Confirm Password</label>
+                    <input id="passwordConfirm" type="password" name="confirm-password" required>
+                    </div>
+                </fieldset>
 
-                    <!-- Button to redirect user to a new page for signing in -->
-                    <!-- <button type="">Sign In</button> -->
-                    
-                    <button class="'submitCreateAccount" type="submit">Create Account</button>
+                <!-- Button to redirect user to a new page for signing in -->
+                <!-- <button type="">Sign In</button> -->
+                
+                <button class="button" type="submit">Create Account</button>
 
-                </form>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
 
-            </div>     
-            <div>
-                <button class="trial"> 
-                    <a >Trial</a>
-                </button>
-            </div>       
-        </main>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
@@ -137,5 +139,3 @@
    </script>
 
    <%  } %>
-    </body>
-</html>
