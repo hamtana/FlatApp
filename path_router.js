@@ -101,9 +101,9 @@ router.get('/createAccount', async (req, res) => {
 //Router to get the ViewGroupTasks. 
 router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
 
-    if (req.session.loggedin == false) {
-        res.redirect('/login');
-    }
+    // if (req.session.loggedin == false) {
+    //     res.redirect('/login');
+    // }
     group_id = req.params.id;
     console.log(group_id);
 
