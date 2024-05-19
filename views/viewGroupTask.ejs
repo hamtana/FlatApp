@@ -38,6 +38,7 @@
                             <th>Task</th>
                             <th>Assigned</th>
                             <th>Complete</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,9 @@
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
+                                    <form action="/deleteTask/<%= tasks_today[i].id %>" method="POST">
+                                        <button type="submit">Delete</button>
+                                    </form>
                                 </tr>
                             <% } %>
                         <% } %>
@@ -67,6 +71,7 @@
                             <th>Task</th>
                             <th>Assigned</th>
                             <th>Complete</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,6 +85,11 @@
                                         <form action="/markComplete/<%= tasks_tomorrow[i].id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
+                                    </td>
+                                    <td>
+                                    <form action="/deleteTask/<%= tasks_tomorrow[i].id %>" method="POST">
+                                        <button type="submit">Delete</button>
+                                    </form>
                                     </td>
                                 </tr>
                             <% } %>
@@ -96,6 +106,7 @@
                             <th>Task</th>
                             <th>Assigned</th>
                             <th>Complete</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,12 +116,16 @@
                                     <td><%= tasks_week[i].status %></td>
                                     <td><%= tasks_week[i].description %></td>
                                     <td><%= tasks_week[i].name %></td>
-
                                     <td>
                                         <form action="/markComplete/<%= tasks_week[i].id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
+                                    <td>
+                                        <form action="/deleteTask/<%= tasks_week[i].id %>" method="POST">
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                        </td>
                                 </tr>
                             <% } %>
                         <% } %>

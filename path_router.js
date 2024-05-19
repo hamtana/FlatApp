@@ -58,6 +58,7 @@ try {
         getGroupByJoinCode,
         joinGroupByCode,
         getUsersinGroup,
+        deleteTask,
     } = require("./dataQueries.js")
 
 } catch (error) {console.log(error);}
@@ -134,6 +135,20 @@ router.post('/markComplete/:taskId', async (req, res) => {
         res.redirect('back');
     } catch (error) {
         console.error("Error marking task as complete:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+//Router to delete a task.
+router.post('/deleteTask/:taskId', async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        // Call the function to mark the task as complete
+        await deleteTask(taskId);
+        //render the previous page
+        res.redirect('back');
+    } catch (error) {
+        console.error("Error deleting task:", error);
         res.status(500).send("Internal Server Error");
     }
 });

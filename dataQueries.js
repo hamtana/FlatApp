@@ -202,6 +202,20 @@ function markTaskComplete(taskId){
     });
 }
 
+//Function to delete a task
+function deleteTask(taskId){
+    return new Promise((resolve, reject) => {
+        connection.query("DELETE FROM group_task WHERE task_id = ?", [taskId], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+            });
+    });
+}
+
 
 
     // QUERY TO GET GROUPS
@@ -488,5 +502,6 @@ function markTaskComplete(taskId){
         updateTaskStatus,
         getGroupTasksByUserId,
         joinGroupUsingKey,
+        deleteTask,
         markTaskComplete,
         joinGroupByCode};
