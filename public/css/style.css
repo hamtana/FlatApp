@@ -190,6 +190,31 @@ svg {
     border: solid 2px white;
 }
 
+/* ===========
+Dyrels edits
+ */
+.btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 16px;
+    color: #fff;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    padding: 10px 30px;
+    border: solid #ffffff 2px;
+    border-radius: 50px;
+    transition: 1000ms;
+    cursor: pointer;
+}
+.btn:hover {
+    padding: 10px 50px;
+    background: linear-gradient(153deg, #cde7ff 0%, #1562ba 100%);
+    color: #ffffff;
+    border: solid 2px white;
+}
+
+
+/* ===========*/
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar .logo {
