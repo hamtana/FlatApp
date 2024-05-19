@@ -58,6 +58,7 @@ try {
         getGroupByJoinCode,
         joinGroupByCode,
         getUsersinGroup, checkIfUserIsMember,
+        getCompleteTasksByGroupId,
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -529,6 +530,13 @@ var getUserOrLogin = function (req, res, next) {
     }
 };
 
+router.get('/taskHistoryOfGroup/:group_id', async (req,res) => {
+    // const group = await getGroupById(req.params.group_id);
+    const tasksObj = await getCompleteTasksByGroupId(req.params.group_id);
+    res.render('taskHistoryOfGroup', {tasks: tasksObj});
+
+
+});
 
 
 module.exports = router;
