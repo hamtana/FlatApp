@@ -399,6 +399,23 @@ function updateTaskStatus(status, task_id, user_id) {
             });
         });
     }
+function  checkIfUserIsMember(userId, groupCode){
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM group_user JOIN `group` ON group_user.group_id = `group`.group_id WHERE user_id = ? AND join_code = ?", [userId, groupCode], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                if (result.length > 0) {
+                    resolve(result);
+                } else {
+                    // No user found with the provided email and password
+                    resolve(null);
+                }
+            }
+        });
+    });
+}
 
     //CREATE TABLE group_task (status VARCHAR(255) NOT NULL,task_id INT,user_id INT,FOREIGN KEY (task_id) REFERENCES task(id),FOREIGN KEY (user_id) REFERENCES user(id));
 
@@ -457,4 +474,4 @@ function updateTaskStatus(status, task_id, user_id) {
 
 
 
-    module.exports = {getUser,getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
+    module.exports = {checkIfUserIsMember,getUser,getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
