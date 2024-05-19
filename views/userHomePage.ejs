@@ -286,23 +286,7 @@
             document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("joinButton").addEventListener("click", async function (event) {
                     event.preventDefault(); // Prevent the default behavior of the link
-                    // function showPrompt() {
-                    //         Swal.fire({
-                    //             title: 'Enter your name:',
-                    //             input: 'text',
-                    //             inputAttributes: {
-                    //                 autocapitalize: 'off'
-                    //             },
-                    //             showCancelButton: true,
-                    //             confirmButtonText: 'Submit',
-                    //             showLoaderOnConfirm: true,
-                    //             preConfirm: (name) => {
-                    //                 // Call the function from the external JavaScript file with the input parameter
-                    //                 greet(name);
-                    //             }
-                    //         });
-                    //     }
-                    //=====================================
+
                     // Prompt the user to enter the join code
                     const { value: joinCode } = await Swal.fire({
                         title: "Input Join Code",
@@ -319,7 +303,7 @@
                     // click the submit button
                     try {
                         document.querySelector(".joinGroupBtn").click();
-                        document.querySelector(".userHomePageBtn").click();
+
                     } catch (error) {
                    
                             Swal.fire({

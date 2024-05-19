@@ -150,9 +150,12 @@ router.get('/userHomePage', async (req, res) => {
 
         res.redirect('/login');
     } else {
+
+        let newGroupObject = await getGroupsByUser(req.session.user.id);
         res.render('userHomePage', {
-            user: req.session.userObject,
-            group: req.session.groupSession,
+            user: req.session.user,
+            // group: req.session.groupSession,
+            group: newGroupObject,
             tasks: req.session.tasks,
             isAdded: false,
             loggedIn: req.session.loggedin
@@ -283,13 +286,15 @@ router.post('/auth', async (req, res, next) => {
             //USER OBJECT
 
             const sessionObject = userResults[0];
-            console.log("Session Object"+sessionObject.name);
+            console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
             console.log(tasksList);
             console.log(sessionObject);
             console.log(sessionObject.name);
-            console.log(sessionObject.body);
+            console.log("id" + sessionObject.id);
+            console.log(groubObj);
+
             //SETS SOME SESSIONS UP
             req.session.loggedin = true;
             req.session.email = email;
@@ -303,9 +308,8 @@ router.post('/auth', async (req, res, next) => {
 
 
 
-            console.log(groubObj);
             //Global data for all ejs templates
-            
+
             res.locals.email = req.session.email;
             res.locals.name = req.session.name;
             res.locals.loggedIn = req.session.loggedin;
@@ -444,76 +448,25 @@ router.post('/joinGroupWithCode', async (req, res) => {
     console.log("BODY" + req.body);
     const groupCode = req.body.join_code;
     console.log(groupCode);
+    console.log(req.body);
+
     const userId = req.body.user_id;
-    // console.log(userId);
-
-    // try {
-    //     const group = await getGroupByJoinCode(groupCode);
-
-    //     if (group && group.length > 0) {
-    //         // Check if the user is already a member of the group
-    //         const isMember = checkIfUserIsMember(userId, groupCode); // You need to implement this function
-
-    //         if (isMember) {
-    //             // User is already a member
-    //             // Display a message or redirect the user
-    //             // For example:
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Oops...',
-    //                 text: 'You are already a member of this group!',
-    //             });
-    //             return res.redirect('/userHomePage');
-
-    //         } else {
-    //             // User is not a member, proceed to join the group
-    //             joinGroupByCode(userId, groupCode);
-    //             return res.redirect('/userHomePage');
-    //         }
-    //     } else {
-    //         // Group code does not exist
-    //         // Display an error message or redirect the user
-    //         // For example:
-    //         // return res.redirect('/userHomePage?error=wrong_code');
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Oops...',
-    //             text: 'Group code does not exist!',
-    //         });
-    //         return res.redirect('/userHomePage');
-    //     }
-    // } catch (error) {
-    //     console.error("Error joining group:", error);
-    //     // Handle other errors if any
-    //     // Display an error message or redirect the user
-    //     // For example:
-    //     // return res.redirect('/userHomePage?error=server_error');
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Oops...',
-    //         text: 'An error occurred while joining the group!',
-    //     });
-    //     return res.redirect('/userHomePage');
-    // }
-
+    console.log(userId);
 
     const group = await getGroupByJoinCode(groupCode);
-   const isMember = checkIfUserIsMember(userId, groupCode); // You need to implement this function
-
+    const isMember = await checkIfUserIsMember(userId, groupCode); // You need to implement this function
     //     if (group && group.length > 0
-    if (group != null && isMember == false) {
-        joinGroupByCode(userId, groupCode);
+    if (group != null && isMember == null) {
+   
+        try{
+       await joinGroupByCode(userId, groupCode);
+        
         res.redirect('/userHomePage');
 
-        // res.render('userHomePage'), {
-        //     groups: req.session.groupSession,
-        //     user: req.session.user,
-        //     loggedIn: true,
-        //     tasks: req.session.tasks
-        // }r
-
-    } else {
-
+        } catch (error) {
+            console.error("Error joining group:", error);
+            res.status(500).send("Internal Server Error");  
+        }
     }
 }
 );
