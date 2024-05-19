@@ -1,28 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css"> 
-    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-    <title>Flat App</title>
-</head>
+    <head><%- include('partials/heading.ejs') %></head>
 <body>
     <!-- Animated Background -->
-    <div class="area">
-        <ul class="circles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+    <%- include('partials/animation.ejs') %>
 
     <!-- Top Navigation -->
     <div class="navbar">
@@ -32,11 +13,7 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <div class="image-container">
-            <img src="/images/icon_for_creating_a_group.png" class="side-image left">
-            <img src="/images/icon_for_a_checklist_0.png" class="main-image">
-            <img src="/images/logo04.png" class="side-image right">
-        </div>
+        <%- include('partials/components/tripleImages.ejs') %>
         <div class="text-container">
             <svg id="animation1" viewBox="0 0 1000 100">
                 <text x="50%" y="50%" dy=".35em"  lengthAdjust="spacing" text-anchor="middle">
@@ -51,11 +28,7 @@
                 </text>
             </svg>
         </div>
-        <div class="button-container">
-            <a href="/createAccount">
-                <button class="btn">Sign Up</button>
-            </a>
-        </div>
+        <%- include('partials/components/signUp.ejs') %>
     </div>
 </body>
 </html>

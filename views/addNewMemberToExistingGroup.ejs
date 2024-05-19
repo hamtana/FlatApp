@@ -1,34 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css"> 
-    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-    <title>Flat App</title>
-</head>
+<head><%- include('partials/heading.ejs') %></head>
 <body>
     <!-- Animated Background -->
-    <div class="area">
-        <ul class="circles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+    <%- include('partials/animation.ejs') %>
 
     <!-- Top Navigation -->
-    <div class="navbar">
-        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
-        <a href="/createAccount" class="login-container"><button class="btn">Create Account <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
-    </div>
+    <%- include('partials/navigation.ejs') %>
 
     <!-- Main Content -->
     <div class="main-content">

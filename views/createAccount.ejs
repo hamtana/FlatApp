@@ -1,76 +1,34 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css"> 
-    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-    <title>Flat App</title>
-</head>
+<head><%- include('partials/heading.ejs') %></head>
 <body>
     <!-- Animated Background -->
-    <div class="area">
-        <ul class="circles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+    <%- include('partials/animation.ejs') %>
 
     <!-- Top Navigation -->
-    <div class="navbar">
-        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
-        <a href="/login" class="login-container"><button class="btn">Login <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
-    </div>
+    <%- include('partials/navigation2.ejs') %>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="text-container">
             <form  class='submitFormCreateAccount' action="/create-account" method="POST">
-                    
-
-                <p>Please enter the following information to create an Account</p>
-                <!-- Prints error if account exists already -->
-                <p><%= error %></p>
+                <%- include('partials/components/errorMessage.ejs') %>
 
                 <fieldset>
                     <div class="createAccField">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" name="name"required>
-
-                    <label for="phone-number">Phone Number</label>
-                    <input id="phoneNumber" type="text" name="phone_number" required>
-
-                    <label for="email">Email</label>
-                    <input id="email" type="email" name="email" required>
-
-                    <label for="address">Address</label>
-                    <input id="address" type="text" name="address" required>
+                    <%- include('partials/components/fieldName.ejs') %>
+                    <%- include('partials/components/fieldPhone.ejs') %>
+                    <%- include('partials/components/fieldEmail.ejs') %>
+                    <%- include('partials/components/fieldAddress.ejs') %>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <div class="password">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" name="password" required>
-
-                    <label for="confirm-password">Confirm Password</label>
-                    <input id="passwordConfirm" type="password" name="confirm-password" required>
+                    <%- include('partials/components/fieldPassword.ejs') %>
+                    <%- include('partials/components/fieldPasswordCon.ejs') %>
                     </div>
                 </fieldset>
-
-                <!-- Button to redirect user to a new page for signing in -->
-                <!-- <button type="">Sign In</button> -->
                 
                 <button class="button" type="submit">Create Account</button>
 
@@ -80,62 +38,62 @@
 </body>
 </html>
 
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
+<script>
+    const submitButton = document.querySelector('button.trial');
 
+    // Add event listener to the trial button
+    submitButton.addEventListener('click', () => {
+        Swal.fire(
+            'User Already Exists!',
+            'Please try Again',
+            'Unable to Create Account'
+        );
+    });
 
-             <script>
+    // Uncomment and use this section if you have a create account button
+    // const submitCreateAccount = document.querySelector('button.submitCreateAccount');
 
-                
-             const submitButton = document.querySelector('button.trial');
+    // submitCreateAccount.addEventListener('click', () => {
+    //     Swal.fire(
+    //         'Account Created!',
+    //         'Welcome to Flat App',
+    //         'success'
+    //     );
+    // });
 
-            submitButton.addEventListener('click', () => {
-       
-                    Swal.fire(
-                'User Already Exists !',
-                'Please try Again',
-                'Unable to Create Account'
-            )});
-            
-
-            // const submitCreateAccount = document.querySelector('button.submitCreateAccount');
-
-            // submitCreateAccount.addEventListener('click', () => {
-            //     Swal.fire(
-            //     'Account Created!',
-            //     'Welcome to Flat App',
-            //     'success',
-            //     )
-            // });
-
-        //     Swal.fire(
-        //        'Log in Succesful!',
-        //        'Welcome to Flat App',
-        //        'success'
-        //    )
-          </script>
+    // Uncomment and use this section if you have a successful login event
+    // Swal.fire(
+    //     'Log in Successful!',
+    //     'Welcome to Flat App',
+    //     'success'
+    // );
+</script>
 
 <% if (error.length>0) { %>
-    <script>
-            Swal.fire(
-                'User Already Exists !',
-                'Please try Again',
-                'Unable to Create Account'
-            )
-   </script>
+<script>
+    Swal.fire(
+        'User Already Exists !',
+        'Please try Again',
+        'Unable to Create Account'
+    )
+</script>
+<%  } %>
 
-   <%  } %>
 
-
-   <% if (accountCreated) { %>
-    <script>
-            Swal.fire(
-            'Account Created!',
-            'Log in now to access your account',
-            'success'
-        )
-   </script>
-
-   <%  } %>
+<% if (accountCreated) { %>
+<script>
+    Swal.fire(
+    'Account Created!',
+    'Log in now to access your account',
+    'success'
+    )
+</script>
+<%  } %>
