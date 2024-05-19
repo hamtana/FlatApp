@@ -488,7 +488,21 @@ function returnTable(table) {
 // */
 // ==============================================
 
+/*Complete task history */ 
+function getCompleteTasksByGroupId(id) {
+    return new Promise ((resolve,reject) =>{
+        connection.query("SELECT * FROM group_task JOIN task ON group_task.task_id = task.id JOIN user ON group_task.user_id = user.id WHERE group_id = ? AND status = 'Complete'", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        }
+        );
+    });
 
+}
 
 
 module.exports = {
@@ -514,5 +528,6 @@ module.exports = {
     joinGroupUsingKey,
     markTaskComplete,
     joinGroupByCode,
-    checkIfUserIsMember
+    checkIfUserIsMember,
+    getCompleteTasksByGroupId
 };
