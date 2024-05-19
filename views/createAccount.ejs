@@ -4,42 +4,127 @@
 <body>
     <!-- Animated Background -->
     <%- include('partials/animation.ejs') %>
+    <style>
+        /* Style the tab */
+.tab {overflow: hidden;}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border-top: none;
+}
+    </style>
 
     <!-- Top Navigation -->
-    <%- include('partials/navigation2.ejs') %>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="text-container">
-            <form  class='submitFormCreateAccount' action="/create-account" method="POST">
-                <%- include('partials/components/errorMessage.ejs') %>
-
-                <fieldset>
-                    <div class="createAccField">
-                    <%- include('partials/components/fieldName.ejs') %>
-                    <%- include('partials/components/fieldPhone.ejs') %>
-                    <%- include('partials/components/fieldEmail.ejs') %>
-                    <%- include('partials/components/fieldAddress.ejs') %>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <div class="password">
-                    <%- include('partials/components/fieldPassword.ejs') %>
-                    <%- include('partials/components/fieldPasswordCon.ejs') %>
-                    </div>
-                </fieldset>
-                
-                <button class="button" type="submit">Create Account</button>
-
-            </form>
+    <div class="navbar">
+        <a href="http://localhost:8080/"><img src="/images/flat_app.png" class="logo" alt="Flat App Logo"></a>
+        <div class="tab">
+            <button class="btn tablinks" onclick="openCity(event, 'createAccount')">Create Account</button>
+            <button class="btn tablinks" id="defaultOpen" onclick="openCity(event, 'login')">Account Login</button>
         </div>
     </div>
+
+    
+
+    <!-- Main Content -->
+    <div id="createAccount" class="tabcontent">
+        <div  class="main-content">
+            <div class="text-container">
+                <form  class='submitFormCreateAccount' action="/create-account" method="POST">
+                    <h2>Create Account</h2>
+                    <%- include('partials/components/errorMessage.ejs') %>
+    
+                    <fieldset>
+                        <div class="createAccField">
+                        <%- include('partials/components/fieldName.ejs') %>
+                        <%- include('partials/components/fieldPhone.ejs') %>
+                        <%- include('partials/components/fieldEmail.ejs') %>
+                        <%- include('partials/components/fieldAddress.ejs') %>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset>
+                        <div class="password">
+                        <%- include('partials/components/fieldPassword.ejs') %>
+                        <%- include('partials/components/fieldPasswordCon.ejs') %>
+                        </div>
+                    </fieldset>
+                    
+                    <button class="button" type="submit">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="login" class="tabcontent">
+        <div class="main-content">
+            <div class="text-container">
+                <form class="submitFormCreateAccount" action="/auth" method="POST">
+                    <h2>Login</h2>
+                    <%- include('partials/components/errorMessage.ejs') %>
+                
+                    <fieldset>
+                        <div class="email">
+                        <%- include('partials/components/fieldEmail.ejs') %>
+                        </div>
+                    </fieldset>
+    
+                    <fieldset>
+                        <div class="password">
+                        <%- include('partials/components/fieldPassword.ejs') %>
+                        </div>
+                    </fieldset>
+                
+                    <button class="button" type="submit" >Login</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
 </body>
 </html>
 
+<script>
+function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+  
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
 
+function openTab (tabId) {
+    document.getElementById(tabId).click();
+}
 
+  document.getElementById("defaultOpen").click();
+</script>
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

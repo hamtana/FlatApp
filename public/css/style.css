@@ -420,3 +420,21 @@ form.submitFormCreateAccount button[type="submit"]:hover {
     color: #ffffff;
     border: solid 2px white;
 }
+
+.tab {overflow: hidden;}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border-top: none;
+}

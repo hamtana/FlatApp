@@ -6,38 +6,28 @@
     <%- include('partials/animation.ejs') %>
 
     <!-- Top Navigation -->
-    <div class="navbar">
-        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
-        <a href="/createAccount" class="login-container"><button class="btn">Create Account <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
-    </div>
+    <%- include('partials/navigation.ejs') %>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="text-container">
             <form class="submitFormCreateAccount" action="/auth" method="POST">
-                <p>Please enter the following information to login</p>
-                <!-- Prints error if account exists already -->
-                <p class="error"><%= error %></p>
+                <%- include('partials/components/errorMessage.ejs') %>
             
                 <fieldset>
                     <div class="email">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" name="email" required>
+                    <%- include('partials/components/fieldEmail.ejs') %>
                     </div>
                 </fieldset>
 
                 <fieldset>
                     <div class="password">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" name="password" required>
+                    <%- include('partials/components/fieldPassword.ejs') %>
                     </div>
                 </fieldset>
             
                 <button class="button" type="submit" >Login</button>
-                
             </form>
-            
-            
         </div>
     </div>
 </body>
