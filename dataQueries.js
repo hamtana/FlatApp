@@ -403,19 +403,33 @@ function updateTaskStatus(status, task_id, user_id) {
 
 
 //CREATE TABLE group_user (user_id INT,group_id INT,PRIMARY KEY (user_id, group_id),FOREIGN KEY (user_id) REFERENCES user(id),FOREIGN KEY (group_id) REFERENCES `group`(group_id));
+// function insertGroupUser(id, group_id) {
+//     connection.connect(function (err) {
+//         var sql = "INSERT INTO group_user (user_id, group_id) VALUES ('" + id + "', '" + group_id + "');";
+//         connection.query(sql, function (err, result) {
+//             console.log("1 record inserted");
+//             if (err) {
+//                 console.log(err);
+//                 return 0;
+//             }
+//             return 1;
+//         });
+//     });
+// }
 function insertGroupUser(id, group_id) {
-    connection.connect(function (err) {
-        var sql = "INSERT INTO group_user (user_id, group_id) VALUES ('" + id + "', '" + group_id + "');";
-        connection.query(sql, function (err, result) {
-            console.log("1 record inserted");
+    return new Promise((resolve, reject) => {
+        connection.query("INSERT INTO group_user (user_id, group_id) VALUES (?, ?)", [id, group_id], function (err, result) {
             if (err) {
                 console.log(err);
-                return 0;
+                reject(err);
+            } else {
+                console.log("1 record inserted");
+                resolve(result);
             }
-            return 1;
         });
     });
 }
+
 function checkIfUserIsMember(userId, groupCode) {
     return new Promise((resolve, reject) => {
         connection.query("SELECT * FROM group_user JOIN `group` ON group_user.group_id = `group`.group_id WHERE user_id = ? AND join_code = ?", [userId, groupCode], function (err, result) {
