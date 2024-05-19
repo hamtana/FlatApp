@@ -39,19 +39,19 @@ var readline = require('readline');
 // ==============================================
 
 
-// //Read the contents of setup.sql
-// // Cannot have gaps between code segments
-// var rl = readline.createInterface({
-//     // Gets the sql file to read
-//     input: fs.createReadStream('./sql/setup.sql'),
-//     terminal: false
-//    });
-//   rl.on('line', function(chunk){
-//        connection.query(chunk.toString('ascii'), function(err, sets, fields){
-//        // Error checking on the sql file
-//        // if (err != "Error: Query was empty")  {console.log(err)}
-//       });
-//   });
+//Read the contents of setup.sql
+// Cannot have gaps between code segments
+var rl = readline.createInterface({
+    // Gets the sql file to read
+    input: fs.createReadStream('./sql/setup.sql'),
+    terminal: false
+   });
+  rl.on('line', function(chunk){
+       connection.query(chunk.toString('ascii'), function(err, sets, fields){
+       // Error checking on the sql file
+       // if (err != "Error: Query was empty")  {console.log(err)}
+      });
+  });
 
  
 //   insertGroupUser(1, 1);
