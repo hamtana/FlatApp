@@ -107,7 +107,7 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     // if (req.session.loggedin == false) {
     //     res.redirect('/login');
     // }
-    group_id = req.params.id;
+    const group_id = req.params.id;
     console.log(group_id);
 
     const group = await getGroupById(group_id);
@@ -123,7 +123,7 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     //logging each for testing.
 
 
-    res.render('viewGroupTask', { group: group, tasks: group_tasks, tasks_today: tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week });
+    res.render('viewGroupTask', { groupId: group_id,group: group, tasks: group_tasks, tasks_today: tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week });
 });
 
 //Routing to mark the task as complete.
