@@ -1,47 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("partials/header")-%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Task</title>
-    <link rel="stylesheet" href="/css/zaraHomepage.css"> <!-- Assuming you have a separate CSS file -->
-
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <title>Flat App</title>
 </head>
-
 <body>
-    <nav>
-        <!-- navigation links will be added here -->
-    </nav>
-    <main>
-        <h1>Create Task</h1>
-        <form action="/create/GroupTask" method="POST">
-            <label for="taskName">Task Name:</label>
-            <input type="text" id="taskName" name="taskName" value=""  required = "" >
+    <!-- Animated Background -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
 
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" value=""  required = ""></textarea>
+    <!-- Top Navigation -->
+    <div class="navbar">
+        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
+        <a href="/createAccount" class="login-container"><button class="btn">Create Account <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
+    </div>
 
-            <label for="selectGroup">Select Group</label> 
-           
-            <label for="dueDate">Due Date:</label>
-            <input type="date" id="dueDate" name="dueDate" >
-
-            <label for="assignee">Assignee:</label>
-            <select id="selectAssignee" name="selectAssignee">
-                <% members.forEach(member => { %>
-                    <option value="<%= member.id %>"></option>
-                <% }); %>
-            </select>
-            <input type="text" id="assignee" name="assignee" value="">
-
-            <button type="submit">Create Task</button>
-        </form>
-        <a href="/back">Back</a>
-    </main>
-    <footer>
-        <!--footer content will be added here -->
-    </footer>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <form class="submitFormCreateAccount" action="/create/GroupTask" method="POST">
+                <label for="taskName">Task Name:</label>
+                <input type="text" id="taskName" name="taskName" required>
+            
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            
+                <label for="selectGroup">Select Group:</label>
+                <!-- Add your group selection input here -->
+            
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="dueDate">
+            
+                <label for="selectAssignee">Assignee:</label>
+                <select id="selectAssignee" name="selectAssignee">
+                    <% members.forEach(member => { %>
+                        <option value="<%= member.id %>"><%= member.name %></option>
+                    <% }); %>
+                </select>
+            
+                <!-- If you want to allow manual input for assignee, uncomment the next line -->
+                <!-- <input type="text" id="assignee" name="assignee" placeholder="Or type the assignee's name"> -->
+            
+                <button type="submit">Create Task</button>
+            </form>
+            <div class="button-container">
+                <div style="height: 40px; width:1px; position:relative;"></div>
+                <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>
