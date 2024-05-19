@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <%- include("partials/header")-%>
+    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Group Tasks</title>
+    <link rel="stylesheet" href="/css/zaraHomepage.css"> <!-- Assuming you have a separate CSS file -->
+</head>
+<body>
+<button class ="taskHistoryBtn">See Task History</button>
+</a>
+    <main>
+
+        <section id="overview">
+            <div id="thisWeek">
+                <h3>This Week</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Task</th>
+                            <th>Assigned</th>
+                            <th>Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for (let i = 0; i < tasks.length; i++) { %>
+                                <tr>
+                                    <td><%= tasks[i].status %></td>
+                                    <td><%= tasks[i].description %></td>
+                                    <td><%= tasks[i].name %></td>
+                                </tr>
+                            <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+    <script>
+    </script>
+</body>
+</html>
