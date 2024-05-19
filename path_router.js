@@ -281,20 +281,19 @@ router.post('/auth', async (req, res, next) => {
 
         // Perform authentication query
         const userResults = await checkEmailAndPassword(email, password);
-        console.log("UserREsults are : \n" + userResults);
         if (userResults != null) {
             // Authentication successful
             //USER OBJECT
 
             const sessionObject = userResults[0];
-            console.log("Session Object" + sessionObject.name);
+            // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
-            console.log(tasksList);
-            console.log(sessionObject);
-            console.log(sessionObject.name);
-            console.log("id" + sessionObject.id);
-            console.log(groubObj);
+            // console.log(tasksList);
+            // console.log(sessionObject);
+            // console.log(sessionObject.name);
+            // console.log("id" + sessionObject.id);
+            // console.log(groubObj);
 
             //SETS SOME SESSIONS UP
             req.session.loggedin = true;
@@ -385,6 +384,32 @@ router.post('/create-account', async (req, res) => {
 
 
 //Routing for Create Group
+// router.post('/create/group', async function (req, res) {
+//     const groupNameResult = req.body.groupName;
+
+//     console.log(groupNameResult);
+//     // Join Code
+//     const min = 100000;
+//     const max = 999999;
+//     const joinCode = Math.floor(Math.random() * (max - min + 1)) + min;
+    
+//     try {
+//         await insertGroup(groupNameResult, joinCode);
+//         const group = await getGroupByJoinCode(joinCode);
+        
+//         const group_id = group[0].group_id;
+//         const user_id = req.session.user.id;
+
+//         // Automatically add the user as a member of the group
+//         await insertGroupUser(user_id, group_id);
+
+//         // Redirect to the userHomePage after creating the group
+//         res.redirect('/userHomePage');
+//     } catch (error) {
+//         console.error("Error creating group:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
 
 
 router.post('/create/group', async function (req, res) {
@@ -395,9 +420,24 @@ router.post('/create/group', async function (req, res) {
     const min = 100000;
     const max = 999999;
     const joinCode = Math.floor(Math.random() * (max - min + 1)) + min;
-    insertGroup(groupNameResult, joinCode);
-    res.redirect('/createGroup');
+    await insertGroup(groupNameResult, joinCode);
+
+    const group = await getGroupByJoinCode(joinCode);
+    const group_id = group[0].group_id;
+    const user_id = req.session.user.id;
+
+    try{
+    await insertGroupUser(user_id, group_id);
+    res.redirect('/viewGroupTask/' + group_id);
+
+    }catch(error){
+       
+        res.render('404-page');
+    }
+
+
 });
+
 
 
 //Routing for Add User to Group
