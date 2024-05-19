@@ -136,7 +136,6 @@ function updateTaskStatus(status, task_id, user_id) {
                     console.log(err);
                     reject(err);
                 } else {
-                    console.log("Query successful");
                     resolve(result);
                 }
             });
@@ -152,7 +151,6 @@ function updateTaskStatus(status, task_id, user_id) {
                     console.log(err);
                     reject(err);
                 } else {
-                    console.log("Query successful");
                     resolve(result);
                 }
             });
@@ -168,7 +166,6 @@ function updateTaskStatus(status, task_id, user_id) {
                     console.log(err);
                     reject(err);
                 } else {
-                    console.log("Query successful");
                     resolve(result);
                 }
             });
@@ -184,7 +181,6 @@ function updateTaskStatus(status, task_id, user_id) {
                     console.log(err);
                     reject(err);
                 } else {
-                    console.log("Query successful");
                     resolve(result);
                 }
             });
@@ -200,7 +196,6 @@ function markTaskComplete(taskId){
                 console.log(err);
                 reject(err);
             } else {
-                console.log("Query successful");
                 resolve(result);
             }
             });
@@ -473,4 +468,25 @@ function markTaskComplete(taskId){
 
 
 
-    module.exports = {getUser,getUsersinGroup, getGroupByJoinCode,insertUser, insertGroup, insertTask, insertGroupUser, returnTable, getGroups, getUserByEmail, getGroupById, getGroupTasksByGroupId, getGroupTasksToday, getGroupTasksTomorrow, getGroupTasksDueWeek, getGroupsByUser, checkEmailAndPassword,updateTaskStatus,getGroupTasksByUserId,joinGroupUsingKey,joinGroupByCode};
+    module.exports = {getUser,
+        getUsersinGroup,
+        getGroupByJoinCode,
+        insertUser,
+        insertGroup,
+        insertTask,
+        insertGroupUser,
+        returnTable,
+        getGroups, 
+        getUserByEmail,
+        getGroupById, 
+        getGroupTasksByGroupId, 
+        getGroupTasksToday, 
+        getGroupTasksTomorrow, 
+        getGroupTasksDueWeek, 
+        getGroupsByUser,
+        checkEmailAndPassword,
+        updateTaskStatus,
+        getGroupTasksByUserId,
+        joinGroupUsingKey,
+        markTaskComplete,
+        joinGroupByCode};

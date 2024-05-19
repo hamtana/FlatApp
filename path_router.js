@@ -51,6 +51,7 @@ try {
         getGroupTasksByGroupId,
         getGroupsByUser,
         checkEmailAndPassword,
+        markTaskComplete,
         updateTaskStatus,
         getGroupTasksByUserId,
         joinGroupUsingKey,
@@ -114,6 +115,7 @@ router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
     const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
     const tasks_week = await getGroupTasksDueWeek(group_id);
 
+    console.log("Tasks Today");
     console.log(tasks_today);
 
     //logging each for testing.
@@ -127,8 +129,9 @@ router.post('/markComplete/:taskId', async (req, res) => {
     try {
         const taskId = req.params.taskId;
         // Call the function to mark the task as complete
-        await markTaskAsComplete(taskId);
-        res.status(200).send("Task marked as complete successfully.");
+        await markTaskComplete(taskId);
+        //render the previous page
+        res.redirect('back');
     } catch (error) {
         console.error("Error marking task as complete:", error);
         res.status(500).send("Internal Server Error");

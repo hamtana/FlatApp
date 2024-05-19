@@ -34,24 +34,27 @@
                 <table>
                     <thead>
                         <tr>
-                            <td></td>
+                            <th>Status</th>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
+                            <th>Complete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks_today.length; i++) { %>
-                            <tr>
-                                <td><%= tasks_today[i].status %></td>
-                                <td><%= tasks_today[i].description %></td>
-                                <td><%= tasks_today[i].name %></td>
-                                <td>
-                                    <!-- <form action="/markComplete" method="POST">
-                                        <button type="submit">Mark Complete</button>
-                                    </form> -->
-                                </td>
-                            </tr>
+                        <% if (tasks_today && tasks_today.length > 0) { %>
+                            <% for (let i = 0; i < tasks_today.length; i++) { %>
+                                <tr>
+                                    <td><%= tasks_today[i].status %></td>
+                                    <td><%= tasks_today[i].description %></td>
+                                    <td><%= tasks_today[i].name %></td>
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_today[i].id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% } %>
                     </tbody>
                 </table>
@@ -61,24 +64,27 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Status</th>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
+                            <th>Complete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks_tomorrow.length; i++) { %>
-                            <tr>
-                                <td><%= tasks_tomorrow[i].status %></td>
-                                <td><%= tasks_tomorrow[i].description %></td>
-                                <td><%= tasks_tomorrow[i].name %></td>
-                                <td>
-                                    <!-- <form action="/markComplete method="POST">
-                                        <button type="submit">Mark Complete</button>
-                                    </form> -->
-                                </td>
-                            </tr>
+                        <% if (tasks_tomorrow && tasks_tomorrow.length > 0) { %>
+                            <% for (let i = 0; i < tasks_tomorrow.length; i++) { %>
+                                <tr>
+                                    <td><%= tasks_tomorrow[i].status %></td>
+                                    <td><%= tasks_tomorrow[i].description %></td>
+                                    <td><%= tasks_tomorrow[i].name %></td>
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_tomorrow[i].id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% } %>
                     </tbody>
                 </table>
@@ -88,24 +94,27 @@
                 <table>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Status</th>
                             <th>Task</th>
                             <th>Description</th>
                             <th>Assigned</th>
+                            <th>Complete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% for (let i = 0; i < tasks_week.length; i++) { %>
-                            <tr>
-                                <td><%= tasks_week[i].status %></td>
-                                <td><%= tasks_week[i].description %></td>
-                                <td><%= tasks_week[i].name %></td>
-                                <!-- <td>
-                                    <form action="/markComplete/<%= tasks_today[i].task_id %>" method="POST">
-                                        <button type="submit">Mark Complete</button>
-                                    </form>
-                                </td> -->
-                            </tr>
+                        <% if (tasks_week && tasks_week.length > 0) { %>
+                            <% for (let i = 0; i < tasks_week.length; i++) { %>
+                                <tr>
+                                    <td><%= tasks_week[i].status %></td>
+                                    <td><%= tasks_week[i].description %></td>
+                                    <td><%= tasks_week[i].name %></td>
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_week[i].id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
                         <% } %>
                     </tbody>
                 </table>
@@ -116,13 +125,6 @@
         <!-- Footer content -->
     </footer>
     <script>
-        function markComplete(taskId) {
-            //update the task status in the database
-
-
-            console.log("Marking task as complete with ID: " + taskId);
-        }
     </script>
 </body>
-
 </html>
