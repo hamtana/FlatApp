@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("partials/header")-%>
 <head>
     <meta charset="UTF-8">
-    <title> Flat App</title>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <link rel="stylesheet" href="/css/zaraHomepage.css">
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <title>Flat App</title>
 </head>
-<style> 
-.submitBtnCreateGroup{
-    right: 40px;
-}
-
-</style>
-<!--
-<header>
-    <nav>
-        <div class="menu-icon">
-            !-- Menu icon --
-        </div>
-        <div class="logo">
-            <img src="/images/flat_app.png">
-        </div>
-            <div class="login">
-                !-- Button to redirect user to a new page for signing in --
-                <a href="/login">
-                  <button type="">Sign In</button>
-                <a>
-        </div>
-    </nav>
-</header> 
--->
 <body>
-
-
-    <main id="createGroup">
-        <div class="creategrouph1">
-            <h1>Create Group</h1>
-        </div>
-        <div class="creategroupbody">
-        <form action="/create/group" method="POST">
-            <fieldset>
-            <div class="groupname">
-            <label for="groupName">Group Name:</label><br>
-                <div class="groupnametextbox">
-                    <input type="text" name="groupName" id ="groupName"><br>
-                </div>
-            </div>
-        </fieldset>
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" value = " " required = ""></textarea><br>
-            
-            <!-- <label for="groupMember">Group Member:</label><br> -->
-            <!-- <select id="groupMember" name="groupMember" value = " " required = "">
-                <option value="">Select Member</option> -->
-                <!-- Add group members here automatically generated from DB connection -->
-                <!-- <option value="Do the laundry">Do the laundry</option>
-
-            </select><br>
-         -->
-         <div class="button-container">
-            <button class="button" id="backBtnCreateGroup">Back</button>
-
-            <button class="button" id="submitBtnCreateGroup" type="submit">Create Group</button>
-        </div>
-        </form>
+    <!-- Animated Background -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
-    </main>
 
+    <!-- Top Navigation -->
+    <div class="navbar">
+        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
+        <a href="/createAccount" class="login-container"><button class="btn">Create Account <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
+    </div>
 
-
-    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <form class="submitFormCreateAccount" action="/create/group" method="POST">
+                <fieldset>
+                    <div class="groupname">
+                        <label for="groupName">Group Name:</label><br>
+                        <div class="groupnametextbox">
+                            <input type="text" name="groupName" id="groupName"><br>
+                        </div>
+                    </div>
+                </fieldset>
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description" rows="4" required></textarea><br>
+            
+                <!-- Group Member selection is commented out
+                <label for="groupMember">Group Member:</label><br>
+                <select id="groupMember" name="groupMember" required>
+                    <option value="">Select Member</option>
+                    Add group members here automatically generated from DB connection
+                    <option value="Do the laundry">Do the laundry</option>
+                </select><br>
+                -->
+            
+                <div class="button-container">
+                    
+                    <button class="button" id="submitBtnCreateGroup" type="submit">Create Group</button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="button-container">
+            <div style="height: 40px; width:1px; position:relative;"></div>
+            <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
+        </div>
+    </div>
 </body>
 </html>
