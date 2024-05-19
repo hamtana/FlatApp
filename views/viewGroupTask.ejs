@@ -26,10 +26,16 @@
         </nav>
     </header>
 -->
-    <main>
+<a  href="/taskHistoryOfGroup/<%= groupId %>">
+    <button class ="taskHistoryBtn">See Task History</button>
+    </a>
+        <main>
+    
         <section id="overview">
             <h2>Overview</h2>
             <div id="today">
+              
+
                 <h3>Today</h3><!-- this should allow user to edit task by adding or removing them-->
                 <table>
                     <thead>
@@ -38,6 +44,7 @@
                             <th>Task</th>
                             <th>Assigned</th>
                             <th>Complete</th>
+                            
                         </tr>
                     </thead>
                     <tbody>

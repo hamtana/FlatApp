@@ -100,6 +100,7 @@ function getGroupById(id) {
         });
     });
 }
+
 // Functions to check if email and password in the database
 function checkEmailAndPassword(email, password) {
     return new Promise((resolve, reject) => {
@@ -124,7 +125,20 @@ function checkEmailAndPassword(email, password) {
 
 
 
+function getCompleteTasksByGroupId(id) {
+    return new Promise ((resolve,reject) =>{
+        connection.query("SELECT * FROM group_task JOIN task ON group_task.task_id = task.id JOIN user ON group_task.user_id = user.id WHERE group_id = ? AND status = 'Complete'", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        }
+        );
+    });
 
+}
 
 //Function that retrieves the group tasks by group id
 //Retrieves all tasks that are associated with a group
@@ -514,5 +528,6 @@ module.exports = {
     joinGroupUsingKey,
     markTaskComplete,
     joinGroupByCode,
-    checkIfUserIsMember
+    checkIfUserIsMember,
+    getCompleteTasksByGroupId
 };

@@ -57,7 +57,9 @@ try {
         joinGroupUsingKey,
         getGroupByJoinCode,
         joinGroupByCode,
-        getUsersinGroup, checkIfUserIsMember,
+        getUsersinGroup,
+        checkIfUserIsMember,
+        getCompleteTasksByGroupId
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -93,6 +95,7 @@ router.get('/login', async (req, res) => {
 });
 
 
+
 router.get('/createAccount', async (req, res) => {
     res.render('createAccount', {
         error: '',
@@ -106,8 +109,9 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     // if (req.session.loggedin == false) {
     //     res.redirect('/login');
     // }
-    group_id = req.params.id;
-    console.log(group_id);
+    const group_id = req.params.id;
+    console.log("Group_Id is " + group_id);
+
 
     const group = await getGroupById(group_id);
     const group_tasks = await getGroupTasksByGroupId(group_id);
@@ -115,14 +119,10 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     const tasks_today = await getGroupTasksToday(group_id);
     const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
     const tasks_week = await getGroupTasksDueWeek(group_id);
-
-    console.log("Tasks Today");
-    console.log(tasks_today);
-
     //logging each for testing.
 
 
-    res.render('viewGroupTask', { group: group, tasks: group_tasks, tasks_today: tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week });
+    res.render('viewGroupTask', { groupId: group_id,group: group, tasks: group_tasks, tasks_today: tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week });
 });
 
 //Routing to mark the task as complete.
@@ -517,6 +517,8 @@ router.get('/returnTable', async (req, res) => {
 
 
 
+
+
 var getUserOrLogin = function (req, res, next) {
     var user = req.session.user;
 
@@ -530,5 +532,12 @@ var getUserOrLogin = function (req, res, next) {
 };
 
 
+router.get('/taskHistoryOfGroup/:group_id', async (req,res) => {
+    // const group = await getGroupById(req.params.group_id);
+    const tasksObj = await getCompleteTasksByGroupId(req.params.group_id);
 
+    res.render('taskHistoryOfGroup', {tasks: tasksObj});
+
+    
+});
 module.exports = router;
