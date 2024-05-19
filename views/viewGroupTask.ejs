@@ -36,7 +36,6 @@
                         <tr>
                             <th>Status</th>
                             <th>Task</th>
-                            <th>Description</th>
                             <th>Assigned</th>
                             <th>Complete</th>
                         </tr>
@@ -66,7 +65,6 @@
                         <tr>
                             <th>Status</th>
                             <th>Task</th>
-                            <th>Description</th>
                             <th>Assigned</th>
                             <th>Complete</th>
                         </tr>
@@ -96,7 +94,6 @@
                         <tr>
                             <th>Status</th>
                             <th>Task</th>
-                            <th>Description</th>
                             <th>Assigned</th>
                             <th>Complete</th>
                         </tr>
@@ -108,6 +105,7 @@
                                     <td><%= tasks_week[i].status %></td>
                                     <td><%= tasks_week[i].description %></td>
                                     <td><%= tasks_week[i].name %></td>
+
                                     <td>
                                         <form action="/markComplete/<%= tasks_week[i].id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
