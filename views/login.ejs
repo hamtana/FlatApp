@@ -1,54 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" href="/css/zaraHomepage.css">
-    </head>
-    <body>
-        <!-- To be included partials -->
-        <main>
-            <div class="split_left">
-                <h1>Flat App</h1>
-                <div class="logo img">
-                    <img src="/images/logo04.png">
-                </div>
-            </div>
-            <div class="split_right">
-                <form action="/auth" method="POST">     <!-- enctype="multipart/form-data" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+    <title>Flat App</title>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
 
-                    <p>Please enter the following information to login</p>
-                     <p><%= error %></p>
-                    <fieldset>
-                        <div class="email">
-                        <label for="email">Email</label>
-                        <input id="email" type="email" name="email" required>
-                        </div>
-                    </fieldset>
+    <!-- Top Navigation -->
+    <div class="navbar">
+        <img src="/images/flat_app.png" class="logo" alt="Flat App Logo">
+        <a href="/createAccount" class="login-container"><button class="btn">Create Account <img src="https://i.imgur.com/DMrnU5d.png" alt="Login Icon"></button></a>
+    </div>
 
-                    <fieldset>
-                        <div class="password">
-                        <label for="password">Password</label>
-                        <input id="password" type="password" name="password" required>
-                        </div>
-                    </fieldset>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <form class="submitFormCreateAccount" action="/auth" method="POST">
+                <p>Please enter the following information to login</p>
+                <!-- Prints error if account exists already -->
+                <p class="error"><%= error %></p>
+            
+                <fieldset>
+                    <div class="email">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" name="email" required>
+                    </div>
+                </fieldset>
 
-                    <!-- Button to redirect user to a new page for creating an account -->
-                    
-                    <button type="submit" >Login</button>
-                </form>
-                <a href="/createAccount">
-                <button id="btnCreateAccount"  >Create Account</button>
-            </a>
-
-            </div>            
-        </main>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <!-- <script>
-            Swal.fire(
-               'Log in Succesful!',
-               'Welcome to Flat App',
-               'success'
-           )
-          </script> -->
-    </body>
+                <fieldset>
+                    <div class="password">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" required>
+                    </div>
+                </fieldset>
+            
+                <button class="button" type="submit" >Login</button>
+                
+            </form>
+            
+            
+        </div>
+    </div>
+</body>
+</html>
