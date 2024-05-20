@@ -1,5 +1,10 @@
 
 <div class="card">
+    <div class="card-content">
+        <h2><%= groupCard.name %> </h2>
+        <!-- <p> <%= user.name %></p>
+        <p> <%= groupCard.name %></p> -->
+    </div>
         <div class="card-title">
 
             <a href = "/viewGroupTask/<%= groupCard.group_id %>" >
@@ -9,12 +14,7 @@
             </a>
         </div>
 
-    <div class="card-content">
-        <h2>Overview of <%= groupCard.name %> </h2>
-        <p> <%= user.name %></p>
-        <p> <%= groupCard.name %></p>
-        <p> <%= loggedIn %></p>
-    </div>
+  
 
     <div class = "cardButtons">
       

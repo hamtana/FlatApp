@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><%- include('partials/heading.ejs') %></head>
+<body>
+    <!-- Animated Background -->
+    <%- include('partials/animation.ejs') %>
+
+    <!-- Top Navigation -->
+    <%- include('partials/navigation.ejs') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <form class="submitFormCreateAccount" action="/auth" method="POST">
+                <%- include('partials/components/errorMessage.ejs') %>
+            
+                <fieldset>
+                    <div class="email">
+                    <%- include('partials/components/fieldEmail.ejs') %>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <div class="password">
+                    <%- include('partials/components/fieldPassword.ejs') %>
+                    </div>
+                </fieldset>
+            
+                <button class="button" type="submit" >Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

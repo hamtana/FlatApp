@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/navigation")-%>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flat App - Add New Member</title>
+    <link rel="stylesheet" href="/css/zaraHomepage.css">
+</head>
+<body>
+    <header>
+        <img src="/images/flat_app.png">
+        <nav>
+            <!-- Add navigation bar here-->
+        </nav>
+    </header>
+    <main>
+        <h2>Add New Member</h2>
+        <form action="/addMember" method="POST">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+            
+            <label for="group">Select Group</label>
+            <% if (error ) { %>
+                <p >No User available</p>
+            <% } %>
+            <select id="group" name="group" required>
+                <% for (let i = 0; i < groups.length; i++) { %>
+                    <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>
+                <% } %>
+                </select>
+            <button type="button" onclick="history.back()">Back</button>
+            <button type="submit">Add</button>
+            <!-- redirect back to view Group page-->
+        </form>
+    </main>
+    <footer>
+        <!-- add footer here -->
+    </footer>
+</body>
+</html>

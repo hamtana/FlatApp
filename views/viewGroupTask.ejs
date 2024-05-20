@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header>
-        <%- include("partials/header")-%>
-    </header>
+<header>
+    <%- include("partials/navigation")-%>
+</header>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Group Tasks</title>
     <link rel="stylesheet" href="/css/zaraHomepage.css"> <!-- Assuming you have a separate CSS file -->
 </head>
+
 <body>
     <!--
     <header>
@@ -27,32 +29,35 @@
     </header>
 -->
     <main>
-        <div class="wrapperGroupPage" style="display: grid; 
-    
-        grid-template-columns: auto auto;">
-            <section id="overview">
-                <h2>Overview</h2>
-                <a href = "/createGroupTask"> 
-                <button>Create Task</button> 
-                </a>
-                <button>Add Task</button> 
+        <section id="overview">
+            <h2>Overview</h2>
+            <a href="/taskHistoryOfGroup/<%= groupId %>">
+                <button class="taskHistoryBtn">See Task History</button>
+            </a>
+            <!-- <a href="/addUserToGroup/<%= groupId %>"> -->
+                <a href="/addUserToGroup">
 
-                <div id="today">
-                    <h3>Today <button>Edit</button> </h3>
-                    <!-- this should allow user to edit task by adding or removing them-->
-                    <table>
-                        <thead>
-                            <tr>
-                                <td></td>
-                                <th>Task</th>
-                                <th>Description</th>
-                                <th>Assigned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <button class="addMemberToGroup">Add member to group</button>
+            </a>
+            <a href="/createGroupTask/<%= groupId %>">
+
+                <button class="createTasks">Create and Assign Tasks</button>
+            </a>
+            <div id="today">
+                <h3>Today</h3><!-- this should allow user to edit task by adding or removing them-->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Task</th>
+                            <th>Assigned</th>
+                            <th>Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (tasks_today && tasks_today.length> 0) { %>
                             <% for (let i=0; i < tasks_today.length; i++) { %>
                                 <tr>
-                                    <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                     <td>
                                         <%= tasks_today[i].status %>
                                     </td>
@@ -62,26 +67,32 @@
                                     <td>
                                         <%= tasks_today[i].name %>
                                     </td>
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_today[i].task_id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <% } %>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tomorrow">
-                    <h3>Tomorrow</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Task</th>
-                                <th>Description</th>
-                                <th>Assigned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div id="tomorrow">
+                <h3>Tomorrow</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Task</th>
+                            <th>Assigned</th>
+                            <th>Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (tasks_tomorrow && tasks_tomorrow.length> 0) { %>
                             <% for (let i=0; i < tasks_tomorrow.length; i++) { %>
                                 <tr>
-                                    <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                     <td>
                                         <%= tasks_tomorrow[i].status %>
                                     </td>
@@ -91,26 +102,32 @@
                                     <td>
                                         <%= tasks_tomorrow[i].name %>
                                     </td>
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_tomorrow[i].task_id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <% } %>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="thisWeek">
-                    <h3>This Week</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Task</th>
-                                <th>Description</th>
-                                <th>Assigned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div id="thisWeek">
+                <h3>This Week</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Task</th>
+                            <th>Assigned</th>
+                            <th>Complete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (tasks_week && tasks_week.length> 0) { %>
                             <% for (let i=0; i < tasks_week.length; i++) { %>
                                 <tr>
-                                    <td><input type="checkbox"></td> <!-- Checkbox added here -->
                                     <td>
                                         <%= tasks_week[i].status %>
                                     </td>
@@ -120,32 +137,24 @@
                                     <td>
                                         <%= tasks_week[i].name %>
                                     </td>
+
+                                    <td>
+                                        <form action="/markComplete/<%= tasks_week[i].task_id %>" method="POST">
+                                            <button type="submit">Mark Complete</button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <% } %>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section>
-                <div class="card">
-                    <div class="card-title">
-                        <h1> Hello</h1>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+                                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
     <footer>
         <!-- Footer content -->
     </footer>
     <script>
-
-        const btnViewGroup = document.querySelector('#btnViewGroup');
-        btnViewGroup.addEventListener('click', () => {
-            window.location.href = '/viewGroupTask/<%= group[0].group_id %>';
-        })
     </script>
 </body>
 

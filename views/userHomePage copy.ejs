@@ -1,105 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+<%- include("partials/navigation")-%>
 
+    <head>
 
-<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- <link rel="stylesheet" href="/css/userHomePage.css"> -->
-    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
-    <style>
-        /*Inspo from
+        <link rel="stylesheet" href="/css/style.css">
+        <!-- <link rel="stylesheet" href="/css/userHomePage.css"> -->
+        <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+        <style>
+            /*Inspo from
  https://get.foundation/building-blocks/blocks/dashboard-number-card.html 
  
  https://get.foundation/building-blocks/blocks/alert-callout-border.html
  
  */
 
-        /* 
+            /* 
  
  =================================
     *  Task Cards
  =================================
  
  */
-        .dashboard-number-card {
-            background: #fff;
-            border-radius: 5px;
-            margin: 0 20px 20px;
-            position: relative;
-            max-width: 400px;
-            max-height: 150px;
-        }
+            .dashboard-number-card {
+                background: #fff;
+                border-radius: 5px;
+                margin: 0 20px 20px;
+                position: relative;
+                max-width: 400px;
+                max-height: 150px;
+            }
 
-        .dashboard-number-card .dashboard-number-delta {
-            -webkit-align-items: baseline;
-            -ms-flex-align: baseline;
-            align-items: baseline;
-            bottom: 6px;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 0;
-            opacity: 0.7;
-            position: absolute;
-            right: 6px;
-            color: #1779ba;
-        }
+            .dashboard-number-card .dashboard-number-delta {
+                -webkit-align-items: baseline;
+                -ms-flex-align: baseline;
+                align-items: baseline;
+                bottom: 6px;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                font-size: 12px;
+                font-weight: 500;
+                margin-bottom: 0;
+                opacity: 0.7;
+                position: absolute;
+                right: 6px;
+                color: #1779ba;
+            }
 
-        .dashboard-number-card .dashboard-number-delta i {
-            margin-right: 5px;
-            width: 0.6rem;
-        }
+            .dashboard-number-card .dashboard-number-delta i {
+                margin-right: 5px;
+                width: 0.6rem;
+            }
 
-        .dashboard-number-card.positive .dashboard-number-delta,
-        .dashboard-number-card.negative .dashboard-number-delta {
-            color: #fefefe;
-        }
+            .dashboard-number-card.positive .dashboard-number-delta,
+            .dashboard-number-card.negative .dashboard-number-delta {
+                color: #fefefe;
+            }
 
-        .dashboard-number-card.positive .dashboard-number-value,
-        .dashboard-number-card.positive .dashboard-number-area,
-        .dashboard-number-card.negative .dashboard-number-value,
-        .dashboard-number-card.negative .dashboard-number-area {
-            color: black;
-        }
+            .dashboard-number-card.positive .dashboard-number-value,
+            .dashboard-number-card.positive .dashboard-number-area,
+            .dashboard-number-card.negative .dashboard-number-value,
+            .dashboard-number-card.negative .dashboard-number-area {
+                color: black;
+            }
 
-        .dashboard-number-card.positive .dashboard-number-area,
-        .dashboard-number-card.negative .dashboard-number-area {
-            opacity: 0.6;
-        }
+            .dashboard-number-card.positive .dashboard-number-area,
+            .dashboard-number-card.negative .dashboard-number-area {
+                opacity: 0.6;
+            }
 
-        .dashboard-number-card.positive {
-            background: #3adb76;
-        }
+            .dashboard-number-card.positive {
+                background: #3adb76;
+            }
 
-        .dashboard-number-card.negative {
-            background: #cc4b37;
-        }
+            .dashboard-number-card.negative {
+                background: #cc4b37;
+            }
 
-        .dashboard-number-value {
-            color: #1779ba;
-            font-size: 22px;
-            font-weight: 800;
-            padding: 1rem 2rem 1.75rem;
-            text-align: center;
-        }
+            .dashboard-number-value {
+                color: #1779ba;
+                font-size: 22px;
+                font-weight: 800;
+                padding: 1rem 2rem 1.75rem;
+                text-align: center;
+            }
 
-        .dashboard-number-area {
-            bottom: 6px;
-            color: #1779ba;
-            font-size: 12px;
-            left: 6px;
-            margin-bottom: 0;
-            position: absolute;
-        }
+            .dashboard-number-area {
+                bottom: 6px;
+                color: #1779ba;
+                font-size: 12px;
+                left: 6px;
+                margin-bottom: 0;
+                position: absolute;
+            }
 
 
-        /* 
+            /* 
  
  =================================
     *  Join and Create Group Buttons
@@ -107,35 +107,38 @@
  =================================
  
  */
-        .joinAndCreateGroupButtons {
-            position: absolute;
-            width: 400px;
-            display: grid;
-            grid-template-rows: auto auto;
-            gap: 50px;
-            margin-left: 50px;
-            margin-right: 50px;
-            left: -30px;
-            top: 150px;
+            .joinAndCreateGroupButtons {
+                position: absolute;
+                width: 400px;
+                display: grid;
+                grid-template-rows: auto auto;
+                gap: 50px;
+                margin-left: 50px;
+                margin-right: 50px;
+                left: -30px;
+                top: 150px;
 
-        }
-    </style>
-    <title>Flat App</title>
+            }
+        </style>
+        <title>Flat App</title>
 
 
 
-</head>
+    </head>
 
-<body>
-    <!-- Stuff for animation -->
-    <!-- <div>
+    <body>
+        <!-- Stuff for animation -->
+        <!-- <div>
       <div style="width:80px; height:15px; position: absolute; right:10px; top:20px; background-color: aliceblue; border-radius: 25px;"></div>
       <div style="width:80px; height:15px; position: absolute; right:10px; top:45px; background-color: aliceblue; border-radius: 25px;"></div>
       <div style="width:80px; height:15px; position: absolute; right:10px; top:70px; background-color: aliceblue; border-radius: 25px;"></div>
   </div> -->
 
-    <!-- Animated Background -->
-    <%- include('partials/animation.ejs') %>
+        <!-- Animated Background -->
+        <%- include('partials/animation.ejs') %>
+
+
+        </div>
 
         <!-- Top Navigation -->
         <div
@@ -234,20 +237,19 @@
 
 
         <div>
-            <form style="visibility: hidden; display: none;" action="/joinGroupWithCode" method="POST">
-                <!-- enctype="multipart/form-data" -->
+            <form style= "visibility: hidden; display: none;" action="/joinGroupWithCode" method="POST">     <!-- enctype="multipart/form-data" -->
 
                 <p>Please enter the following information to login</p>
                 <fieldset>
                     <div class="join_code">
-                        <label for="join_code">join_code</label>
-                        <input id="join_code" type="text" name="join_code" required>
+                    <label for="join_code">join_code</label>
+                    <input id="join_code" type="text" name="join_code" required>
                     </div>
                 </fieldset>
                 <fieldset>
                     <div class="user_id">
-                        <label for="user_id">Email</label>
-                        <input id="user_id" type="text" value="<%= user.id %>" name="user_id" required>
+                    <label for="user_id">Email</label>
+                    <input id="user_id" type="text" value = "<%= user.id %>" name="user_id" required>
 
                     </div>
                 </fieldset>
@@ -260,8 +262,8 @@
                 </fieldset> -->
 
                 <!-- Button to redirect user to a new page for creating an account -->
-
-                <button class="joinGroupBtn" type="submit">Join</button>
+                
+                <button class= "joinGroupBtn" type="submit" >Join</button>
             </form>
         </div>
 
@@ -269,7 +271,6 @@
         <script>
 
             // =================================
-            // Function to format the date
 
             document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("joinButton").addEventListener("click", async function (event) {
@@ -293,17 +294,20 @@
                         document.querySelector(".joinGroupBtn").click();
 
                     } catch (error) {
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Invalid join code! Please try again.',
-                        })
+                   
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Invalid join code! Please try again.',
+                            })
                     }
-
+               
 
                 });
+
+
             });
+
         </script>
 
 
@@ -321,6 +325,6 @@
 
 
 
-</body>
+    </body>
 
 </html>

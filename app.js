@@ -39,8 +39,8 @@ var readline = require('readline');
 // ==============================================
 
 
-// //Read the contents of setup.sql
-// // Cannot have gaps between code segments
+//Read the contents of setup.sql
+// Cannot have gaps between code segments
 // var rl = readline.createInterface({
 //     // Gets the sql file to read
 //     input: fs.createReadStream('./sql/setup.sql'),
@@ -99,7 +99,8 @@ app.get('*', (req, res) => {
     // This directs the router to the specific file
     // res.sendFile(path.join(__dirname, 'public','home.html'));
     // res.render('path/index');
-    res.status(404).send('404 Page Not Found');
+    // res.status(404).send('404 Page Not Found');
+    res.render('404-page');
 });
 
 let port = process.env.PORT || 8080;

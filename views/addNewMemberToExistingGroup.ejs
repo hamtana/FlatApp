@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("partials/header")-%>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flat App - Add New Member</title>
-    <link rel="stylesheet" href="/css/zaraHomepage.css">
-</head>
+<head><%- include('partials/heading.ejs') %></head>
 <body>
-    <header>
-        <img src="/images/flat_app.png">
-        <nav>
-            <!-- Add navigation bar here-->
-        </nav>
-    </header>
-    <main>
-        <h2>Add New Member</h2>
-        <form action="/addMember" method="POST">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" required>
-            
-            <label for="group">Select Group</label>
-            <% if (error ) { %>
-                <p >No User available</p>
-            <% } %>
-            <select id="group" name="group" required>
-                <% for (let i = 0; i < groups.length; i++) { %>
-                    <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>
+    <!-- Animated Background -->
+    <%- include('partials/animation.ejs') %>
+
+    <!-- Top Navigation -->
+    <%- include('partials/navigation.ejs') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            <h2>Add New Member</h2>
+            <form class="submitFormCreateAccount" action="/addMember" method="POST">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" required>
+                
+                <label for="group">Select Group</label>
+                <% if (error) { %>
+                    <p>No User available</p>
                 <% } %>
+                <select id="group" name="group" required>
+                    <% for (let i = 0; i < groups.length; i++) { %>
+                        <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>
+                    <% } %>
                 </select>
-            <button type="button" onclick="history.back()">Back</button>
-            <button type="submit">Add</button>
-            <!-- redirect back to view Group page-->
-        </form>
-    </main>
-    <footer>
-        <!-- add footer here -->
-    </footer>
+
+                <div class="button-container">
+                    <button class ="btn" type="button" onclick="history.back()">Back</button>
+                    <button type="submit">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

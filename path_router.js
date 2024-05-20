@@ -7,6 +7,8 @@ const fs = require('fs');
 const con = require('./database.js');
 const { get } = require('https');
 const crypto = require('crypto');
+const { format } = require('date-fns');
+
 
 
 // or via CommonJS
@@ -20,10 +22,10 @@ router.use(express.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.use(session({
-	secret: 'secret',
-	resave: true,
+    secret: 'secret',
+    resave: true,
     cookie: { maxAge: 300000 },
-	saveUninitialized: true
+    saveUninitialized: true
 }));// router.use(bodyParser.json());
 
 
@@ -32,13 +34,13 @@ const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
         next();
     } else {
-        res.redirect("/login");
+        res.redirect("/createAccount");
     }
 };
 try {
     var connection = require("./database.js");
-    var {insertUser,
-        insertGroup,insertTask,
+    var { insertUser,
+        insertGroup, insertTask,
         insertGroupUser,
         returnTable,
         getGroups,
@@ -51,15 +53,18 @@ try {
         getGroupTasksByGroupId,
         getGroupsByUser,
         checkEmailAndPassword,
+        markTaskComplete,
         updateTaskStatus,
         getGroupTasksByUserId,
         joinGroupUsingKey,
         getGroupByJoinCode,
         joinGroupByCode,
-        getUsersinGroup,
+        getUsersinGroup, checkIfUserIsMember,
+        getCompleteTasksByGroupId,
+        insertGroupTask
     } = require("./dataQueries.js")
 
-} catch (error) {console.log(error);}
+} catch (error) { console.log(error); }
 
 
 const storage = multer.diskStorage({
@@ -83,12 +88,18 @@ router.get('/index', async (req, res) => {
     res.render('index');
 });
 
+router.get('/404-page', async (req, res) => {
+    res.render('404-page');
+}
+);
+
 router.get('/login', async (req, res) => {
 
-      res.render('login', {
-        error: ''
+    res.render('createAccount', {
+        error: '',
+        accountCreated: false
     });
-    
+
 });
 
 
@@ -96,15 +107,17 @@ router.get('/createAccount', async (req, res) => {
     res.render('createAccount', {
         error: '',
         accountCreated: false
-    });});
+    });
+});
 
 //Router to get the ViewGroupTasks. 
-router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
+router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
 
     if (req.session.loggedin == false) {
         res.redirect('/login');
     }
-    group_id = req.params.id;
+    const group_id = req.params.id;
+
     console.log(group_id);
 
     const group = await getGroupById(group_id);
@@ -114,14 +127,28 @@ router.get('/viewGroupTask/:id', isAuthenticated,async (req, res) => {
     const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
     const tasks_week = await getGroupTasksDueWeek(group_id);
 
+    console.log("Tasks This Week");
+    console.log(tasks_week);
+
     //logging each for testing.
 
 
-    res.render('viewGroupTask', {group: group, tasks: group_tasks, tasks_today : tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week});
+    res.render('viewGroupTask', { groupId: group_id,group: group, tasks: group_tasks, tasks_today: tasks_today, tasks_tomorrow: tasks_tomorrow, tasks_week: tasks_week });
 });
 
-//Router to view the task for a particular user within a group. 
-
+//Routing to mark the task as complete.
+router.post('/markComplete/:taskId', async (req, res) => {
+    try {
+        const taskId = req.params.taskId;
+        // Call the function to mark the task as complete
+        await markTaskComplete(taskId);
+        //render the previous page
+        res.redirect('back');
+    } catch (error) {
+        console.error("Error marking task as complete:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 router.get('/createIndividualTask', async (req, res) => {
 
@@ -133,35 +160,82 @@ router.get('/userHomePage', async (req, res) => {
     if (req.session.loggedin == false) {
 
         res.redirect('/login');
-    }else{
+    } else {
+
+        let newGroupObject = await getGroupsByUser(req.session.user.id);
+        let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+
+        newTaskList.forEach(task => {
+            if (task.due_date) {
+              const date = new Date(task.due_date);
+              task.due_date = format(date, 'dd MM yyyy');
+            }
+          });
         res.render('userHomePage', {
             user: req.session.user,
-            group: req.session.groupSession,
-            tasks: req.session.tasks,
+            // group: req.session.groupSession,
+            group: newGroupObject,
+            tasks: newTaskList,
             isAdded: false,
             loggedIn: req.session.loggedin
 
         });
     }
-    // res.redirect('/userHomePage');
-    // res.render('userHomePage'),{
-    //     groups: req.session.groupSession,
-    //     user: req.session.user,
-    //     loggedIn: true,
-    //     tasks:req.session.tasks
-    // }
- 
 });
 
-router.get('/createGroupTask', async (req, res) => {
+router.get('/userHomePage/:id', async (req, res) => {
+    id = req.params.id;
+
+    if (req.session.loggedin == false) {
+
+        res.redirect('/login');
+    }
+
+    const userResults = await getUser(id);
+
+
+    const sessionObject = userResults[0];
+    const groubObj = await getGroupsByUser(sessionObject.id);
+    const tasksList = await getGroupTasksByUserId(sessionObject.id);
+
+    tasksList.forEach(task => {
+        if (task.due_date) {
+          const date = new Date(task.due_date);
+          task.due_date = format(date, 'dd MM yyyy');
+        }
+      });
+    res.render('userHomePage'), {
+        user: sessionObject,
+        group: groubObj,
+        isAdded: true,
+        tasks: tasksList
+    }
+
+});
+
+
+router.get('/createGroupTask/:id', async (req, res) => {
     let membersArr = [];
-    const group_id_param = req.body.group_id;
+    const group_id_param = req.params.id;
     membersArr = await getUsersinGroup(group_id_param);
-    console.log(membersArr);
+    console.log("Members Array" + membersArr);
+    console.log("Group ID" + group_id_param);
+    console.log("Group ID" + req.session.group_id);
+    try{
+    const groups = await getGroupsByUser(req.session.user.id);
+    req.session.group_id = group_id_param;
+
     res.render('createGroupTask', {
-        members: membersArr
+        members: membersArr,
+        groups: groups
 
     });
+
+    }catch(error){
+        res.redirect('/createAccount');
+
+    }
+
 
 
 });
@@ -180,27 +254,37 @@ router.post('/create/createTask', async (req, res) => {
     console.log(task_name, description);
 
     //insert the data into the database
-    try{
+    try {
         insertTask(task_name, description);
-    }catch (err) {
+    } catch (err) {
         res.status(500).send("Error fetching data from database");
         console.error(err);
-        }
+    }
 
     res.redirect('/create/');
 });
 
 router.post('/create/createGroupTask', async (req, res) => {
-        const group_id = req.session.group_id;
-        const task_name = req.body.taskName;
-        const description = req.body.description;
-        const due_date = req.body.due_date;
-        const user_id = req.session.user.id;
-        const status = req.body.status;
+    const group_id = req.session.group_id;
+    const task_name = req.body.taskName;
+    const description = req.body.description;
+    let due_date = req.body.dueDate;
+    //Format this to only be day month and year
+    // let date = new Date(due_date);
+    // due_date =  format(due_date, 'dd MM yyyy');
 
-        console.log(group_id, task_name, description, due_date, user_id, status);
-        insertGroupTask(group_id, task_name, description, due_date, user_id, status);
-        res.redirect('/createGroupTask');
+    const user_id = req.session.user.id;
+    const status = req.body.status;
+
+    console.log(group_id, task_name, description, due_date, user_id, status);
+    try{
+    await insertGroupTask(group_id, task_name, description, due_date, user_id, "Pending");
+    res.redirect('/createGroupTask/' + group_id);
+
+    }catch(error){
+        res.render('404-page');
+    }
+
 }
 );
 
@@ -211,28 +295,32 @@ router.post('/create/createGroupTask', async (req, res) => {
 
 router.get('/viewYourTask', async (req, res) => {
     tasks = [];
-    
-    try{
-    const [taskRes]  = await returnTable("task");
-   
-    users = taskRes;
 
-    console.log(users.name + " is test user's name");
+    try {
+        const [taskRes] = await returnTable("task");
 
-    }catch (err) {
+        users = taskRes;
+
+        console.log(users.name + " is test user's name");
+
+    } catch (err) {
         res.status(500).send("Error fetching data from database");
         console.error(err);
-      }
+    }
 
-    res.render('viewYourTask',{
+    res.render('viewYourTask', {
         title: 'View Your Task'
-        
+
     });
 
 });
 
 
-router.post('/auth', async (req, res,next) => {
+
+
+
+
+router.post('/auth', async (req, res, next) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
@@ -241,34 +329,34 @@ router.post('/auth', async (req, res,next) => {
         const userResults = await checkEmailAndPassword(email, password);
         if (userResults != null) {
             // Authentication successful
+            //USER OBJECT
+
             const sessionObject = userResults[0];
+            // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
-            console.log(tasksList);
-
-
-            console.log(sessionObject);
+            tasksList.forEach(task => {
+                if (task.due_date) {
+                  const date = new Date(task.due_date);
+                  task.due_date = format(date, 'dd MM yyyy');
+                }
+              });
+            
+            //SETS SOME SESSIONS UP
             req.session.loggedin = true;
             req.session.email = email;
             req.session.name = sessionObject.name;
-
-
             req.session.user = sessionObject;
             req.session.groupSession = groubObj;
             req.session.tasks = tasksList;
 
-            // res.session.user = sessionObject;
-            // res.session.groupSession = groubObj;
-            // res.session.tasks = tasksList;
-            
 
             res.locals.groupSession = groubObj;
 
-            // Fetch groups for the user
 
 
-            console.log(groubObj);
             //Global data for all ejs templates
+
             res.locals.email = req.session.email;
             res.locals.name = req.session.name;
             res.locals.loggedIn = req.session.loggedin;
@@ -276,8 +364,8 @@ router.post('/auth', async (req, res,next) => {
             res.locals.groupSession = groubObj;
             res.locals.tasks = tasksList;
 
-                            // Render userHomePage with user and group data
-
+            // Render userHomePage with user and group data
+            req.session.save();
             res.render('userHomePage', {
                 user: sessionObject,
                 group: groubObj,
@@ -285,11 +373,12 @@ router.post('/auth', async (req, res,next) => {
                 tasks: tasksList
             });
         }
-        
+
         else {
             // Authentication failed
-            res.render('login', {
-                error: 'Incorrect email or password!'
+            res.render('createAccount', {
+                error: 'Incorrect email or password!',
+                accountCreated: false
             });
         }
     } catch (error) {
@@ -302,8 +391,8 @@ router.post('/auth', async (req, res,next) => {
 
 router.get('/logout', async (req, res) => {
 
-    req.session.destroy(function(err) {
-        if(err) {
+    req.session.destroy(function (err) {
+        if (err) {
             return console.log(err);
         }
         res.redirect('/');
@@ -330,18 +419,45 @@ router.post('/create-account', async (req, res) => {
             error: 'User already exists',
             accountCreated: false
         });
-    }else{
-    //insert the data into the database
-    insertUser(name, phone_number, email,address, password);
-    res.render('createAccount', {
-        error: '',
-        accountCreated: true
-    })
+    } else {
+        //insert the data into the database
+        insertUser(name, phone_number, email, address, password);
+        res.render('createAccount', {
+            error: '',
+            accountCreated: true
+        })
 
-}});
+    }
+});
 
 
 //Routing for Create Group
+// router.post('/create/group', async function (req, res) {
+//     const groupNameResult = req.body.groupName;
+
+//     console.log(groupNameResult);
+//     // Join Code
+//     const min = 100000;
+//     const max = 999999;
+//     const joinCode = Math.floor(Math.random() * (max - min + 1)) + min;
+    
+//     try {
+//         await insertGroup(groupNameResult, joinCode);
+//         const group = await getGroupByJoinCode(joinCode);
+        
+//         const group_id = group[0].group_id;
+//         const user_id = req.session.user.id;
+
+//         // Automatically add the user as a member of the group
+//         await insertGroupUser(user_id, group_id);
+
+//         // Redirect to the userHomePage after creating the group
+//         res.redirect('/userHomePage');
+//     } catch (error) {
+//         console.error("Error creating group:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
 
 
 router.post('/create/group', async function (req, res) {
@@ -352,9 +468,24 @@ router.post('/create/group', async function (req, res) {
     const min = 100000;
     const max = 999999;
     const joinCode = Math.floor(Math.random() * (max - min + 1)) + min;
-    insertGroup(groupNameResult,joinCode);
-    res.redirect('/createGroup');
+    await insertGroup(groupNameResult, joinCode);
+
+    const group = await getGroupByJoinCode(joinCode);
+    const group_id = group[0].group_id;
+    const user_id = req.session.user.id;
+
+    try{
+    await insertGroupUser(user_id, group_id);
+    res.redirect('/viewGroupTask/' + group_id);
+
+    }catch(error){
+       
+        res.render('404-page');
+    }
+
+
 });
+
 
 
 //Routing for Add User to Group
@@ -369,7 +500,7 @@ router.post('/addMember', async (req, res) => {
     let user = await getUserByEmail(user_email);
     let group = await getGroupById(group_id);
 
-    let allGroups = await getGroups();  
+    let allGroups = await getGroups();
     //get the user id out of user
     if (user == null) {
         res.render('addNewMemberToExistingGroup', {
@@ -377,22 +508,28 @@ router.post('/addMember', async (req, res) => {
             error: true
         });
         return
-    }else{
-    let user_id = user[0].id;
-    //insert the data into the database
-    insertGroupUser(user_id,group_id);
-    res.redirect('/addUserToGroup');
+    } else {
+        let user_id = user[0].id;
+        //insert the data into the database
+        insertGroupUser(user_id, group_id);
+        res.redirect('/addUserToGroup');
 
-}});
+    }
+});
 
 
 //Routing for add user to group.
 router.get('/addUserToGroup', async (req, res) => {
+
+// router.get('/addUserToGroup/:id', async (req, res) => {
     try {
         // Fetch groups asynchronously
+        // const groups_data = await getGroupById(req.params.id);
         const groups_data = await getGroups();
+    
+
         // Render the EJS template with the fetched groups
-        res.render('addNewMemberToExistingGroup', { groups: groups_data,error: false });
+        res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false });
         // console.log(groups_data);
     } catch (error) {
         // Handle error
@@ -401,23 +538,29 @@ router.get('/addUserToGroup', async (req, res) => {
     }
 });
 
-router.post('/joinGroupWithCode', async (req, res) => { 
+router.post('/joinGroupWithCode', async (req, res) => {
     console.log("BODY" + req.body);
     const groupCode = req.body.join_code;
     console.log(groupCode);
+    console.log(req.body);
+
     const userId = req.body.user_id;
-    // console.log(userId);
+    console.log(userId);
 
     const group = await getGroupByJoinCode(groupCode);
-    
-    //  group = "fefewf";
-    if (group != null) {
-        joinGroupByCode(userId, groupCode);
+    const isMember = await checkIfUserIsMember(userId, groupCode); // You need to implement this function
+    //     if (group && group.length > 0
+    if (group != null && isMember == null) {
+   
+        try{
+       await joinGroupByCode(userId, groupCode);
+        
         res.redirect('/userHomePage');
 
-    } else {
-        res.redirect('/userHomePage');
-    
+        } catch (error) {
+            console.error("Error joining group:", error);
+            res.status(500).send("Internal Server Error");  
+        }
     }
 }
 );
@@ -426,12 +569,12 @@ router.post('/joinGroupWithCode', async (req, res) => {
 
 
 // Create Group Page Router
-router.get('/createGroup',isAuthenticated, async (req, res) => {
+router.get('/createGroup', isAuthenticated, async (req, res) => {
     const userData = req.session.user;
     console.log(userData);
     res.render('createGroup', {
     });
-  });
+});
 
 
 //REturn Table
@@ -439,55 +582,54 @@ router.get('/returnTable', async (req, res) => {
     usersArr = [];
     groupsArr = [];
     tasksArr = [];
-    
-    try{
-    const usersRes  = await returnTable("user");
-    const groupsRes = await returnTable("`group`");
-    const tasksRes = await returnTable("task");
-    usersArr = usersRes;
-    groupsArr = groupsRes;
-    tasksArr = tasksRes;
+
+    try {
+        const usersRes = await returnTable("user");
+        const groupsRes = await returnTable("`group`");
+        const tasksRes = await returnTable("task");
+        usersArr = usersRes;
+        groupsArr = groupsRes;
+        tasksArr = tasksRes;
 
 
-    res.render('test', {
-        users: usersArr,
-        groups: groupsArr,
-        tasks: tasksArr
-    });
+        res.render('test', {
+            users: usersArr,
+            groups: groupsArr,
+            tasks: tasksArr
+        });
 
 
-    }catch (err) {
+    } catch (err) {
         console.error("You havent set up the database yet!");
         res.status(500).send("Error fetching data from database");
 
         console.error(err);
-      }
+    }
 
-  
-  });
+
+});
 
 
 
 var getUserOrLogin = function (req, res, next) {
     var user = req.session.user;
-  
-    if (user == null) {
-      req.session.backTo = req.originalUrl; 
-      res.redirect('/login');
-    } else {
-      req.user = user;
-      next();
-    }
-  };
 
-  var getUser = function (req) {
-    var user = req.session.user;
-  
     if (user == null) {
-      throw('Error');
+        req.session.backTo = req.originalUrl;
+        res.redirect('/login');
     } else {
-      return user;
+        req.user = user;
+        next();
     }
-  };
+};
+
+router.get('/taskHistoryOfGroup/:group_id', async (req,res) => {
+    // const group = await getGroupById(req.params.group_id);
+    const tasksObj = await getCompleteTasksByGroupId(req.params.group_id);
+    res.render('taskHistoryOfGroup', {tasks: tasksObj});
+
+
+});
+
 
 module.exports = router;

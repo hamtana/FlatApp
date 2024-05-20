@@ -1,49 +1,51 @@
 <!DOCTYPE html>
-<html>
-    <%- include("partials/header")-%> 
-<head>
-    <title>Create Task</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        input[type="submit"] {
-            padding: 8px 20px;
-            background-color: #4c66af;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #4571a0;
-        }
-    </style>
-</head>
+<html lang="en">
+<head><%- include('partials/heading.ejs') %></head>
 <body>
-    <h1>Create Task</h1>
-    <form action="createIndividualTask" method="POST">
-        <label for="taskName">Task Name:</label><br>
-        <input type="text" id="taskName" name="taskName" required><br>
-        
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" required></textarea><br>
-        
-        <label for="dueDate">Due Date:</label><br>
-        <input type="date" id="dueDate" name="dueDate" required><br>
-        
-        <label for="assignee">Assignee:</label><br>
-        <input type="text" id="assignee" name="assignee"><br>
-        
-        <input type="submit" value="Create Task">
-    </form>
+    <!-- Animated Background -->
+    <%- include('partials/animation.ejs') %>
+
+    <!-- Top Navigation -->
+    <%- include('partials/navigation.ejs') %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="text-container">
+            
+            <form class="submitFormCreateAccount" action="createIndividualTask" method="POST">
+                <h1>Create Task</h1>
+                <br>
+                <fieldset class="taskFields">
+                    <div class="formField">
+                        <label for="taskName">Task Name:</label>
+                        <input type="text" id="taskName" name="taskName" required>
+                    </div>
+            
+                    <div class="formField">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4" required></textarea>
+                    </div>
+            
+                    <div class="formField">
+                        <label for="dueDate">Due Date:</label>
+                        <input type="date" id="dueDate" name="dueDate" required>
+                    </div>
+            
+                    <div class="formField">
+                        <label for="assignee">Assignee:</label>
+                        <input type="text" id="assignee" name="assignee">
+                    </div>
+                </fieldset>
+            
+                <div class="button-container">
+                    <button class="button" id="submitBtnCreateGroup" type="submit">Create Task</button>
+                </div>
+            </form>
+        </div>
+        <div class="button-container">
+            <div style="height: 40px; width:1px; position:relative;"></div>
+            <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
+        </div>
+    </div>
 </body>
 </html>
