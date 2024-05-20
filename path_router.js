@@ -7,6 +7,8 @@ const fs = require('fs');
 const con = require('./database.js');
 const { get } = require('https');
 const crypto = require('crypto');
+const { format } = require('date-fns');
+
 
 
 // or via CommonJS
@@ -158,6 +160,12 @@ router.get('/userHomePage', async (req, res) => {
         let newGroupObject = await getGroupsByUser(req.session.user.id);
         let newTaskList = await getGroupTasksByUserId(req.session.user.id);
 
+        newTaskList.forEach(task => {
+            if (task.due_date) {
+              const date = new Date(task.due_date);
+              task.due_date = format(date, 'dd MM yyyy');
+            }
+          });
         res.render('userHomePage', {
             user: req.session.user,
             // group: req.session.groupSession,
@@ -186,6 +194,12 @@ router.get('/userHomePage/:id', async (req, res) => {
     const groubObj = await getGroupsByUser(sessionObject.id);
     const tasksList = await getGroupTasksByUserId(sessionObject.id);
 
+    tasksList.forEach(task => {
+        if (task.due_date) {
+          const date = new Date(task.due_date);
+          task.due_date = format(date, 'dd MM yyyy');
+        }
+      });
     res.render('userHomePage'), {
         user: sessionObject,
         group: groubObj,
@@ -243,7 +257,11 @@ router.post('/create/createGroupTask', async (req, res) => {
     const group_id = req.session.group_id;
     const task_name = req.body.taskName;
     const description = req.body.description;
-    const due_date = req.body.dueDate;
+    let due_date = req.body.dueDate;
+    //Format this to only be day month and year
+    // let date = new Date(due_date);
+    // due_date =  format(due_date, 'dd MM yyyy');
+
     const user_id = req.session.user.id;
     const status = req.body.status;
 
@@ -306,7 +324,13 @@ router.post('/auth', async (req, res, next) => {
             // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
-  
+            tasksList.forEach(task => {
+                if (task.due_date) {
+                  const date = new Date(task.due_date);
+                  task.due_date = format(date, 'dd MM yyyy');
+                }
+              });
+            
             //SETS SOME SESSIONS UP
             req.session.loggedin = true;
             req.session.email = email;
