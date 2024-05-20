@@ -32,7 +32,7 @@ const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
         next();
     } else {
-        res.redirect("/login");
+        res.redirect("/createAccount");
     }
 };
 try {
@@ -59,6 +59,7 @@ try {
         joinGroupByCode,
         getUsersinGroup, checkIfUserIsMember,
         getCompleteTasksByGroupId,
+        insertGroupTask
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -87,7 +88,7 @@ router.get('/index', async (req, res) => {
 
 router.get('/login', async (req, res) => {
 
-    res.render('login', {
+    res.render('createAccount', {
         error: ''
     });
 
@@ -104,10 +105,11 @@ router.get('/createAccount', async (req, res) => {
 //Router to get the ViewGroupTasks. 
 router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
 
-    // if (req.session.loggedin == false) {
-    //     res.redirect('/login');
-    // }
+    if (req.session.loggedin == false) {
+        res.redirect('/login');
+    }
     const group_id = req.params.id;
+
     console.log(group_id);
 
     const group = await getGroupById(group_id);
@@ -191,13 +193,19 @@ router.get('/userHomePage/:id', async (req, res) => {
 });
 
 
-router.get('/createGroupTask', async (req, res) => {
+router.get('/createGroupTask/:id', async (req, res) => {
     let membersArr = [];
-    const group_id_param = req.body.group_id;
+    const group_id_param = req.params.id;
     membersArr = await getUsersinGroup(group_id_param);
-    console.log(membersArr);
+    console.log("Members Array" + membersArr);
+    console.log("Group ID" + group_id_param);
+    console.log("Group ID" + req.session.group_id);
+    const groups = await getGroupsByUser(req.session.user.id);
+    req.session.group_id = group_id_param;
+
     res.render('createGroupTask', {
-        members: membersArr
+        members: membersArr,
+        groups: groups
 
     });
 
@@ -237,8 +245,14 @@ router.post('/create/createGroupTask', async (req, res) => {
     const status = req.body.status;
 
     console.log(group_id, task_name, description, due_date, user_id, status);
-    insertGroupTask(group_id, task_name, description, due_date, user_id, status);
+    try{
+    await insertGroupTask(group_id, task_name, description, due_date, user_id, "Pending");
     res.redirect('/createGroupTask');
+
+    }catch(error){
+        res.render('404-page');
+    }
+
 }
 );
 
@@ -472,9 +486,14 @@ router.post('/addMember', async (req, res) => {
 
 //Routing for add user to group.
 router.get('/addUserToGroup', async (req, res) => {
+
+// router.get('/addUserToGroup/:id', async (req, res) => {
     try {
         // Fetch groups asynchronously
+        // const groups_data = await getGroupById(req.params.id);
         const groups_data = await getGroups();
+    
+
         // Render the EJS template with the fetched groups
         res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false });
         // console.log(groups_data);

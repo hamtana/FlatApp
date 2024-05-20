@@ -349,18 +349,36 @@ function joinGroupByCode(user_id, join_code) {
         });
     });
 }
-function insertGroupTask(status, task_id, user_id, group_id) {
+function insertGroupTask(group_id, task_name, description, due_date, user_id, status){
     return new Promise((resolve, reject) => {
-        connection.query("INSERT INTO group_task (status, task_id, user_id, group_id) VALUES (?, ?, ?, ?)", [status, task_id, user_id, group_id], function (err, result) {
+        connection.query("INSERT INTO task (title, description) VALUES (?, ?)", [task_name, description], function (err, result) {
             if (err) {
                 console.log(err);
                 reject(err);
             } else {
                 console.log("1 record inserted");
-                resolve(result);
+                connection.query("SELECT id FROM task WHERE title = ? AND description = ?", [task_name, description], function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    } else {
+                        console.log("1 record inserted");
+                        connection.query("INSERT INTO group_task (status, task_id, user_id, group_id, due_date) VALUES (?, ?, ?, ?, ?)", [status, result[0].id, user_id, group_id, due_date], function (err, result) {
+                            if (err) {
+                                console.log(err);
+                                reject(err);
+                            } else {
+                                console.log("1 record inserted");
+                                resolve(result);
+                            }
+                        });
+                    }
+                });
             }
         });
     });
+
+    
 }
 
 
@@ -526,7 +544,7 @@ module.exports = {
     insertUser,
     insertGroup,
     insertTask,
-    insertGroupUser,
+    insertGroupUser,insertGroupTask,
     returnTable,
     getGroups,
     getUserByEmail,

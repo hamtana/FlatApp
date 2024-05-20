@@ -11,7 +11,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="text-container">
-            <form class="submitFormCreateAccount" action="/create/GroupTask" method="POST">
+            <form class="submitFormCreateAccount" action="/create/createGroupTask" method="POST">
                 <label for="taskName">Task Name:</label>
                 <input type="text" id="taskName" name="taskName" required>
             
@@ -19,6 +19,11 @@
                 <textarea id="description" name="description" required></textarea>
             
                 <label for="selectGroup">Select Group:</label>
+                <select id="selectGroup" name="selectGroup">
+                    <% groups.forEach(group => { %>
+                        <option value="<%= group.id %>"><%= group.name %></option>
+                    <% }); %>
+
                 <!-- Add your group selection input here -->
             
                 <label for="dueDate">Due Date:</label>
@@ -32,7 +37,7 @@
                 </select>
             
                 <!-- If you want to allow manual input for assignee, uncomment the next line -->
-                <!-- <input type="text" id="assignee" name="assignee" placeholder="Or type the assignee's name"> -->
+                <input type="text" id="assignee" name="assignee" placeholder="Or type the assignee's name">
             
                 <button type="submit">Create Task</button>
             </form>

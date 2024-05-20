@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <header>
-        <%- include("partials/navigation")-%>
-    </header>
+<header>
+    <%- include("partials/navigation")-%>
+</header>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Group Tasks</title>
     <link rel="stylesheet" href="/css/zaraHomepage.css"> <!-- Assuming you have a separate CSS file -->
 </head>
+
 <body>
     <!--
     <header>
@@ -29,9 +31,18 @@
     <main>
         <section id="overview">
             <h2>Overview</h2>
-            <a  href="/taskHistoryOfGroup/<%= groupId %>">
-                <button class ="taskHistoryBtn">See Task History</button>
-                </a>
+            <a href="/taskHistoryOfGroup/<%= groupId %>">
+                <button class="taskHistoryBtn">See Task History</button>
+            </a>
+            <!-- <a href="/addUserToGroup/<%= groupId %>"> -->
+                <a href="/addUserToGroup">
+
+                <button class="addMemberToGroup">Add member to group</button>
+            </a>
+            <a href="/createGroupTask/<%= groupId %>">
+
+                <button class="createTasks">Create and Assign Tasks</button>
+            </a>
             <div id="today">
                 <h3>Today</h3><!-- this should allow user to edit task by adding or removing them-->
                 <table>
@@ -44,20 +55,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (tasks_today && tasks_today.length > 0) { %>
-                            <% for (let i = 0; i < tasks_today.length; i++) { %>
+                        <% if (tasks_today && tasks_today.length> 0) { %>
+                            <% for (let i=0; i < tasks_today.length; i++) { %>
                                 <tr>
-                                    <td><%= tasks_today[i].status %></td>
-                                    <td><%= tasks_today[i].description %></td>
-                                    <td><%= tasks_today[i].name %></td>
+                                    <td>
+                                        <%= tasks_today[i].status %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_today[i].description %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_today[i].name %>
+                                    </td>
                                     <td>
                                         <form action="/markComplete/<%= tasks_today[i].id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
                                 </tr>
-                            <% } %>
-                        <% } %>
+                                <% } %>
+                                    <% } %>
                     </tbody>
                 </table>
             </div>
@@ -73,20 +90,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (tasks_tomorrow && tasks_tomorrow.length > 0) { %>
-                            <% for (let i = 0; i < tasks_tomorrow.length; i++) { %>
+                        <% if (tasks_tomorrow && tasks_tomorrow.length> 0) { %>
+                            <% for (let i=0; i < tasks_tomorrow.length; i++) { %>
                                 <tr>
-                                    <td><%= tasks_tomorrow[i].status %></td>
-                                    <td><%= tasks_tomorrow[i].description %></td>
-                                    <td><%= tasks_tomorrow[i].name %></td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].status %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].description %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].name %>
+                                    </td>
                                     <td>
                                         <form action="/markComplete/<%= tasks_tomorrow[i].id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
                                 </tr>
-                            <% } %>
-                        <% } %>
+                                <% } %>
+                                    <% } %>
                     </tbody>
                 </table>
             </div>
@@ -102,12 +125,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (tasks_week && tasks_week.length > 0) { %>
-                            <% for (let i = 0; i < tasks_week.length; i++) { %>
+                        <% if (tasks_week && tasks_week.length> 0) { %>
+                            <% for (let i=0; i < tasks_week.length; i++) { %>
                                 <tr>
-                                    <td><%= tasks_week[i].status %></td>
-                                    <td><%= tasks_week[i].description %></td>
-                                    <td><%= tasks_week[i].name %></td>
+                                    <td>
+                                        <%= tasks_week[i].status %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_week[i].description %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_week[i].name %>
+                                    </td>
 
                                     <td>
                                         <form action="/markComplete/<%= tasks_week[i].id %>" method="POST">
@@ -115,8 +144,8 @@
                                         </form>
                                     </td>
                                 </tr>
-                            <% } %>
-                        <% } %>
+                                <% } %>
+                                    <% } %>
                     </tbody>
                 </table>
             </div>
@@ -128,4 +157,5 @@
     <script>
     </script>
 </body>
+
 </html>
