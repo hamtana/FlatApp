@@ -99,7 +99,8 @@ app.get('*', (req, res) => {
     // This directs the router to the specific file
     // res.sendFile(path.join(__dirname, 'public','home.html'));
     // res.render('path/index');
-    res.status(404).send('404 Page Not Found');
+    // res.status(404).send('404 Page Not Found');
+    res.render('404-page');
 });
 
 const PORT = 8080 || process.env.PORT;

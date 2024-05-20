@@ -88,6 +88,11 @@ router.get('/index', async (req, res) => {
     res.render('index');
 });
 
+router.get('/404-page', async (req, res) => {
+    res.render('404-page');
+}
+);
+
 router.get('/login', async (req, res) => {
 
     res.render('createAccount', {
@@ -122,8 +127,8 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
     const tasks_week = await getGroupTasksDueWeek(group_id);
 
-    console.log("Tasks Today");
-    console.log(tasks_today);
+    console.log("Tasks This Week");
+    console.log(tasks_week);
 
     //logging each for testing.
 
@@ -217,6 +222,7 @@ router.get('/createGroupTask/:id', async (req, res) => {
     console.log("Members Array" + membersArr);
     console.log("Group ID" + group_id_param);
     console.log("Group ID" + req.session.group_id);
+    try{
     const groups = await getGroupsByUser(req.session.user.id);
     req.session.group_id = group_id_param;
 
@@ -225,6 +231,12 @@ router.get('/createGroupTask/:id', async (req, res) => {
         groups: groups
 
     });
+
+    }catch(error){
+        res.redirect('/createAccount');
+
+    }
+
 
 
 });
