@@ -116,7 +116,7 @@
     // );
 </script>
 
-<% if (error.length>0) { %>
+<% if (error ===("User already exists")) { %>
 <script>
     Swal.fire(
         'User Already Exists !',
@@ -125,6 +125,15 @@
     )
 </script>
 <%  } %>
+<% if (error === ("Incorrect email or password!")) { %>
+    <script>
+        Swal.fire(
+            'Incorrect Login Details!',
+            'Please try Again',
+            'Unable to Log In'
+        )
+    </script>
+    <%  } %>
 
 
 <% if (accountCreated) { %>

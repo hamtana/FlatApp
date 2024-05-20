@@ -89,7 +89,8 @@ router.get('/index', async (req, res) => {
 router.get('/login', async (req, res) => {
 
     res.render('createAccount', {
-        error: ''
+        error: '',
+        accountCreated: false
     });
 
 });
@@ -155,11 +156,13 @@ router.get('/userHomePage', async (req, res) => {
     } else {
 
         let newGroupObject = await getGroupsByUser(req.session.user.id);
+        let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+
         res.render('userHomePage', {
             user: req.session.user,
             // group: req.session.groupSession,
             group: newGroupObject,
-            tasks: req.session.tasks,
+            tasks: newTaskList,
             isAdded: false,
             loggedIn: req.session.loggedin
 
@@ -240,14 +243,14 @@ router.post('/create/createGroupTask', async (req, res) => {
     const group_id = req.session.group_id;
     const task_name = req.body.taskName;
     const description = req.body.description;
-    const due_date = req.body.due_date;
+    const due_date = req.body.dueDate;
     const user_id = req.session.user.id;
     const status = req.body.status;
 
     console.log(group_id, task_name, description, due_date, user_id, status);
     try{
     await insertGroupTask(group_id, task_name, description, due_date, user_id, "Pending");
-    res.redirect('/createGroupTask');
+    res.redirect('/createGroupTask/' + group_id);
 
     }catch(error){
         res.render('404-page');
@@ -303,12 +306,7 @@ router.post('/auth', async (req, res, next) => {
             // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
-            // console.log(tasksList);
-            // console.log(sessionObject);
-            // console.log(sessionObject.name);
-            // console.log("id" + sessionObject.id);
-            // console.log(groubObj);
-
+  
             //SETS SOME SESSIONS UP
             req.session.loggedin = true;
             req.session.email = email;
@@ -343,8 +341,9 @@ router.post('/auth', async (req, res, next) => {
 
         else {
             // Authentication failed
-            res.render('login', {
-                error: 'Incorrect email or password!'
+            res.render('createAccount', {
+                error: 'Incorrect email or password!',
+                accountCreated: false
             });
         }
     } catch (error) {
