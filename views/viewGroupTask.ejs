@@ -68,7 +68,7 @@
                                         <%= tasks_today[i].name %>
                                     </td>
                                     <td>
-                                        <form action="/markComplete/<%= tasks_today[i].id %>" method="POST">
+                                        <form action="/markComplete/<%= tasks_today[i].task_id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
@@ -103,7 +103,7 @@
                                         <%= tasks_tomorrow[i].name %>
                                     </td>
                                     <td>
-                                        <form action="/markComplete/<%= tasks_tomorrow[i].id %>" method="POST">
+                                        <form action="/markComplete/<%= tasks_tomorrow[i].task_id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
@@ -139,7 +139,7 @@
                                     </td>
 
                                     <td>
-                                        <form action="/markComplete/<%= tasks_week[i].id %>" method="POST">
+                                        <form action="/markComplete/<%= tasks_week[i].task_id %>" method="POST">
                                             <button type="submit">Mark Complete</button>
                                         </form>
                                     </td>
