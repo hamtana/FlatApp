@@ -27,10 +27,10 @@
                 <!-- Add your group selection input here -->
             
                 <label for="dueDate">Due Date:</label>
-                <input type="date" id="dueDate" name="dueDate">
+                <input type="date" id="dueDate" name="dueDate" required>
             
                 <label for="selectAssignee">Assignee:</label>
-                <select id="selectAssignee" name="selectAssignee">
+                <select id="selectAssignee" name="selectAssignee" >
                     <% members.forEach(member => { %>
                         <option value="<%= member.id %>"><%= member.name %></option>
                     <% }); %>

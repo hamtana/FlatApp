@@ -20,6 +20,9 @@
                 <% if (error) { %>
                     <p>No User available</p>
                 <% } %>
+                <% if (alreadyExists) { %>
+                    <p>User Already in Group</p>
+                <% } %>
                 <select id="group" name="group" required>
                     <% for (let i = 0; i < groups.length; i++) { %>
                         <option value="<%= groups[i].group_id %>"><%= groups[i].name %></option>

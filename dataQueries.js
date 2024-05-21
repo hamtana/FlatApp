@@ -519,6 +519,21 @@ function returnTable(table) {
 }
 // */
 // ==============================================
+function getUncompleteTasksByUserId(id) {
+    return new Promise((resolve, reject) => {
+        connection.query("SELECT * FROM group_task JOIN task ON group_task.task_id = task.id JOIN user ON group_task.user_id = user.id WHERE user_id = ? AND status != 'Complete'", [id], function (err, result) {
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        }
+        );
+    });
+
+
+}
 
 /*Complete task history */ 
 function getCompleteTasksByGroupId(id) {
@@ -561,5 +576,6 @@ module.exports = {
     markTaskComplete,
     joinGroupByCode,
     checkIfUserIsMember,
-    getCompleteTasksByGroupId
+    getCompleteTasksByGroupId,
+    getUncompleteTasksByUserId,
 };

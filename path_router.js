@@ -61,7 +61,8 @@ try {
         joinGroupByCode,
         getUsersinGroup, checkIfUserIsMember,
         getCompleteTasksByGroupId,
-        insertGroupTask
+        insertGroupTask,
+        getUncompleteTasksByUserId,
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -163,7 +164,8 @@ router.get('/userHomePage', async (req, res) => {
     } else {
 
         let newGroupObject = await getGroupsByUser(req.session.user.id);
-        let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+        // let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+        let newTaskList = await getUncompleteTasksByUserId(req.session.user.id);
 
         newTaskList.forEach(task => {
             if (task.due_date) {
@@ -196,7 +198,7 @@ router.get('/userHomePage/:id', async (req, res) => {
 
     const sessionObject = userResults[0];
     const groubObj = await getGroupsByUser(sessionObject.id);
-    const tasksList = await getGroupTasksByUserId(sessionObject.id);
+    const tasksList = await getUncompleteTasksByUserId(sessionObject.id);
 
     tasksList.forEach(task => {
         if (task.due_date) {
@@ -272,8 +274,7 @@ router.post('/create/createGroupTask', async (req, res) => {
     //Format this to only be day month and year
     // let date = new Date(due_date);
     // due_date =  format(due_date, 'dd MM yyyy');
-
-    const user_id = req.session.user.id;
+    let user_id= req.body.selectAssignee;
     const status = req.body.status;
 
     console.log(group_id, task_name, description, due_date, user_id, status);
@@ -334,11 +335,13 @@ router.post('/auth', async (req, res, next) => {
             const sessionObject = userResults[0];
             // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
-            const tasksList = await getGroupTasksByUserId(sessionObject.id);
+            // const tasksList = await getGroupTasksByUserId(sessionObject.id);
+         const tasksList = await getUncompleteTasksByUserId(sessionObject.id);
+
             tasksList.forEach(task => {
                 if (task.due_date) {
                   const date = new Date(task.due_date);
-                  task.due_date = format(date, 'dd MM yyyy');
+                  task.due_date = format(date, 'dd/MM/yyyy');
                 }
               });
             
@@ -382,8 +385,10 @@ router.post('/auth', async (req, res, next) => {
             });
         }
     } catch (error) {
-        console.error('Error during authentication:', error);
-        res.status(500).send('Internal Server Error');
+        res.render('createAccount', {
+            error: 'Incorrect email or password!',
+            accountCreated: false
+        });
     }
 });
 
@@ -403,7 +408,7 @@ router.get('/logout', async (req, res) => {
 // Routing for Create Account
 router.post('/create-account', async (req, res) => {
 
-
+try{
     // Collect all of the data from the form using multer
     const name = req.body.name;
     const phone_number = req.body.phone_number;
@@ -428,6 +433,12 @@ router.post('/create-account', async (req, res) => {
         })
 
     }
+}catch(error){
+    res.render('createAccount', {
+        error: 'User already exists',
+        accountCreated: false
+    });
+}
 });
 
 
@@ -502,19 +513,32 @@ router.post('/addMember', async (req, res) => {
 
     let allGroups = await getGroups();
     //get the user id out of user
+   
     if (user == null) {
         res.render('addNewMemberToExistingGroup', {
             groups: allGroups,
-            error: true
+            error: true,
+            alreadyExists:false
         });
         return
+
+
     } else {
+        try{
         let user_id = user[0].id;
         //insert the data into the database
-        insertGroupUser(user_id, group_id);
+        await insertGroupUser(user_id, group_id);
         res.redirect('/addUserToGroup');
-
+    }catch(error){
+        res.render('addNewMemberToExistingGroup', {
+            groups: allGroups,
+            error: false,
+            alreadyExists:true
+        });
     }
+    }
+   
+
 });
 
 
@@ -529,7 +553,7 @@ router.get('/addUserToGroup', async (req, res) => {
     
 
         // Render the EJS template with the fetched groups
-        res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false });
+        res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false, alreadyExists:false });
         // console.log(groups_data);
     } catch (error) {
         // Handle error
