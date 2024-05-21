@@ -383,8 +383,10 @@ router.post('/auth', async (req, res, next) => {
             });
         }
     } catch (error) {
-        console.error('Error during authentication:', error);
-        res.status(500).send('Internal Server Error');
+        res.render('createAccount', {
+            error: 'Incorrect email or password!',
+            accountCreated: false
+        });
     }
 });
 
@@ -404,7 +406,7 @@ router.get('/logout', async (req, res) => {
 // Routing for Create Account
 router.post('/create-account', async (req, res) => {
 
-
+try{
     // Collect all of the data from the form using multer
     const name = req.body.name;
     const phone_number = req.body.phone_number;
@@ -429,6 +431,12 @@ router.post('/create-account', async (req, res) => {
         })
 
     }
+}catch(error){
+    res.render('createAccount', {
+        error: 'User already exists',
+        accountCreated: false
+    });
+}
 });
 
 
