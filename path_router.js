@@ -62,6 +62,7 @@ try {
         getUsersinGroup, checkIfUserIsMember,
         getCompleteTasksByGroupId,
         insertGroupTask,
+        getUncompleteTasksByUserId,
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -163,7 +164,8 @@ router.get('/userHomePage', async (req, res) => {
     } else {
 
         let newGroupObject = await getGroupsByUser(req.session.user.id);
-        let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+        // let newTaskList = await getGroupTasksByUserId(req.session.user.id);
+        let newTaskList = await getUncompleteTasksByUserId(req.session.user.id);
 
         newTaskList.forEach(task => {
             if (task.due_date) {
@@ -197,7 +199,7 @@ router.get('/userHomePage/:id', async (req, res) => {
 
     const sessionObject = userResults[0];
     const groubObj = await getGroupsByUser(sessionObject.id);
-    const tasksList = await getGroupTasksByUserId(sessionObject.id);
+    const tasksList = await getUncompleteTasksByUserId(sessionObject.id);
 
     tasksList.forEach(task => {
         if (task.due_date) {
@@ -334,12 +336,13 @@ router.post('/auth', async (req, res, next) => {
             const sessionObject = userResults[0];
             // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
-            const tasksList = await getGroupTasksByUserId(sessionObject.id);
-            
+            // const tasksList = await getGroupTasksByUserId(sessionObject.id);
+         const tasksList = await getUncompleteTasksByUserId(sessionObject.id);
+
             tasksList.forEach(task => {
                 if (task.due_date) {
                   const date = new Date(task.due_date);
-                  task.due_date = format(date, 'dd MM yyyy');
+                  task.due_date = format(date, 'dd/MM/yyyy');
                 }
               });
             
