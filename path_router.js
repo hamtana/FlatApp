@@ -61,7 +61,7 @@ try {
         joinGroupByCode,
         getUsersinGroup, checkIfUserIsMember,
         getCompleteTasksByGroupId,
-        insertGroupTask
+        insertGroupTask,
     } = require("./dataQueries.js")
 
 } catch (error) { console.log(error); }
@@ -273,8 +273,7 @@ router.post('/create/createGroupTask', async (req, res) => {
     //Format this to only be day month and year
     // let date = new Date(due_date);
     // due_date =  format(due_date, 'dd MM yyyy');
-
-    const user_id = req.session.user.id;
+    let user_id= req.body.selectAssignee;
     const status = req.body.status;
 
     console.log(group_id, task_name, description, due_date, user_id, status);
@@ -336,6 +335,7 @@ router.post('/auth', async (req, res, next) => {
             // console.log("Session Object" + sessionObject.name);
             const groubObj = await getGroupsByUser(sessionObject.id);
             const tasksList = await getGroupTasksByUserId(sessionObject.id);
+            
             tasksList.forEach(task => {
                 if (task.due_date) {
                   const date = new Date(task.due_date);
