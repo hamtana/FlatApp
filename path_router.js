@@ -514,19 +514,32 @@ router.post('/addMember', async (req, res) => {
 
     let allGroups = await getGroups();
     //get the user id out of user
+   
     if (user == null) {
         res.render('addNewMemberToExistingGroup', {
             groups: allGroups,
-            error: true
+            error: true,
+            alreadyExists:false
         });
         return
+
+
     } else {
+        try{
         let user_id = user[0].id;
         //insert the data into the database
-        insertGroupUser(user_id, group_id);
+        await insertGroupUser(user_id, group_id);
         res.redirect('/addUserToGroup');
-
+    }catch(error){
+        res.render('addNewMemberToExistingGroup', {
+            groups: allGroups,
+            error: false,
+            alreadyExists:true
+        });
     }
+    }
+   
+
 });
 
 
@@ -541,7 +554,7 @@ router.get('/addUserToGroup', async (req, res) => {
     
 
         // Render the EJS template with the fetched groups
-        res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false });
+        res.render('addNewMemberToExistingGroup', { groups: groups_data, error: false, alreadyExists:false });
         // console.log(groups_data);
     } catch (error) {
         // Handle error
