@@ -124,9 +124,34 @@ router.get('/viewGroupTask/:id', isAuthenticated, async (req, res) => {
     const group = await getGroupById(group_id);
     const group_tasks = await getGroupTasksByGroupId(group_id);
 
-    const tasks_today = await getGroupTasksToday(group_id);
-    const tasks_tomorrow = await getGroupTasksTomorrow(group_id);
-    const tasks_week = await getGroupTasksDueWeek(group_id);
+    let tasks_today = await getGroupTasksToday(group_id);
+    let tasks_tomorrow = await getGroupTasksTomorrow(group_id);
+    let tasks_week = await getGroupTasksDueWeek(group_id);
+    const datePattern = 'EEEE, dd/MM/yyyy';
+    tasks_today.forEach(task => {
+        if (task.due_date) {
+          const date = new Date(task.due_date);
+          task.due_date = format(date, datePattern);
+        }
+      });
+
+        tasks_tomorrow.forEach(task => {
+            if (task.due_date) {
+                const date = new Date(task.due_date);
+                task.due_date = format(date, datePattern);
+            }
+        });
+
+        tasks_week.forEach(task => {
+            if (task.due_date) {
+                const date = new Date(task.due_date);
+                task.due_date = format(date, datePattern);
+            }
+        });
+
+
+
+
 
     console.log("Tasks This Week");
     console.log(tasks_week);
@@ -230,7 +255,8 @@ router.get('/createGroupTask/:id', async (req, res) => {
 
     res.render('createGroupTask', {
         members: membersArr,
-        groups: groups
+        groups: groups,
+        group_id: group_id_param
 
     });
 
