@@ -12,9 +12,7 @@ const con = require('./database.js');
 /** All the insert functions to insert a field to the table 
  * 
  */
-// ==============================================
-
-
+// =============================================
 // CREATE TABLE user (id INT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL,password VARCHAR(255) NOT NULL);
 function insertUser(name, phone_number, email, address, password) {
 
