@@ -117,6 +117,13 @@ body {
     color: #ffffff;
     border: solid 2px white;
 }
+/* User Home Page Title */
+.userHomePageTitle {
+    text-align: center;
+    margin-top: 10px; /* Reduced margin to decrease gap */
+    font-family: Roboto, sans-serif;
+    font-weight: 200;
+}
 
 /* Main Content */
 .main-content {
@@ -168,6 +175,8 @@ svg {
 .button-container {
     display: flex;
     justify-content: center;
+    gap: 20px; /* Add space between buttons */
+    margin-top: 10px;
 }
 
 .button-container .btn {
