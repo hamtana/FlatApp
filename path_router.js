@@ -435,7 +435,7 @@ try{
     }
 }catch(error){
     res.render('createAccount', {
-        error: 'User already exists',
+        error: 'ERROR WITH DATABASE ',
         accountCreated: false
     });
 }
