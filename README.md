@@ -9,7 +9,7 @@ Clone the repository into your folder
 
 ```
 cd WeAreNumber1
-git checkout tags/Heroku.1.3
+git checkout tags/Heroku.1.4
 ```
 
 You are now on our most recent release, which uses an online persistent MYSQL database on ClearDB.
