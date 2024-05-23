@@ -575,7 +575,8 @@ router.get('/addUserToGroup', async (req, res) => {
     try {
         // Fetch groups asynchronously
         // const groups_data = await getGroupById(req.params.id);
-        const groups_data = await getGroups();
+       // const groups_data = await getGroups();
+        let groups_data = await getGroupsByUser(req.session.user.id);
     
 
         // Render the EJS template with the fetched groups
