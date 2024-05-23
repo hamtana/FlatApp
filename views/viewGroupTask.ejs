@@ -32,9 +32,12 @@
         <section id="overview">
             <h2>Overview</h2>
             <h2>Group Join Code: "<%= group[0].join_code %>"</h2>
+            <a href="/userHomePage">
+                <button class="userHomePageBtn">Home Page</button>
+            </a>
 
             <a href="/taskHistoryOfGroup/<%= groupId %>">
-                <button class="taskHistoryBtn">See Task History</button>
+                <button class="taskHistoryBtn">Task History</button>
             </a>
             <!-- <a href="/addUserToGroup/<%= groupId %>"> -->
                 <a href="/addUserToGroup">
@@ -43,7 +46,7 @@
             </a>
             <a href="/createGroupTask/<%= groupId %>">
 
-                <button class="createTasks">Create and Assign Tasks</button>
+                <button class="createTasks">Create Task</button>
             </a>
             <div id="today">
                 <h3>Today</h3><!-- this should allow user to edit task by adding or removing them-->
@@ -53,6 +56,7 @@
                             <th>Status</th>
                             <th>Task</th>
                             <th>Assigned</th>
+                            <th>Due Date</th>
                             <th>Complete</th>
                         </tr>
                     </thead>
@@ -68,6 +72,9 @@
                                     </td>
                                     <td>
                                         <%= tasks_today[i].name %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].due_date %>
                                     </td>
                                     <td>
                                         <form action="/markComplete/<%= tasks_today[i].task_id %>" method="POST">
@@ -88,6 +95,8 @@
                             <th>Status</th>
                             <th>Task</th>
                             <th>Assigned</th>
+                            <th>Due Date</th>
+
                             <th>Complete</th>
                         </tr>
                     </thead>
@@ -103,6 +112,9 @@
                                     </td>
                                     <td>
                                         <%= tasks_tomorrow[i].name %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].due_date %>
                                     </td>
                                     <td>
                                         <form action="/markComplete/<%= tasks_tomorrow[i].task_id %>" method="POST">
@@ -123,6 +135,7 @@
                             <th>Status</th>
                             <th>Task</th>
                             <th>Assigned</th>
+                            <th>Due Date</th>
                             <th>Complete</th>
                         </tr>
                     </thead>
@@ -138,6 +151,9 @@
                                     </td>
                                     <td>
                                         <%= tasks_week[i].name %>
+                                    </td>
+                                    <td>
+                                        <%= tasks_tomorrow[i].due_date %>
                                     </td>
 
                                     <td>

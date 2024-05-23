@@ -7,11 +7,14 @@
 
     <!-- Top Navigation -->
     <%- include('partials/navigation.ejs') %>
-
+    <div class="addNewMemberh2">
+        <h2>Add New Member</h2>
+    </div>
     <!-- Main Content -->
     <div class="main-content">
+         
         <div class="text-container">
-            <h2>Add New Member</h2>
+           
             <form class="submitFormCreateAccount" action="/addMember" method="POST">
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" required>

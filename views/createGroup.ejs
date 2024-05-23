@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><%- include('partials/heading.ejs') %></head>
-<body>
+
     <!-- Animated Background -->
     <%- include('partials/animation.ejs') %>
-
+    
+    <%- include('partials/navigation.ejs') %>
     <!-- Top Navigation -->
-    <div class="navbar">
-        <a href="http://localhost:8080/"><img src="/images/flat_app.png" class="logo" alt="Flat App Logo"></a>
+    <!-- <div class="navbar">
+        <a href="http://localhost:8080/"><img src="/images/flat_app.png" class="logo" alt="Flat App Logo"></a> -->
+        <div class="createGrouph1">
+            <h1>Create A Group</h1>
+        </div>
+        
+        
+        <body>
         <div class="tab">
             <button class="btn tablinks" id="defaultOpen" onclick="openCity(event, 'createGroup')">Create Group</button>
-            <button class="btn tablinks"  onclick="openCity(event, 'createTask')">Create Group Task</button>
-            <button class="btn tablinks"  onclick="openCity(event, 'createIndividualTask')">Create Individual Task</button>
+            <!-- <button class="btn tablinks"  onclick="openCity(event, 'createTask')">Create Group Task</button>
+            <button class="btn tablinks"  onclick="openCity(event, 'createIndividualTask')">Create Individual Task</button> -->
         </div>
     </div>
 
     <!-- Create Group -->
+
     <div id="createGroup" class="tabcontent">
         <div class="main-content">
             <div class="text-container">
@@ -43,12 +51,14 @@
                     <div class="button-container">
                         <button class="button" id="submitBtnCreateGroup" type="submit">Create Group</button>
                     </div>
+                    <div class="button-container">
+                        <div style="height: 40px; width:1px; position:relative;"></div>
+                        <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
+                    </div>
                 </form>
+              
             </div>
-            <div class="button-container">
-                <div style="height: 40px; width:1px; position:relative;"></div>
-                <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
-            </div>
+          
         </div>
     </div>
 

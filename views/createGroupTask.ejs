@@ -10,6 +10,9 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <div class="createGroupTaskh1">
+            <h1>Create And Assign Task</h1>
+        </div>
         <div class="text-container">
             <form class="submitFormCreateAccount" action="/create/createGroupTask" method="POST">
                 <label for="taskName">Task Name:</label>
@@ -40,11 +43,15 @@
                 <!-- <input type="text" id="assignee" name="assignee" placeholder="Or type the assignee's name"> -->
             
                 <button type="submit">Create Task</button>
+                <div class="button-container">
+
+                    <a href="/viewGroupTask/<%= group_id %>" ><button class ="btn" type="button" >Back</button>
+                    </a>
+                        <!-- <div style="height: 40px; width:1px; position:relative;"></div>
+                    <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
+                </div> -->
             </form>
-            <div class="button-container">
-                <div style="height: 40px; width:1px; position:relative;"></div>
-                <a href="/userHomePage"><button  class="btn" id="backBtnCreateGroup">Back</button></a>
-            </div>
+            
         </div>
     </div>
 </body>
