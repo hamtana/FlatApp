@@ -23,6 +23,13 @@ npm start
 You can now click/copy the local host run the application
 
 
+
+### Hosted Online
+
+It can also be found online here. HOWEVER, the db sleeps after inactivity and sometimes fails to connect.
+https://info310flatapp-3341a741facc.herokuapp.com/
+
+
 ## Test Data
 
 
