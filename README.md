@@ -5,8 +5,10 @@ Built to streamline chores and task in your flat, the following instructions can
 
 ### Running Locally
 
-Clone the repository into your folder
+Using a terminal of your choice (e.g PowerShell for Windows or Terminal for MacOs), in the command line :\
+git clone the repository into a folder of your choice\
 
+In  the terminal of this folder:
 ```
 cd WeAreNumber1
 git checkout tags/Heroku.1.4
@@ -20,7 +22,7 @@ npm install
 npm start
 ```
 
-You can now click/copy the local host run the application
+You can now click/copy the local host run the application. (Tested on Windows, Mac and also Linux systems)
 
 
 
