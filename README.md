@@ -5,6 +5,8 @@ Built to streamline chores and task in your flat, the following instructions can
 
 ### Running Locally
 
+This will be a local set up so please make sure you have Node installed on your device. This [link](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs) should provide sufficient help if needed.
+
 Using a terminal of your choice (e.g PowerShell for Windows or Terminal for MacOs), in the command line :\
 git clone the repository into a folder of your choice\
 
@@ -22,7 +24,7 @@ npm install
 npm start
 ```
 
-You can now click/copy the local host run the application. (Tested on Windows, Mac and also Linux systems)
+You can now click/copy the local host to run the application. (Tested on Windows, Mac and also Linux systems)
 
 
 
